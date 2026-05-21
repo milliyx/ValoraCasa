@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Centro Analítico | Capa 2 - Consola Metodológica</title>
+  <meta name="description" content="Centro analítico de ciencia de datos, métricas de regresión (XGBoost), exploración de microdatos de INEGI y Power BI Gateway de ValoraCasa." />
+  
+  <!-- Google Fonts: Montserrat (300, 400, 500, 600, 700, 800) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Estilos Personalizados Premium -->
+  <link rel="stylesheet" href="style.css?v=7" />
+</head>
+<body>
+
+  <!-- BARRA DE NAVEGACIÓN STICKY (no-print) -->
+  <header class="no-print">
+    <div class="container nav-container">
+      <!-- Identidad de Marca -->
+      <a href="index.html" class="brand-logo">
+        <div class="logo-badge">
+          <svg class="findings-logo-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <filter id="logo-shadow" x="-30%" y="-30%" width="160%" height="160%">
+                <feDropShadow dx="1" dy="1.5" stdDeviation="1.2" flood-color="#0B2345" flood-opacity="0.15" />
+              </filter>
+              <linearGradient id="grad-teal-blue" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#35B8B8" />
+                <stop offset="100%" stop-color="#2F7FBF" />
+              </linearGradient>
+              <linearGradient id="grad-teal-dark" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#35B8B8" />
+                <stop offset="100%" stop-color="#0B2345" />
+              </linearGradient>
+              <linearGradient id="grad-blue-dark" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#2F7FBF" />
+                <stop offset="100%" stop-color="#0B2345" />
+              </linearGradient>
+            </defs>
+            <!-- Conexiones -->
+            <g class="logo-links" stroke-width="2.5" stroke-linecap="round" opacity="0.8">
+              <!-- Outline -->
+              <line x1="52.6" y1="8.6" x2="29.5" y2="24.7" stroke="#35B8B8" />
+              <line x1="29.5" y1="24.7" x2="8.2" y2="40.2" stroke="#35B8B8" />
+              <line x1="8.2" y1="40.2" x2="11.9" y2="63.9" stroke="#35B8B8" />
+              <line x1="11.9" y1="63.9" x2="14.7" y2="87.5" stroke="url(#grad-teal-dark)" />
+              <line x1="14.7" y1="87.5" x2="40.4" y2="85.5" stroke="url(#grad-teal-dark)" />
+              <line x1="40.4" y1="85.5" x2="68.6" y2="91.7" stroke="url(#grad-teal-dark)" />
+              <line x1="68.6" y1="91.7" x2="88.8" y2="90.6" stroke="#0B2345" />
+              <line x1="88.8" y1="90.6" x2="89.2" y2="73.0" stroke="#0B2345" />
+              <line x1="89.2" y1="73.0" x2="92.1" y2="40.9" stroke="#0B2345" />
+              <line x1="92.1" y1="40.9" x2="78.2" y2="23.5" stroke="url(#grad-blue-dark)" />
+              <line x1="78.2" y1="23.5" x2="52.6" y2="8.6" stroke="url(#grad-teal-blue)" />
+
+              <!-- Internal center connections -->
+              <line x1="42.2" y1="56.4" x2="8.2" y2="40.2" stroke="url(#grad-teal-blue)" />
+              <line x1="42.2" y1="56.4" x2="11.9" y2="63.9" stroke="url(#grad-teal-blue)" />
+              <line x1="42.2" y1="56.4" x2="14.7" y2="87.5" stroke="url(#grad-teal-dark)" />
+              <line x1="42.2" y1="56.4" x2="40.4" y2="85.5" stroke="#35B8B8" />
+              <line x1="42.2" y1="56.4" x2="68.6" y2="91.7" stroke="url(#grad-blue-dark)" />
+              <line x1="42.2" y1="56.4" x2="69.1" y2="60.5" stroke="url(#grad-blue-dark)" />
+              <line x1="42.2" y1="56.4" x2="64.9" y2="37.4" stroke="#2F7FBF" />
+              <line x1="42.2" y1="56.4" x2="29.5" y2="24.7" stroke="#35B8B8" />
+              <line x1="42.2" y1="56.4" x2="52.6" y2="8.6" stroke="url(#grad-teal-blue)" />
+
+              <!-- Other internal connections -->
+              <line x1="52.6" y1="8.6" x2="64.9" y2="37.4" stroke="url(#grad-teal-blue)" />
+              <line x1="64.9" y1="37.4" x2="92.1" y2="40.9" stroke="url(#grad-blue-dark)" />
+              <line x1="64.9" y1="37.4" x2="78.2" y2="23.5" stroke="#2F7FBF" />
+              <line x1="64.9" y1="37.4" x2="69.1" y2="60.5" stroke="url(#grad-blue-dark)" />
+              <line x1="69.1" y1="60.5" x2="92.1" y2="40.9" stroke="#0B2345" />
+              <line x1="69.1" y1="60.5" x2="89.2" y2="73.0" stroke="#0B2345" />
+              <line x1="69.1" y1="60.5" x2="68.6" y2="91.7" stroke="#0B2345" />
+              <line x1="89.2" y1="73.0" x2="68.6" y2="91.7" stroke="#0B2345" />
+            </g>
+            <!-- Nodos con Sombra -->
+            <g class="logo-nodes" filter="url(#logo-shadow)">
+              <!-- Teal/Cyan Nodes -->
+              <circle cx="52.6" cy="8.6" r="7.5" fill="#35B8B8" />
+              <circle cx="29.5" cy="24.7" r="5.5" fill="#35B8B8" />
+              <circle cx="8.2" cy="40.2" r="8.5" fill="#35B8B8" />
+              <circle cx="40.4" cy="85.5" r="5.5" fill="#35B8B8" />
+              
+              <!-- Blue Nodes -->
+              <circle cx="11.9" cy="63.9" r="5.5" fill="#2F7FBF" />
+              <circle cx="78.2" cy="23.5" r="4.5" fill="#2F7FBF" />
+              <circle cx="42.2" cy="56.4" r="11" fill="#2F7FBF" />
+              <circle cx="64.9" cy="37.4" r="4.5" fill="#2F7FBF" />
+
+              <!-- Deep Navy Nodes -->
+              <circle cx="14.7" cy="87.5" r="9.5" fill="#0B2345" />
+              <circle cx="68.6" cy="91.7" r="8.5" fill="#0B2345" />
+              <circle cx="88.8" cy="90.6" r="7" fill="#0B2345" />
+              <circle cx="89.2" cy="73.0" r="6.5" fill="#0B2345" />
+              <circle cx="92.1" cy="40.9" r="9" fill="#0B2345" />
+              <circle cx="69.1" cy="60.5" r="7" fill="#0B2345" />
+            </g>
+          </svg>
+        </div>
+        <div class="brand-text-block">
+          <div class="flex-row" style="display: flex; align-items: center; gap: 0.3rem;">
+            <span class="brand-meta">The FI-ndings</span>
+            <span style="font-size: 0.5rem; color: var(--border-color);">|</span>
+            <span class="brand-meta" style="color: var(--azul-medio);">Vivienda</span>
+          </div>
+          <h1 class="brand-name">ValoraCasa <span class="brand-tag">Hub de Inteligencia</span></h1>
+        </div>
+      </a>
+
+      <!-- Selector de Capas e Enlaces -->
+      <div style="display: flex; align-items: center; gap: 1rem;">
+        <!-- Selector de Capas -->
+        <div class="layers-selector" id="header-layers-selector">
+          <a href="usuariofinal.html" id="btn-capa-u" class="layer-badge-btn">
+            Capa 1: Usuario Final
+          </a>
+          <a href="consola.html" id="btn-capa-t" class="layer-badge-btn active">
+            Capa 2: Centro Analítico
+          </a>
+        </div>
+
+        <!-- Enlaces -->
+        <nav class="nav-links">
+          <a href="index.html" class="nav-link-portal" id="btn-back-portal" style="display: inline-flex;">🏠 Portal</a>
+          <a href="#explorar" class="nav-link">Explorar</a>
+          <a href="#proceso" class="nav-link">Proceso</a>
+          <a href="#reporte" class="nav-link">Reporte</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- CONTENEDOR PRINCIPAL -->
+  <main class="container" style="margin-top: 2rem;">
+
+    <!-- CAPA 2: CENTRO ANALÍTICO / EVIDENCIA -->
+    <div id="capa-tecnica-seccion">
+      
+      <!-- INDICADOR VISUAL DE CAPA (no-print) -->
+      <div class="capa-indicador no-print" style="border-bottom-color: rgba(217, 122, 93, 0.15);">
+        <div class="capa-tag capa-tecnica-tag">
+          <span class="capa-dot"></span>
+          Capa 2: Centro Analítico & Evidencia Estadística
+        </div>
+        <div class="capa-subtext">Diseñado para directores de negocio, evaluadores de proyectos y científicos de datos</div>
+      </div>
+
+      <!-- SECCIÓN 4: EXPLORAR DATOS (POWER BI E IFRAME MOCK) -->
+      <section id="explorar" class="section-padding" style="margin-bottom: 4rem;">
+        <div class="grid-12" style="align-items: center;">
+          <!-- Texto descriptivo -->
+          <div style="grid-column: span 12;" class="md-col-4 explorar-text-col">
+            <span class="section-subtitle-tag" style="color: var(--terracota);">Inteligencia de Negocio</span>
+            <h3 class="section-main-title" style="margin-bottom: 0.8rem;">Explorar los Microdatos</h3>
+            <p class="section-desc" style="line-height: 1.6; margin-bottom: 1rem;">
+              Este panel analítico permite explorar dinámicamente la distribución, promedios y correlaciones de las 11,566 viviendas de la **ENIGH 2024** que sirvieron para entrenar nuestro modelo matemático.
+            </p>
+            <div class="spotlight-box" style="background-color: var(--beige-claro); border-color: rgba(217, 122, 93, 0.2);">
+              <span class="spotlight-title">Origen Oficial</span>
+              <p class="spotlight-text" style="color: var(--gris-pizarra); font-weight: 500;">
+                Datos extraídos del cuestionario oficial de Viviendas del INEGI. Se excluyeron registros sin renta declarada.
+              </p>
+            </div>
+          </div>
+
+          <!-- Contenedor del Iframe Mock de Power BI -->
+          <div style="grid-column: span 12;" class="md-col-8">
+            <div class="pbi-placeholder-card">
+              <div class="pbi-glow"></div>
+              
+              <!-- PBI Header -->
+              <div class="pbi-header">
+                <div class="pbi-brand">
+                  <div class="pbi-logo">BI</div>
+                  <div class="pbi-meta">
+                    <h4>The FI-ndings | Explorador de Rentas Habitacionales</h4>
+                    <p>Origen de datos: INEGI ENIGH 2024 · Modelo de Consulta Directa</p>
+                  </div>
+                </div>
+                <span class="pbi-badge">INCRUSTACIÓN ACTIVA</span>
+              </div>
+
+              <!-- PBI Gateway Interactive (Inicial) -->
+              <div class="pbi-interactive-panel" id="lbl-pbi-panel-inicial">
+                <div class="pbi-icon-bounce">📊</div>
+                <h5 class="pbi-panel-title">Puerta de Enlace Incrustada de Power BI</h5>
+                <p class="pbi-panel-desc">
+                  Haz clic a continuación para establecer la sesión interactiva con el servidor de informes y renderizar el panel analítico completo en este espacio.
+                </p>
+                <button type="button" onclick="loadPowerBIMock()" class="btn btn-terracota" style="font-size: 0.7rem; padding: 0.5rem 1.2rem; border-radius: 8px;">
+                  Cargar Panel Interactivo de Datos
+                </button>
+              </div>
+
+              <!-- PBI Loaded View (Simulado) -->
+              <div class="pbi-loaded-view" id="lbl-pbi-panel-cargado" style="display: none;">
+                <div class="pbi-stat-box">
+                  <span>Registros Limpios</span>
+                  <strong>11,566</strong>
+                </div>
+                <div class="pbi-stat-box">
+                  <span>Renta Mediana</span>
+                  <strong class="alt-color">$2,500</strong>
+                </div>
+                <div class="pbi-stat-box">
+                  <span>Renta Promedio</span>
+                  <strong>$3,227</strong>
+                </div>
+                <div class="pbi-stat-box">
+                  <span>Viviendas Atípicas (Outliers)</span>
+                  <strong style="color: var(--terracota);">111</strong>
+                </div>
+                
+                <div class="pbi-alert-row">
+                  <div class="pbi-alert-text">
+                    <h5>¡Conexión Simulada Exitosa!</h5>
+                    <p>En producción, este espacio incrustará el informe interactivo oficial mediante la etiqueta iframe segura.</p>
+                  </div>
+                  <button type="button" onclick="resetPowerBIMock()" class="pbi-btn-restart">Reiniciar Vista</button>
+                </div>
+              </div>
+
+              <!-- PBI Footer -->
+              <div class="pbi-footer">
+                <span>Sesión Web Segura (SSL/TSL)</span>
+                <span>Puerta de Enlace Web de Microsoft Power BI</span>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECCIÓN 5: PIPELINE PIPELINE (CÓMO FUNCIONA) -->
+      <section id="proceso" class="pipeline-section">
+        <div class="section-title-box">
+          <span class="section-subtitle-tag" style="color: var(--turquesa);">Metodología Rigurosa</span>
+          <h3 class="section-main-title">Pipeline de Ciencia de Datos</h3>
+          <p class="section-desc">
+            El camino lógico y metodológico recorrido desde los microdatos en bruto del INEGI hasta la implementación de nuestro motor referencial.
+          </p>
+        </div>
+
+        <div class="pipeline-grid">
+          <!-- 1 -->
+          <div class="pipeline-card">
+            <div>
+              <span class="pipeline-step">01</span>
+              <h5 class="pipeline-title">Extracción</h5>
+              <p class="pipeline-desc">Microdatos de la ENIGH 2024, módulo de Viviendas de INEGI.</p>
+            </div>
+            <span class="pipeline-tech">90,324 vivs</span>
+          </div>
+          <!-- 2 -->
+          <div class="pipeline-card">
+            <div>
+              <span class="pipeline-step">02</span>
+              <h5 class="pipeline-title">Limpieza</h5>
+              <p class="pipeline-desc">Aislamiento de registros con rentas reportadas mayores a cero.</p>
+            </div>
+            <span class="pipeline-tech">11,566 vivs</span>
+          </div>
+          <!-- 3 -->
+          <div class="pipeline-card">
+            <div>
+              <span class="pipeline-step">03</span>
+              <h5 class="pipeline-title">Exploración</h5>
+              <p class="pipeline-desc">Identificación de sesgos y correlaciones principales (EDA).</p>
+            </div>
+            <span class="pipeline-tech">Pandas / Seaborn</span>
+          </div>
+          <!-- 4 -->
+          <div class="pipeline-card">
+            <div>
+              <span class="pipeline-step">04</span>
+              <h5 class="pipeline-title">Ingeniería de Variables</h5>
+              <p class="pipeline-desc">Codificación de ordinales y renta media a nivel de municipio.</p>
+            </div>
+            <span class="pipeline-tech">Scikit-Learn</span>
+          </div>
+          <!-- 5 -->
+          <div class="pipeline-card">
+            <div>
+              <span class="pipeline-step">05</span>
+              <h5 class="pipeline-title">Entrenamiento</h5>
+              <p class="pipeline-desc">Evaluación cruzada aleatoria con división de prueba de 80-20.</p>
+            </div>
+            <span class="pipeline-tech">División de Entrenamiento/Prueba</span>
+          </div>
+          <!-- 6 -->
+          <div class="pipeline-card pipeline-card-winner">
+            <div>
+              <span class="pipeline-step">06</span>
+              <h5 class="pipeline-title">XGBoost</h5>
+              <p class="pipeline-desc">Selección del ensamble óptimo por menor dispersión de varianza.</p>
+            </div>
+            <span class="pipeline-tech" style="color: var(--terracota);">R² = 0.6753</span>
+          </div>
+          <!-- 7 -->
+          <div class="pipeline-card">
+            <div>
+              <span class="pipeline-step">07</span>
+              <h5 class="pipeline-title">Validación</h5>
+              <p class="pipeline-desc">Calibración de la dispersión de predicción utilizando MAE.</p>
+            </div>
+            <span class="pipeline-tech">±$838 pesos</span>
+          </div>
+          <!-- 8 -->
+          <div class="pipeline-card">
+            <div>
+              <span class="pipeline-step">08</span>
+              <h5 class="pipeline-title">Centro de BI</h5>
+              <p class="pipeline-desc">Traducción de coeficientes para consumo de negocio en este Hub.</p>
+            </div>
+            <span class="pipeline-tech">Portal ValoraCasa</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECCIÓN 6: MÉTRICAS Y GRÁFICOS CHART.JS -->
+      <section class="metrics-section">
+        <div class="grid-12">
+          
+          <!-- Columna Tabla Comparación Modelos -->
+          <div style="grid-column: span 12;" class="md-col-5 card">
+            <div class="metrics-table-box">
+              <div>
+                <div class="table-header">
+                  <h4 class="table-title">Desempeño de Modelos</h4>
+                  <span class="table-badge">XGBoost Ganador</span>
+                </div>
+                <p class="table-desc">
+                  Métricas oficiales validadas sobre el subconjunto de prueba no visto por los algoritmos durante el entrenamiento.
+                </p>
+                <div class="table-wrapper">
+                  <table class="metrics-table">
+                    <thead>
+                      <tr>
+                        <th>Modelo</th>
+                        <th>R²</th>
+                        <th>MAE</th>
+                        <th>RMSE</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Regresión Lineal</td>
+                        <td>0.6163</td>
+                        <td>$940</td>
+                        <td>$1,525</td>
+                      </tr>
+                      <tr>
+                        <td>Bosques Aleatorios (Random Forest)</td>
+                        <td>0.6569</td>
+                        <td>$866</td>
+                        <td>$1,373</td>
+                      </tr>
+                      <tr class="winner-row">
+                        <td>Regresor XGBoost</td>
+                        <td>0.6753</td>
+                        <td>$838</td>
+                        <td>$1,336</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div class="spotlight-box" style="margin-top: 1.5rem;">
+                <span class="spotlight-title">Justificación Técnica</span>
+                <p class="spotlight-text">
+                  El algoritmo **XGBoost** fue seleccionado debido a su excelente capacidad para resolver no linealidades complejas entre la estructura física de la vivienda y la renta, minimizando el error medio a **$838 pesos** y logrando que el **74.8%** de los casos se ubiquen en una tolerancia aceptable de negocio.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Columna Gráficas Comparativas -->
+          <div style="grid-column: span 12;" class="md-col-7">
+            <div class="grid-2">
+              <div class="card">
+                <h4 class="insight-title" style="font-size: 0.75rem; text-transform: uppercase;">Error Absoluto Medio (MAE)</h4>
+                <p style="font-size: 0.6rem; color: var(--gris-azulado);">Valores en pesos (Menor es mejor)</p>
+                <div class="chart-container">
+                  <canvas id="chart-mae"></canvas>
+                </div>
+              </div>
+              
+              <div class="card">
+                <h4 class="insight-title" style="font-size: 0.75rem; text-transform: uppercase;">Predicciones dentro de $1,000</h4>
+                <p style="font-size: 0.6rem; color: var(--gris-azulado);">Porcentaje de tolerancia (Mayor es mejor)</p>
+                <div class="chart-container">
+                  <canvas id="chart-precision"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Fila de Gráficas de Negocio (Rangos e Importancia) -->
+        <div class="grid-2" style="margin-top: 1.5rem;">
+          <div class="card">
+            <h4 class="insight-title" style="font-size: 0.8rem; text-transform: uppercase;">Distribución de Frecuencia del Mercado</h4>
+            <p style="font-size: 0.65rem; color: var(--gris-azulado); margin-bottom: 0.5rem;">
+              La gran mayoría del mercado habitacional en México se concentra entre los rangos de $1,000 y $3,000 mensuales.
+            </p>
+            <div class="chart-container-large">
+              <canvas id="chart-rangos"></canvas>
+            </div>
+          </div>
+
+          <div class="card">
+            <h4 class="insight-title" style="font-size: 0.8rem; text-transform: uppercase;">Importancia de las Variables (Feature Importance)</h4>
+            <p style="font-size: 0.65rem; color: var(--gris-azulado); margin-bottom: 0.5rem;">
+              Importancia relativa en la partición de nodos dentro del ensamble del algoritmo predictivo.
+            </p>
+            <div class="chart-container-large">
+              <canvas id="chart-importancia"></canvas>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECCIÓN 7: LIMITACIONES Y USO RESPONSABLE -->
+      <section class="limitations-section" style="margin-top: 4rem; margin-bottom: 4rem;">
+        <div class="section-title-box">
+          <span class="section-subtitle-tag" style="color: var(--terracota);">Ética y Transparencia</span>
+          <h3 class="section-main-title">Limitaciones y Uso Responsable</h3>
+          <p class="section-desc">
+            Un análisis de datos honesto exige delimitar con claridad el alcance de sus resultados predictivos.
+          </p>
+        </div>
+
+        <div class="grid-3">
+          <div class="limitation-card">
+            <h4 class="limitation-title">Renta Reportada e Imputada</h4>
+            <p class="limitation-text">
+              La variable objetivo declarada en la ENIGH proviene del reporte de los jefes de hogar y no necesariamente de contratos notariales en mercado inmobiliario abierto, lo que puede introducir sesgos perceptivos.
+            </p>
+          </div>
+          <div class="limitation-card">
+            <h4 class="limitation-title">Subestimación en Gama Alta</h4>
+            <p class="limitation-text">
+              El muestreo tiene una representatividad reducida en propiedades exclusivas o de lujo (rentas > $16,000 MXN representan solo el 3.1% del dataset). Por ende, el modelo tenderá a subestimar el precio en propiedades de alto valor.
+            </p>
+          </div>
+          <div class="limitation-card">
+            <h4 class="limitation-title">Factores Cualitativos Omitidos</h4>
+            <p class="limitation-text">
+              La encuesta oficial del INEGI no captura amenidades específicas altamente valoradas comercialmente tales como la colonia exacta, el estado cualitativo de conservación interna, seguridad del vecindario ni amueblado de diseño.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECCIÓN 8: REPORTE EJECUTIVO Y BOTÓN PDF -->
+      <section id="reporte" class="reporte-section print-page-break" style="margin-bottom: 4rem;">
+        <div class="report-card">
+          <div class="grid-12" style="align-items: center;">
+            <!-- Storytelling Pitch -->
+            <div style="grid-column: span 12;" class="md-col-8">
+              <div class="report-badge">
+                <span class="report-badge-icon">💬</span>
+                Narrativa Ejecutiva e Inteligencia de Negocios
+              </div>
+              <h3 class="report-title">Reporte de Consultoría de Negocio</h3>
+              <div class="storytelling-text">
+                <p>
+                  <strong>“Esta plataforma web representa el canal de narrativa ejecutiva (storytelling) para el proyecto ValoraCasa.</strong> Su propósito no es mostrar gráficas estadísticas de manera aislada, sino traducir complejos modelos matemáticos de regresión en herramientas de soporte a decisiones comerciales accionables.”
+                </p>
+                <p>
+                  “El análisis microeconómico formal basado en la **ENIGH 2024** demostró que la intuición es una mala consejera al fijar rentas residenciales, provocando pérdidas de rentabilidad y vacancias prolongadas. Mediante un exhaustivo pipeline de modelación matemática, entrenamos tres familias de algoritmos y seleccionamos el ensamble de árboles **XGBoost** por presentar el mejor equilibrio comercial: un error absoluto medio de **$838 pesos** y una asertividad tolerable del **74.8%** de los casos.”
+                </p>
+                <p>
+                  “La aportación clave desde la consultoría de BI y Storytelling ha sido estructurar esta información en dos niveles: permitiendo que un usuario no técnico encuentre una referencia rápida y comprensible para comparar u ofertar, mientras que un evaluador o director comercial cuenta con el sustento analítico, la matriz de importancia de variables y las métricas de prueba necesarias para auditar el proyecto.”
+                </p>
+              </div>
+
+              <!-- Metas Futuras -->
+              <div class="goals-grid">
+                <div class="goal-box">
+                  <span class="goal-lbl">Base de Datos</span>
+                  <span class="goal-val">INEGI ENIGH 2024</span>
+                </div>
+                <div class="goal-box">
+                  <span class="goal-lbl">Algoritmo Recomendado</span>
+                  <span class="goal-val goal-val-highlight">XGBoost Regressor</span>
+                </div>
+                <div class="goal-box">
+                  <span class="goal-lbl">Propuesta a Futuro</span>
+                  <span class="goal-val">Modelado Espacial Geográfico</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Botón de Exportación (no-print) -->
+            <div style="grid-column: span 12;" class="md-col-4 no-print">
+              <div class="report-controls">
+                <h4 class="report-control-title">Exportar Documento</h4>
+                <p class="report-control-desc">
+                  Puedes generar una versión limpia y maquetada de este informe ejecutivo listo para imprimir o guardar como PDF en tu computadora. La hoja de estilos ocultará la barra de navegación y los simuladores para crear un documento de entrega académico-profesional impecable.
+                </p>
+                <button type="button" onclick="window.print()" class="btn btn-secondary" style="font-size: 0.72rem; padding: 0.8rem; width: 100%;">
+                  🖨️ Exportar Reporte Ejecutivo (PDF)
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+  </main>
+
+  <!-- PIE DE PÁGINA (no-print) -->
+  <footer class="no-print">
+    <div class="container">
+      <div class="footer-brand" style="display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+        <svg class="findings-logo-svg" style="width: 22px; height: 22px; opacity: 0.9;" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="grad-footer-teal-blue" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#35B8B8" />
+              <stop offset="100%" stop-color="#2F7FBF" />
+            </linearGradient>
+            <linearGradient id="grad-footer-teal-white" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#35B8B8" />
+              <stop offset="100%" stop-color="#FFFFFF" />
+            </linearGradient>
+            <linearGradient id="grad-footer-blue-white" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#2F7FBF" />
+              <stop offset="100%" stop-color="#FFFFFF" />
+            </linearGradient>
+          </defs>
+          <!-- Conexiones -->
+          <g class="logo-links" stroke-width="2.5" stroke-linecap="round" opacity="0.8">
+            <!-- Outline -->
+            <line x1="52.6" y1="8.6" x2="29.5" y2="24.7" stroke="#35B8B8" />
+            <line x1="29.5" y1="24.7" x2="8.2" y2="40.2" stroke="#35B8B8" />
+            <line x1="8.2" y1="40.2" x2="11.9" y2="63.9" stroke="#35B8B8" />
+            <line x1="11.9" y1="63.9" x2="14.7" y2="87.5" stroke="url(#grad-footer-teal-white)" />
+            <line x1="14.7" y1="87.5" x2="40.4" y2="85.5" stroke="url(#grad-footer-teal-white)" />
+            <line x1="40.4" y1="85.5" x2="68.6" y2="91.7" stroke="url(#grad-footer-teal-white)" />
+            <line x1="68.6" y1="91.7" x2="88.8" y2="90.6" stroke="#FFFFFF" />
+            <line x1="88.8" y1="90.6" x2="89.2" y2="73.0" stroke="#FFFFFF" />
+            <line x1="89.2" y1="73.0" x2="92.1" y2="40.9" stroke="#FFFFFF" />
+            <line x1="92.1" y1="40.9" x2="78.2" y2="23.5" stroke="url(#grad-footer-blue-white)" />
+            <line x1="78.2" y1="23.5" x2="52.6" y2="8.6" stroke="url(#grad-footer-teal-blue)" />
+
+            <!-- Internal center connections -->
+            <line x1="42.2" y1="56.4" x2="8.2" y2="40.2" stroke="url(#grad-footer-teal-blue)" />
+            <line x1="42.2" y1="56.4" x2="11.9" y2="63.9" stroke="url(#grad-footer-teal-blue)" />
+            <line x1="42.2" y1="56.4" x2="14.7" y2="87.5" stroke="url(#grad-footer-teal-white)" />
+            <line x1="42.2" y1="56.4" x2="40.4" y2="85.5" stroke="#35B8B8" />
+            <line x1="42.2" y1="56.4" x2="68.6" y2="91.7" stroke="url(#grad-footer-blue-white)" />
+            <line x1="42.2" y1="56.4" x2="69.1" y2="60.5" stroke="url(#grad-footer-blue-white)" />
+            <line x1="42.2" y1="56.4" x2="64.9" y2="37.4" stroke="#2F7FBF" />
+            <line x1="42.2" y1="56.4" x2="29.5" y2="24.7" stroke="#35B8B8" />
+            <line x1="42.2" y1="56.4" x2="52.6" y2="8.6" stroke="url(#grad-footer-teal-blue)" />
+
+            <!-- Other internal connections -->
+            <line x1="52.6" y1="8.6" x2="64.9" y2="37.4" stroke="url(#grad-footer-teal-blue)" />
+            <line x1="64.9" y1="37.4" x2="92.1" y2="40.9" stroke="url(#grad-footer-blue-white)" />
+            <line x1="64.9" y1="37.4" x2="78.2" y2="23.5" stroke="#2F7FBF" />
+            <line x1="64.9" y1="37.4" x2="69.1" y2="60.5" stroke="url(#grad-footer-blue-white)" />
+            <line x1="69.1" y1="60.5" x2="92.1" y2="40.9" stroke="#FFFFFF" />
+            <line x1="69.1" y1="60.5" x2="89.2" y2="73.0" stroke="#FFFFFF" />
+            <line x1="69.1" y1="60.5" x2="68.6" y2="91.7" stroke="#FFFFFF" />
+            <line x1="89.2" y1="73.0" x2="68.6" y2="91.7" stroke="#FFFFFF" />
+          </g>
+          <!-- Nodos -->
+          <g class="logo-nodes">
+            <!-- Teal/Cyan Nodes (Left & Center) -->
+            <circle cx="52.6" cy="8.6" r="7.5" fill="#35B8B8" />
+            <circle cx="29.5" cy="24.7" r="5.5" fill="#35B8B8" />
+            <circle cx="8.2" cy="40.2" r="8.5" fill="#35B8B8" />
+            <circle cx="40.4" cy="85.5" r="5.5" fill="#35B8B8" />
+            
+            <!-- Blue Nodes (Center-Right) -->
+            <circle cx="11.9" cy="63.9" r="5.5" fill="#2F7FBF" />
+            <circle cx="78.2" cy="23.5" r="4.5" fill="#2F7FBF" />
+            <circle cx="42.2" cy="56.4" r="11" fill="#2F7FBF" />
+            <circle cx="64.9" cy="37.4" r="4.5" fill="#2F7FBF" />
+
+            <!-- White Nodes -->
+            <circle cx="14.7" cy="87.5" r="9.5" fill="#FFFFFF" />
+            <circle cx="68.6" cy="91.7" r="8.5" fill="#FFFFFF" />
+            <circle cx="88.8" cy="90.6" r="7" fill="#FFFFFF" />
+            <circle cx="89.2" cy="73.0" r="6.5" fill="#FFFFFF" />
+            <circle cx="92.1" cy="40.9" r="9" fill="#FFFFFF" />
+            <circle cx="69.1" cy="60.5" r="7" fill="#FFFFFF" />
+          </g>
+        </svg>
+        <span class="footer-brand-title">The FI-ndings</span>
+        <span class="footer-divider"></span>
+        <span>ValoraCasa Intelligence Hub © 2026</span>
+      </div>
+      <div class="footer-slogan">Convertimos datos en decisiones.</div>
+      <p class="footer-desc">
+        Este sitio web representa un hub interactivo avanzado de Business Intelligence. Los datos presentados están fundamentados en el análisis metodológico del dataset oficial. Para implementaciones productivas, se recomienda la serialización directa de la canalización del modelo XGBoost utilizando una API REST en Python.
+      </p>
+    </div>
+  </footer>
+
+  <!-- SCRIPTS Y LÓGICA INTERACTIVA -->
+  <script>
+    // MOCKUP GATEWAY POWER BI INTERACTIVO
+    function loadPowerBIMock() {
+      const panelInicial = document.getElementById('lbl-pbi-panel-inicial');
+      const panelCargado = document.getElementById('lbl-pbi-panel-cargado');
+
+      panelInicial.innerHTML = `
+        <div style="display: flex; align-items: center; justify-content: center; gap: 0.5rem; color: #F59E0B; font-size: 0.72rem; font-weight: 700;">
+          <svg class="animate-spin" style="width: 16px; height: 16px; animation: pulse-dot 1s infinite;" viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" style="opacity: 0.25;"></circle>
+            <path fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" style="opacity: 0.75;"></path>
+          </svg>
+          Estableciendo conexión segura con el Servicio de Power BI...
+        </div>
+      `;
+
+      setTimeout(() => {
+        panelInicial.style.display = 'none';
+        panelCargado.style.display = 'grid';
+      }, 1500);
+    }
+
+    function resetPowerBIMock() {
+      const panelInicial = document.getElementById('lbl-pbi-panel-inicial');
+      const panelCargado = document.getElementById('lbl-pbi-panel-cargado');
+
+      panelCargado.style.display = 'none';
+      panelInicial.style.display = 'flex';
+
+      panelInicial.innerHTML = `
+        <div class="pbi-icon-bounce">📊</div>
+        <h5 class="pbi-panel-title">Puerta de Enlace Incrustada de Power BI</h5>
+        <p class="pbi-panel-desc">
+          Haz clic a continuación para establecer la sesión interactiva con el servidor de informes y renderizar el panel analítico completo en este espacio.
+        </p>
+        <button type="button" onclick="loadPowerBIMock()" class="btn btn-terracota" style="font-size: 0.7rem; padding: 0.5rem 1.2rem; border-radius: 8px;">
+          Cargar Panel Interactivo de Datos
+        </button>
+      `;
+    }
+
+    // INICIALIZACIÓN DE GRÁFICOS CHART.JS CON COLORES DE MARCA
+    window.addEventListener('DOMContentLoaded', () => {
+      // Configuración de Estilos por Defecto para Chart.js
+      Chart.defaults.font.family = "'Montserrat', sans-serif";
+      Chart.defaults.color = "#475569"; // Gris azulado para etiquetas
+      
+      const defaultOptions = {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false }
+        },
+        scales: {
+          x: {
+            grid: { color: 'rgba(11, 35, 69, 0.04)' },
+            ticks: { font: { size: 9, weight: 600 } }
+          },
+          y: {
+            grid: { color: 'rgba(11, 35, 69, 0.04)' },
+            ticks: { font: { size: 9, weight: 600 } }
+          }
+        }
+      };
+
+      // 1. Gráfico MAE de Modelos
+      new Chart(document.getElementById('chart-mae'), {
+        type: 'bar',
+        data: {
+          labels: ['Regr. Lineal', 'Bosques Aleatorios', 'XGBoost (Elegido)'],
+          datasets: [{
+            data: [940, 866, 838],
+            backgroundColor: ['#E2E8F0', '#2F7FBF', '#35B8B8'],
+            borderColor: ['#CBD5E1', '#1e5f94', '#2da1a1'],
+            borderWidth: 1,
+            borderRadius: 6
+          }]
+        },
+        options: {
+          ...defaultOptions,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                label: (context) => ` MAE: $${context.raw} MXN`
+              }
+            }
+          }
+        }
+      });
+
+      // 2. Gráfico Precisión de Modelos
+      new Chart(document.getElementById('chart-precision'), {
+        type: 'bar',
+        data: {
+          labels: ['Regr. Lineal', 'Bosques Aleatorios', 'XGBoost'],
+          datasets: [{
+            data: [71.0, 73.3, 74.8],
+            backgroundColor: ['#E2E8F0', '#2F7FBF', '#35B8B8'],
+            borderColor: ['#CBD5E1', '#1e5f94', '#2da1a1'],
+            borderWidth: 1,
+            borderRadius: 6
+          }]
+        },
+        options: {
+          ...defaultOptions,
+          scales: {
+            ...defaultOptions.scales,
+            y: {
+              ...defaultOptions.scales.y,
+              max: 100,
+              ticks: { callback: (val) => `${val}%`, font: { size: 9, weight: 600 } }
+            }
+          },
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                label: (context) => ` Precisión: ${context.raw}%`
+              }
+            }
+          }
+        }
+      });
+
+      // 3. Distribución por Rangos de Renta (Dataset)
+      new Chart(document.getElementById('chart-rangos'), {
+        type: 'bar',
+        data: {
+          labels: ['≤$500', '$500-$1k', '$1k-$2k', '$2k-$3k', '$3k-$5k', '$5k-$10k', '>$10k'],
+          datasets: [{
+            data: [1.6, 9.8, 34.6, 22.9, 18.2, 9.8, 3.1],
+            backgroundColor: 'rgba(47, 127, 191, 0.7)',
+            borderColor: '#2F7FBF',
+            borderWidth: 1.5,
+            borderRadius: 8
+          }]
+        },
+        options: {
+          ...defaultOptions,
+          scales: {
+            ...defaultOptions.scales,
+            y: {
+              ticks: { callback: (val) => `${val}%` }
+            }
+          },
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                label: (context) => ` Distribución: ${context.raw}%`
+              }
+            }
+          }
+        }
+      });
+
+      // 4. Importancia de Variables en XGBoost (Horizontal)
+      new Chart(document.getElementById('chart-importancia'), {
+        type: 'bar',
+        data: {
+          labels: [
+            'Estrato Socioeconómico',
+            'Saneamiento de Agua',
+            'Material de Pisos',
+            'Fregadero/Tarja',
+            'Renta Media Municipal',
+            'Calentador de Gas',
+            'Material de Techo',
+            'Combustible Cocina',
+            'Tipo de Vivienda',
+            'Abastecimiento de Agua'
+          ],
+          datasets: [{
+            data: [11.4, 9.1, 7.2, 6.8, 4.7, 4.2, 4.2, 4.1, 4.0, 3.4],
+            backgroundColor: 'rgba(217, 122, 93, 0.75)',
+            borderColor: '#D97A5D',
+            borderWidth: 1.5,
+            borderRadius: 6
+          }]
+        },
+        options: {
+          ...defaultOptions,
+          indexAxis: 'y',
+          scales: {
+            x: {
+              grid: { color: 'rgba(11, 35, 69, 0.04)' },
+              ticks: { callback: (val) => `${val}%`, font: { size: 8, weight: 600 } }
+            },
+            y: {
+              grid: { display: false },
+              ticks: { font: { size: 8, weight: 600 } }
+            }
+          },
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                label: (context) => ` Importancia: ${context.raw}%`
+              }
+            }
+          }
+        }
+      });
+
+    });
+  </script>
+</body>
+</html>
