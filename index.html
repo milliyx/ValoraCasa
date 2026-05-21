@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ValoraCasa | Decision Intelligence Hub</title>
+  <meta name="description" content="Aplicación web interactiva de BI, storytelling ejecutivo y simulador referencial para ValoraCasa." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root { color-scheme: light; }
+    body { font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    .glass { background: rgba(255,255,255,.78); backdrop-filter: blur(18px); }
+    .chart-box { height: 310px; }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+    .tab-btn.active { background: #0f172a; color: white; box-shadow: 0 10px 30px rgba(15,23,42,.14); }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900">
+  <header class="sticky top-0 z-50 border-b border-slate-200 glass">
+    <div class="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+        <div class="flex items-center gap-3">
+          <div class="grid h-11 w-11 place-items-center rounded-2xl bg-slate-950 text-lg font-extrabold text-white shadow-lg">VC</div>
+          <div>
+            <p class="text-xs font-semibold uppercase tracking-[.24em] text-cyan-700">Decision Intelligence Hub</p>
+            <h1 class="text-xl font-extrabold tracking-tight sm:text-2xl">ValoraCasa</h1>
+          </div>
+        </div>
+        <nav class="flex flex-wrap gap-2 rounded-2xl border border-slate-200 bg-white p-1 shadow-sm">
+          <button class="tab-btn active rounded-xl px-4 py-2 text-sm font-semibold text-slate-600 transition" data-tab="historia">Historia</button>
+          <button class="tab-btn rounded-xl px-4 py-2 text-sm font-semibold text-slate-600 transition" data-tab="mercado">Dashboard BI</button>
+          <button class="tab-btn rounded-xl px-4 py-2 text-sm font-semibold text-slate-600 transition" data-tab="modelo">Modelo</button>
+          <button class="tab-btn rounded-xl px-4 py-2 text-sm font-semibold text-slate-600 transition" data-tab="simulador">Simulador</button>
+          <button class="tab-btn rounded-xl px-4 py-2 text-sm font-semibold text-slate-600 transition" data-tab="reporte">Reporte</button>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+    <section id="historia" class="tab-panel active">
+      <div class="grid gap-6 lg:grid-cols-[1.1fr_.9fr]">
+        <div class="rounded-[2rem] bg-slate-950 p-8 text-white shadow-xl lg:p-10">
+          <p class="mb-4 inline-flex rounded-full bg-cyan-400/10 px-4 py-2 text-sm font-semibold text-cyan-200 ring-1 ring-cyan-300/20">BI Developer / Storytelling Lead · Dulce Michelle Barrios Aguilar</p>
+          <h2 class="max-w-3xl text-4xl font-extrabold tracking-tight sm:text-5xl">De microdatos a una referencia clara de renta habitacional.</h2>
+          <p class="mt-5 max-w-2xl text-lg leading-8 text-slate-300">ValoraCasa transforma información pública oficial y resultados de modelos predictivos en una experiencia ejecutiva: entender el mercado, comparar escenarios y comunicar una renta sugerida como apoyo para la toma de decisiones.</p>
+          <div class="mt-8 grid gap-3 sm:grid-cols-3">
+            <div class="rounded-2xl bg-white/10 p-4 ring-1 ring-white/10"><p class="text-3xl font-extrabold">11,566</p><p class="text-sm text-slate-300">viviendas con renta registrada</p></div>
+            <div class="rounded-2xl bg-white/10 p-4 ring-1 ring-white/10"><p class="text-3xl font-extrabold">$2,500</p><p class="text-sm text-slate-300">renta mediana</p></div>
+            <div class="rounded-2xl bg-white/10 p-4 ring-1 ring-white/10"><p class="text-3xl font-extrabold">XGBoost</p><p class="text-sm text-slate-300">modelo recomendado</p></div>
+          </div>
+        </div>
+        <aside class="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm">
+          <h3 class="text-lg font-bold">Ruta narrativa de la demo</h3>
+          <ol class="mt-5 space-y-4">
+            <li class="flex gap-3"><span class="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-cyan-100 font-bold text-cyan-800">1</span><div><p class="font-semibold">Problema</p><p class="text-sm text-slate-600">Las rentas suelen definirse por intuición, comparación informal o precios ofertados.</p></div></li>
+            <li class="flex gap-3"><span class="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-cyan-100 font-bold text-cyan-800">2</span><div><p class="font-semibold">Datos</p><p class="text-sm text-slate-600">Se usa ENIGH 2024, tabla VIVIENDAS, con variables observables del inmueble.</p></div></li>
+            <li class="flex gap-3"><span class="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-cyan-100 font-bold text-cyan-800">3</span><div><p class="font-semibold">Modelo</p><p class="text-sm text-slate-600">Se comparan regresión lineal, Random Forest y XGBoost.</p></div></li>
+            <li class="flex gap-3"><span class="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-cyan-100 font-bold text-cyan-800">4</span><div><p class="font-semibold">Decisión</p><p class="text-sm text-slate-600">La salida se comunica como rango referencial, no como avalúo profesional.</p></div></li>
+          </ol>
+        </aside>
+      </div>
+    </section>
+
+    <section id="mercado" class="tab-panel">
+      <div class="mb-6">
+        <p class="text-sm font-semibold uppercase tracking-[.22em] text-cyan-700">Dashboard BI</p>
+        <h2 class="mt-2 text-3xl font-extrabold">Inteligencia del mercado de renta</h2>
+        <p class="mt-2 max-w-3xl text-slate-600">Vista ejecutiva de la distribución de rentas y de los factores que diferencian el valor estimado de una vivienda.</p>
+      </div>
+      <div class="grid gap-4 md:grid-cols-4">
+        <div class="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm"><p class="text-sm text-slate-500">Renta mínima</p><p class="mt-2 text-3xl font-extrabold">$100</p></div>
+        <div class="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm"><p class="text-sm text-slate-500">Renta media</p><p class="mt-2 text-3xl font-extrabold">$3,227</p></div>
+        <div class="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm"><p class="text-sm text-slate-500">Renta mediana</p><p class="mt-2 text-3xl font-extrabold">$2,500</p></div>
+        <div class="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm"><p class="text-sm text-slate-500">Renta máxima observada</p><p class="mt-2 text-3xl font-extrabold">$50,000</p></div>
+      </div>
+      <div class="mt-6 grid gap-6 lg:grid-cols-2">
+        <article class="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm"><h3 class="font-bold">Distribución por rangos de renta</h3><p class="mb-4 text-sm text-slate-500">La mayoría de viviendas se concentra entre $1,000 y $3,000 mensuales.</p><div class="chart-box"><canvas id="rentRangeChart"></canvas></div></article>
+        <article class="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm"><h3 class="font-bold">Renta mediana por estrato socioeconómico</h3><p class="mb-4 text-sm text-slate-500">El estrato alto muestra una mediana cuatro veces mayor que el estrato bajo.</p><div class="chart-box"><canvas id="socioChart"></canvas></div></article>
+        <article class="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm"><h3 class="font-bold">Renta mediana por tamaño de localidad</h3><p class="mb-4 text-sm text-slate-500">Las localidades urbanas grandes presentan mayor renta mediana.</p><div class="chart-box"><canvas id="localidadChart"></canvas></div></article>
+        <article class="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm"><h3 class="font-bold">Variables con mayor correlación positiva</h3><p class="mb-4 text-sm text-slate-500">Focos, estrato y baño completo destacan como señales de tamaño, contexto y habitabilidad.</p><div class="chart-box"><canvas id="corrChart"></canvas></div></article>
+      </div>
+    </section>
+
+    <section id="modelo" class="tab-panel">
+      <div class="mb-6">
+        <p class="text-sm font-semibold uppercase tracking-[.22em] text-cyan-700">Modelo predictivo</p>
+        <h2 class="mt-2 text-3xl font-extrabold">Selección del modelo final</h2>
+        <p class="mt-2 max-w-3xl text-slate-600">La comparación se interpreta en escala de negocio: pesos mexicanos y utilidad para apoyar una decisión preliminar de renta.</p>
+      </div>
+      <div class="grid gap-6 lg:grid-cols-[.9fr_1.1fr]">
+        <article class="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm"><h3 class="font-bold">Comparación de desempeño</h3><p class="mb-4 text-sm text-slate-500">XGBoost presenta el mejor balance entre precisión, estabilidad y utilidad comercial.</p><div class="chart-box"><canvas id="modelChart"></canvas></div></article>
+        <article class="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
+          <h3 class="font-bold">Métricas principales</h3>
+          <div class="mt-4 overflow-hidden rounded-2xl border border-slate-200">
+            <table class="w-full text-left text-sm">
+              <thead class="bg-slate-100 text-slate-700"><tr><th class="p-3">Modelo</th><th class="p-3">R² prueba</th><th class="p-3">MAE</th><th class="p-3">Dentro de $1,000</th></tr></thead>
+              <tbody class="divide-y divide-slate-200">
+                <tr><td class="p-3 font-semibold">Regresión Lineal</td><td class="p-3">0.6163</td><td class="p-3">$940</td><td class="p-3">71.0%</td></tr>
+                <tr><td class="p-3 font-semibold">Random Forest</td><td class="p-3">0.6569</td><td class="p-3">$866</td><td class="p-3">73.3%</td></tr>
+                <tr class="bg-cyan-50"><td class="p-3 font-extrabold text-cyan-900">XGBoost</td><td class="p-3 font-bold">0.6753</td><td class="p-3 font-bold">$838</td><td class="p-3 font-bold">74.8%</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="mt-5 rounded-2xl bg-slate-950 p-5 text-white">
+            <p class="text-sm font-semibold text-cyan-200">Interpretación ejecutiva</p>
+            <p class="mt-2 text-sm leading-6 text-slate-300">La predicción debe presentarse como una referencia analítica. El modelo es más útil en rentas bajas y medias; en rentas altas el error aumenta y conviene comunicar mayor cautela.</p>
+          </div>
+        </article>
+      </div>
+      <article class="mt-6 rounded-3xl border border-slate-200 bg-white p-5 shadow-sm"><h3 class="font-bold">Importancia relativa de variables</h3><p class="mb-4 text-sm text-slate-500">Lectura agrupada para explicar el modelo en lenguaje de negocio.</p><div class="chart-box"><canvas id="importanceChart"></canvas></div></article>
+    </section>
+
+    <section id="simulador" class="tab-panel">
+      <div class="mb-6">
+        <p class="text-sm font-semibold uppercase tracking-[.22em] text-cyan-700">Demo funcional</p>
+        <h2 class="mt-2 text-3xl font-extrabold">Simulador referencial de renta sugerida</h2>
+        <p class="mt-2 max-w-3xl text-slate-600">Esta versión es una demo narrativa basada en los factores identificados. En producción se conectaría al pipeline/modelo entrenado.</p>
+      </div>
+      <div class="grid gap-6 lg:grid-cols-[1fr_.85fr]">
+        <form id="rentForm" class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+          <div class="grid gap-5 md:grid-cols-2">
+            <label class="block"><span class="text-sm font-semibold">Mercado local</span><select id="municipio" class="mt-2 w-full rounded-2xl border-slate-300 bg-slate-50 p-3"><option value="2064">Municipio de renta baja</option><option value="2890" selected>Municipio medio</option><option value="3716">Municipio de renta alta</option></select></label>
+            <label class="block"><span class="text-sm font-semibold">Estrato socioeconómico</span><select id="estrato" class="mt-2 w-full rounded-2xl border-slate-300 bg-slate-50 p-3"><option value="1">Bajo</option><option value="2" selected>Medio bajo</option><option value="3">Medio alto</option><option value="4">Alto</option></select></label>
+            <label class="block"><span class="text-sm font-semibold">Número de cuartos</span><input id="cuartos" type="range" min="1" max="8" value="3" class="mt-4 w-full"><output id="cuartosOut" class="text-sm font-bold text-cyan-800">3</output></label>
+            <label class="block"><span class="text-sm font-semibold">Dormitorios</span><input id="dormitorios" type="range" min="1" max="5" value="2" class="mt-4 w-full"><output id="dormitoriosOut" class="text-sm font-bold text-cyan-800">2</output></label>
+            <label class="block"><span class="text-sm font-semibold">Focos</span><input id="focos" type="range" min="1" max="12" value="6" class="mt-4 w-full"><output id="focosOut" class="text-sm font-bold text-cyan-800">6</output></label>
+            <label class="block"><span class="text-sm font-semibold">Material del piso</span><select id="pisos" class="mt-2 w-full rounded-2xl border-slate-300 bg-slate-50 p-3"><option value="1">Básico</option><option value="2" selected>Intermedio</option><option value="3">Material fino</option></select></label>
+          </div>
+          <div class="mt-6 grid gap-3 md:grid-cols-2">
+            <label class="flex items-center gap-3 rounded-2xl bg-slate-50 p-3"><input id="calentador" type="checkbox" checked class="h-5 w-5"> Calentador de gas</label>
+            <label class="flex items-center gap-3 rounded-2xl bg-slate-50 p-3"><input id="tanque" type="checkbox" class="h-5 w-5"> Tanque de gas</label>
+            <label class="flex items-center gap-3 rounded-2xl bg-slate-50 p-3"><input id="cisterna" type="checkbox" class="h-5 w-5"> Cisterna</label>
+            <label class="flex items-center gap-3 rounded-2xl bg-slate-50 p-3"><input id="regadera" type="checkbox" checked class="h-5 w-5"> Regadera</label>
+          </div>
+          <button type="button" id="calculateBtn" class="mt-6 w-full rounded-2xl bg-slate-950 px-5 py-4 font-bold text-white shadow-lg transition hover:-translate-y-0.5 hover:bg-cyan-900">Calcular renta sugerida</button>
+        </form>
+        <aside class="rounded-3xl bg-slate-950 p-6 text-white shadow-xl">
+          <p class="text-sm font-semibold uppercase tracking-[.22em] text-cyan-200">Resultado</p>
+          <p class="mt-8 text-sm text-slate-400">Renta sugerida</p>
+          <p id="rentaEstimada" class="mt-2 text-5xl font-extrabold">$3,280</p>
+          <p class="mt-5 text-sm text-slate-400">Rango referencial basado en MAE ± $838</p>
+          <p id="rangoEstimado" class="mt-1 text-2xl font-bold text-cyan-200">$2,442 – $4,118</p>
+          <div class="mt-8 rounded-2xl bg-white/10 p-5 ring-1 ring-white/10">
+            <p class="font-bold">Lectura para usuario no técnico</p>
+            <p id="lecturaResultado" class="mt-2 text-sm leading-6 text-slate-300">La vivienda se ubica en un rango medio. La referencia está impulsada principalmente por mercado local, estrato, tamaño y equipamiento básico.</p>
+          </div>
+          <div class="mt-5 rounded-2xl bg-amber-400/10 p-4 text-sm leading-6 text-amber-100 ring-1 ring-amber-300/20">No es avalúo profesional. Es una referencia analítica para apoyar comparación, negociación o fijación preliminar de renta.</div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="reporte" class="tab-panel">
+      <div class="grid gap-6 lg:grid-cols-[.8fr_1.2fr]">
+        <div class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+          <p class="text-sm font-semibold uppercase tracking-[.22em] text-cyan-700">Storytelling ejecutivo</p>
+          <h2 class="mt-2 text-3xl font-extrabold">Guion corto para presentar</h2>
+          <p class="mt-4 text-slate-600">Usa este speech para explicar tu aportación como BI Developer / Storytelling Lead.</p>
+        </div>
+        <div class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+          <div class="prose max-w-none prose-slate">
+            <p><strong>“Esta aplicación funciona como el hub ejecutivo de ValoraCasa.</strong> Su objetivo no es solo mostrar gráficas, sino convertir el análisis técnico en una experiencia clara para negocio. Primero presentamos el problema del mercado de renta, después exploramos los datos de ENIGH 2024, posteriormente justificamos la selección del modelo XGBoost y finalmente mostramos una demo donde el usuario puede simular una vivienda y recibir una renta sugerida con un rango referencial.”</p>
+            <p>“La aportación principal desde BI y storytelling fue definir qué indicadores importan, cómo visualizarlos y cómo comunicar los resultados sin lenguaje excesivamente técnico. Por eso la app combina KPIs, gráficas comparativas, explicación del modelo y una lectura ejecutiva del resultado.”</p>
+            <p>“La salida se comunica como apoyo a la toma de decisiones, no como avalúo profesional. Esto permite que ValoraCasa sea una herramienta transparente, útil y defendible para propietarios, asesores e interesados en comparar rentas habitacionales.”</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="mx-auto max-w-7xl px-4 pb-8 sm:px-6 lg:px-8">
+    <div class="rounded-3xl border border-slate-200 bg-white p-5 text-sm text-slate-500 shadow-sm">ValoraCasa · Prototipo estático para GitHub Pages · Datos resumidos del proyecto académico. Para producción: conectar pipeline real, modelo serializado y validación de datos.</div>
+  </footer>
+
+<script>
+const pesos = (n) => new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', maximumFractionDigits: 0 }).format(n);
+const baseOptions = { responsive:true, maintainAspectRatio:false, plugins:{ legend:{ display:false } }, scales:{ y:{ beginAtZero:true, grid:{ color:'#e2e8f0' } }, x:{ grid:{ display:false } } } };
+const color = '#0891b2';
+const color2 = '#0f172a';
+const color3 = '#f59e0b';
+
+function makeBar(id, labels, data, label, horizontal=false) {
+  new Chart(document.getElementById(id), {
+    type:'bar',
+    data:{ labels, datasets:[{ label, data, backgroundColor: labels.map((_,i)=> i%3===0?color:i%3===1?color2:color3), borderRadius:10 }] },
+    options:{ ...baseOptions, indexAxis: horizontal ? 'y' : 'x', plugins:{ legend:{display:false}, tooltip:{ callbacks:{ label:(ctx)=> `${label}: ${ctx.raw.toLocaleString('es-MX')}` } } } }
+  });
+}
+
+makeBar('rentRangeChart', ['≤500','500-1k','1k-2k','2k-3k','3k-5k','5k-10k','>10k'], [184,1137,4000,2651,2104,1137,353], 'Registros');
+makeBar('socioChart', ['Bajo','Medio bajo','Medio alto','Alto'], [1500,2000,2800,6000], 'Renta mediana');
+makeBar('localidadChart', ['Urbana grande','Urbana mediana','Urbana pequeña','Rural'], [3000,2000,1800,1500], 'Renta mediana');
+makeBar('corrChart', ['focos','est_socio','bano_comp','num_cuarto','mat_pisos','cuart_dorm','mat_techos'], [0.557,0.475,0.464,0.362,0.283,0.269,0.164], 'Correlación', true);
+makeBar('modelChart', ['Regresión Lineal','Random Forest','XGBoost'], [940,866,838], 'MAE pesos');
+makeBar('importanceChart', ['est_socio','sanit_agua','mat_pisos','fregadero','renta_media_municipio','calent_gas','mat_techos','combus','tipo_viv','ab_agua'], [11.4,9.1,7.2,6.8,4.7,4.2,4.2,4.1,4.0,3.4], 'Importancia relativa (%)', true);
+
+const tabs = document.querySelectorAll('.tab-btn');
+const panels = document.querySelectorAll('.tab-panel');
+tabs.forEach(btn => btn.addEventListener('click', () => {
+  tabs.forEach(b=>b.classList.remove('active'));
+  panels.forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById(btn.dataset.tab).classList.add('active');
+  window.scrollTo({top:0, behavior:'smooth'});
+}));
+
+['cuartos','dormitorios','focos'].forEach(id => {
+  const input = document.getElementById(id);
+  const out = document.getElementById(id+'Out');
+  input.addEventListener('input', () => { out.textContent = input.value; calculate(); });
+});
+['municipio','estrato','pisos','calentador','tanque','cisterna','regadera'].forEach(id => document.getElementById(id).addEventListener('change', calculate));
+document.getElementById('calculateBtn').addEventListener('click', calculate);
+
+function calculate(){
+  const municipio = Number(document.getElementById('municipio').value);
+  const estrato = Number(document.getElementById('estrato').value);
+  const cuartos = Number(document.getElementById('cuartos').value);
+  const dormitorios = Number(document.getElementById('dormitorios').value);
+  const focos = Number(document.getElementById('focos').value);
+  const pisos = Number(document.getElementById('pisos').value);
+  const bool = id => document.getElementById(id).checked ? 1 : 0;
+  let renta = 650;
+  renta += municipio * 0.32;
+  renta += [0,0,315,630,1500][estrato];
+  renta += cuartos * 117;
+  renta += dormitorios * 85;
+  renta += focos * 110;
+  renta += [0,80,252,600][pisos];
+  renta += bool('calentador') * 262;
+  renta += bool('tanque') * 167;
+  renta += bool('cisterna') * 136;
+  renta += bool('regadera') * 30;
+  renta = Math.max(100, Math.round(renta));
+  const mae = 838;
+  document.getElementById('rentaEstimada').textContent = pesos(renta);
+  document.getElementById('rangoEstimado').textContent = `${pesos(Math.max(100, renta-mae))} – ${pesos(renta+mae)}`;
+  let lectura = 'La vivienda se ubica en un rango medio. La referencia está impulsada principalmente por mercado local, estrato, tamaño y equipamiento básico.';
+  if (renta < 2200) lectura = 'La vivienda cae en un rango bajo o accesible. La estimación puede estar limitada por mercado local, menor tamaño o menor equipamiento.';
+  if (renta > 5000) lectura = 'La vivienda cae en un rango alto. La estimación debe comunicarse con cautela y complementarse con información local, remodelaciones y condiciones específicas.';
+  document.getElementById('lecturaResultado').textContent = lectura;
+}
+calculate();
+</script>
+</body>
+</html>
