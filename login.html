@@ -1,0 +1,1625 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Iniciar Sesión / Registro | ValoraCasa - The FI-ndings</title>
+  <meta name="description" content="Accede a ValoraCasa, la plataforma líder en modelación matemática y ciencia de datos aplicada a la estimación referencial de rentas residenciales en México." />
+  
+  <!-- Google Fonts: Montserrat (300, 400, 500, 600, 700, 800) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    /* VARIABLES DE DISEÑO PREMIUM (PALETA EXCLUSIVA) */
+    :root {
+      --azul-marino: #0B2345;
+      --turquesa: #35B8B8;
+      --turquesa-brillo: #43cfcf;
+      --azul-medio: #2F7FBF;
+      --blanco-humo: #F8FAFC;
+      --gris-azulado: #475569;
+      --terracota: #D97A5D;
+      --terracota-hover: #e28a6f;
+      --beige: #F6F1EB;
+      --white: #FFFFFF;
+      
+      --shadow-sm: 0 2px 4px rgba(11, 35, 69, 0.04);
+      --shadow-md: 0 10px 25px -5px rgba(11, 35, 69, 0.08), 0 8px 16px -6px rgba(11, 35, 69, 0.08);
+      --shadow-lg: 0 20px 40px -10px rgba(11, 35, 69, 0.12), 0 10px 20px -8px rgba(11, 35, 69, 0.12);
+      --shadow-neon: 0 0 20px rgba(53, 184, 184, 0.25);
+      
+      --transition-smooth: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      --font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+    }
+
+    /* RESET & ESTILOS BASE */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-family);
+      background-color: var(--beige);
+      color: var(--azul-marino);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow-x: hidden;
+      line-height: 1.5;
+    }
+
+    /* GRID DE FONDO DE DATOS DINÁMICO */
+    .bg-grid-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(53, 184, 184, 0.03) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(47, 127, 191, 0.04) 0%, transparent 40%);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* CONTENEDOR PRINCIPAL SPLIT LAYOUT */
+    .auth-wrapper {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      max-width: 1200px;
+      min-height: 720px;
+      margin: 1.5rem;
+      background: var(--white);
+      border-radius: 24px;
+      box-shadow: var(--shadow-lg);
+      display: flex;
+      overflow: hidden;
+      border: 1px solid rgba(11, 35, 69, 0.05);
+      animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    /* ---------------------------------------------------- */
+    /* PANEL IZQUIERDO: BRANDING, DATA Y NIVELES DE ACCESO */
+    /* ---------------------------------------------------- */
+    .branding-panel {
+      flex: 1.1;
+      background: linear-gradient(135deg, var(--azul-marino) 0%, #061225 100%);
+      color: var(--white);
+      padding: 3.5rem 4rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Efectos decorativos del panel */
+    .branding-panel::before {
+      content: '';
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(53, 184, 184, 0.15) 0%, transparent 70%);
+      top: -100px;
+      left: -100px;
+      border-radius: 50%;
+    }
+
+    .branding-panel::after {
+      content: '';
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(47, 127, 191, 0.1) 0%, transparent 70%);
+      bottom: -150px;
+      right: -150px;
+      border-radius: 50%;
+    }
+
+    /* Header del Panel Izquierdo */
+    .branding-header {
+      position: relative;
+      z-index: 5;
+    }
+
+    .mother-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--turquesa);
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .findings-mini-logo {
+      width: 18px;
+      height: 18px;
+      opacity: 0.95;
+    }
+
+    .brand-title-block {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .brand-logo-svg {
+      width: 38px;
+      height: 38px;
+      filter: drop-shadow(0 4px 10px rgba(53, 184, 184, 0.3));
+    }
+
+    .brand-title {
+      font-size: 2.2rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1;
+    }
+
+    .brand-title span {
+      color: var(--turquesa);
+    }
+
+    .brand-slogan {
+      font-size: 1.15rem;
+      font-weight: 400;
+      color: var(--blanco-humo);
+      opacity: 0.9;
+      margin-bottom: 2rem;
+    }
+
+    /* Niveles de Acceso (Tarjetas) */
+    .access-levels-container {
+      position: relative;
+      z-index: 5;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+
+    .access-level-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 16px;
+      padding: 1.1rem 1.4rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      transition: var(--transition-smooth);
+      backdrop-filter: blur(8px);
+    }
+
+    .access-level-card:hover {
+      background: rgba(255, 255, 255, 0.06);
+      border-color: rgba(53, 184, 184, 0.25);
+      transform: translateX(6px);
+    }
+
+    .card-icon-box {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: rgba(53, 184, 184, 0.1);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: var(--turquesa);
+      font-size: 1.1rem;
+      flex-shrink: 0;
+      transition: var(--transition-smooth);
+    }
+
+    .access-level-card:hover .card-icon-box {
+      background: var(--turquesa);
+      color: var(--azul-marino);
+      box-shadow: 0 0 12px rgba(53, 184, 184, 0.4);
+    }
+
+    .card-info h4 {
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.25rem;
+      color: var(--white);
+    }
+
+    .card-info p {
+      font-size: 0.78rem;
+      color: var(--blanco-humo);
+      opacity: 0.8;
+      font-weight: 500;
+    }
+
+    /* Footer del Panel Izquierdo */
+    .branding-footer {
+      position: relative;
+      z-index: 5;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding-top: 1.5rem;
+    }
+
+    .disclaimer-box {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(217, 122, 93, 0.1);
+      border-left: 3px solid var(--terracota);
+      padding: 0.6rem 0.8rem;
+      border-radius: 0 8px 8px 0;
+    }
+
+    .disclaimer-icon {
+      font-size: 0.9rem;
+      color: var(--terracota);
+    }
+
+    .disclaimer-text {
+      font-size: 0.7rem;
+      color: var(--blanco-humo);
+      opacity: 0.85;
+      font-weight: 600;
+    }
+
+    .findings-slogan-block {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.7rem;
+      color: var(--blanco-humo);
+      opacity: 0.6;
+      font-weight: 500;
+    }
+
+    /* ---------------------------------------------------- */
+    /* PANEL DERECHO: FORMULARIOS DE INICIO / REGISTRO */
+    /* ---------------------------------------------------- */
+    .form-panel {
+      flex: 0.9;
+      background-color: var(--white);
+      padding: 3.5rem 4rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    .form-header {
+      margin-bottom: 2rem;
+    }
+
+    /* Tabs Deslizantes Modernos */
+    .tab-container {
+      background: var(--blanco-humo);
+      padding: 0.35rem;
+      border-radius: 14px;
+      display: flex;
+      position: relative;
+      margin-bottom: 1.5rem;
+      border: 1px solid rgba(11, 35, 69, 0.04);
+    }
+
+    .tab-btn {
+      flex: 1;
+      border: none;
+      background: transparent;
+      padding: 0.75rem 1rem;
+      font-family: var(--font-family);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--gris-azulado);
+      cursor: pointer;
+      z-index: 2;
+      transition: var(--transition-smooth);
+      border-radius: 10px;
+    }
+
+    .tab-btn.active {
+      color: var(--azul-marino);
+    }
+
+    /* Indicador deslizante */
+    .tab-slider {
+      position: absolute;
+      top: 0.35rem;
+      left: 0.35rem;
+      width: calc(50% - 0.35rem);
+      height: calc(100% - 0.7rem);
+      background: var(--white);
+      border-radius: 10px;
+      box-shadow: var(--shadow-sm);
+      z-index: 1;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .tab-container.register-active .tab-slider {
+      transform: translateX(100%);
+    }
+
+    /* CONTENEDOR DE FORMULARIOS */
+    .form-content-wrapper {
+      position: relative;
+      width: 100%;
+      flex-grow: 1;
+    }
+
+    .form-section {
+      display: none;
+      animation: fadeIn 0.4s ease forwards;
+    }
+
+    .form-section.active {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    /* GRUPOS DE INPUT PREMIUM */
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      position: relative;
+    }
+
+    .input-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--gris-azulado);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .input-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .input-icon {
+      position: absolute;
+      left: 1.1rem;
+      color: var(--gris-azulado);
+      opacity: 0.7;
+      display: flex;
+      align-items: center;
+      pointer-events: none;
+      transition: var(--transition-smooth);
+    }
+
+    .input-control {
+      width: 100%;
+      padding: 0.9rem 1.2rem 0.9rem 2.8rem;
+      font-family: var(--font-family);
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--azul-marino);
+      background-color: var(--blanco-humo);
+      border: 1.5px solid rgba(11, 35, 69, 0.05);
+      border-radius: 12px;
+      transition: var(--transition-smooth);
+      outline: none;
+    }
+
+    .input-control:focus {
+      background-color: var(--white);
+      border-color: var(--turquesa);
+      box-shadow: 0 0 0 4px rgba(53, 184, 184, 0.08);
+    }
+
+    .input-control:focus ~ .input-icon {
+      color: var(--turquesa);
+      opacity: 1;
+    }
+
+    /* Ojo de contraseña */
+    .btn-toggle-password {
+      position: absolute;
+      right: 1.1rem;
+      background: transparent;
+      border: none;
+      color: var(--gris-azulado);
+      opacity: 0.7;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      transition: var(--transition-smooth);
+    }
+
+    .btn-toggle-password:hover {
+      opacity: 1;
+      color: var(--turquesa);
+    }
+
+    /* SELECT CONTROLS PERSONALIZADOS */
+    .select-control {
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      width: 100%;
+      padding: 0.9rem 2.8rem 0.9rem 2.8rem;
+      font-family: var(--font-family);
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--azul-marino);
+      background-color: var(--blanco-humo);
+      border: 1.5px solid rgba(11, 35, 69, 0.05);
+      border-radius: 12px;
+      transition: var(--transition-smooth);
+      outline: none;
+      cursor: pointer;
+    }
+
+    .select-control:focus {
+      background-color: var(--white);
+      border-color: var(--turquesa);
+      box-shadow: 0 0 0 4px rgba(53, 184, 184, 0.08);
+    }
+
+    .select-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+      width: 100%;
+    }
+
+    .select-arrow {
+      position: absolute;
+      right: 1.2rem;
+      color: var(--gris-azulado);
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+    }
+
+    /* Links y botones secundarios */
+    .forgot-link {
+      font-size: 0.75rem;
+      color: var(--azul-medio);
+      text-decoration: none;
+      font-weight: 600;
+      transition: var(--transition-smooth);
+      align-self: flex-end;
+    }
+
+    .forgot-link:hover {
+      color: var(--turquesa);
+      text-decoration: underline;
+    }
+
+    /* BOTÓN DE ACCIÓN PRINCIPAL */
+    .btn-submit-action {
+      background: linear-gradient(135deg, var(--turquesa) 0%, var(--azul-medio) 100%);
+      color: var(--white);
+      border: none;
+      padding: 1.05rem;
+      border-radius: 12px;
+      font-family: var(--font-family);
+      font-size: 0.88rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(53, 184, 184, 0.2);
+      transition: var(--transition-smooth);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+      position: relative;
+      overflow: hidden;
+      margin-top: 0.5rem;
+    }
+
+    .btn-submit-action::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: 0.5s;
+    }
+
+    .btn-submit-action:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(53, 184, 184, 0.35);
+    }
+
+    .btn-submit-action:hover::after {
+      left: 100%;
+    }
+
+    .btn-submit-action:active {
+      transform: translateY(0);
+    }
+
+    /* Botón DEMO interactivo */
+    .demo-button-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      margin-top: 1.5rem;
+      border-top: 1px solid rgba(11, 35, 69, 0.06);
+      padding-top: 1.5rem;
+    }
+
+    .demo-divider {
+      text-align: center;
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--gris-azulado);
+      opacity: 0.5;
+      position: relative;
+    }
+
+    .btn-demo-link {
+      background-color: var(--blanco-humo);
+      color: var(--azul-marino);
+      border: 1px dashed rgba(11, 35, 69, 0.15);
+      padding: 0.85rem;
+      border-radius: 12px;
+      font-family: var(--font-family);
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn-demo-link:hover {
+      background-color: var(--beige);
+      border-color: var(--turquesa);
+      color: var(--turquesa);
+    }
+
+    /* Footer del Panel Derecho */
+    .form-panel-footer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 2rem;
+      border-top: 1px solid rgba(11, 35, 69, 0.05);
+      padding-top: 1.2rem;
+    }
+
+    .findings-logo-block {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      opacity: 0.85;
+      text-decoration: none;
+      transition: var(--transition-smooth);
+    }
+
+    .findings-logo-block:hover {
+      opacity: 1;
+    }
+
+    .findings-footer-logo {
+      width: 14px;
+      height: 14px;
+    }
+
+    .findings-footer-text {
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: var(--azul-marino);
+    }
+
+    .findings-footer-slogan {
+      font-size: 0.65rem;
+      color: var(--gris-azulado);
+      font-weight: 500;
+      margin-left: 0.5rem;
+      border-left: 1px solid rgba(11, 35, 69, 0.15);
+      padding-left: 0.5rem;
+    }
+
+    /* TEXTO CONTRATO REGISTRO */
+    .register-footer-text {
+      font-size: 0.68rem;
+      color: var(--gris-azulado);
+      opacity: 0.8;
+      text-align: center;
+      font-weight: 500;
+      line-height: 1.4;
+      margin-top: 0.25rem;
+    }
+
+    /* ---------------------------------------------------- */
+    /* MODAL DE ACCESO DIRECTO DEMO */
+    /* ---------------------------------------------------- */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(6, 18, 37, 0.7);
+      backdrop-filter: blur(12px);
+      z-index: 100;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .modal-container {
+      background: var(--white);
+      width: 90%;
+      max-width: 580px;
+      border-radius: 24px;
+      padding: 2.5rem;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid rgba(11, 35, 69, 0.08);
+      position: relative;
+      transform: scale(0.9) translateY(20px);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      animation: modalOpenGlow 3s infinite alternate;
+    }
+
+    .modal-overlay.active .modal-container {
+      transform: scale(1) translateY(0);
+    }
+
+    .modal-close-btn {
+      position: absolute;
+      top: 1.2rem;
+      right: 1.2rem;
+      background: var(--blanco-humo);
+      border: none;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      color: var(--azul-marino);
+      transition: var(--transition-smooth);
+    }
+
+    .modal-close-btn:hover {
+      background: var(--beige);
+      color: var(--terracota);
+      transform: rotate(90deg);
+    }
+
+    .modal-header {
+      text-align: center;
+      margin-bottom: 1.8rem;
+    }
+
+    .modal-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(53, 184, 184, 0.1);
+      color: var(--turquesa);
+      font-size: 0.65rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0.4rem 0.8rem;
+      border-radius: 20px;
+      margin-bottom: 0.75rem;
+    }
+
+    .modal-badge-dot {
+      width: 6px;
+      height: 6px;
+      background-color: var(--turquesa);
+      border-radius: 50%;
+      animation: pulse-dot 1.2s infinite;
+    }
+
+    .modal-title {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--azul-marino);
+      letter-spacing: -0.01em;
+    }
+
+    .modal-desc {
+      font-size: 0.82rem;
+      color: var(--gris-azulado);
+      margin-top: 0.5rem;
+      font-weight: 500;
+    }
+
+    .modal-choices-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+
+    .modal-choice-card {
+      border: 2px solid rgba(11, 35, 69, 0.05);
+      border-radius: 18px;
+      padding: 1.8rem 1.4rem;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: var(--blanco-humo);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .modal-choice-card:hover {
+      border-color: var(--turquesa);
+      background: var(--white);
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .modal-choice-card.alt-card:hover {
+      border-color: var(--terracota);
+    }
+
+    .choice-header-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .choice-tagline {
+      font-size: 0.6rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--gris-azulado);
+      margin-bottom: 0.25rem;
+      display: block;
+    }
+
+    .choice-title {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--azul-marino);
+      margin-bottom: 0.5rem;
+    }
+
+    .choice-desc {
+      font-size: 0.72rem;
+      color: var(--gris-azulado);
+      line-height: 1.4;
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+    }
+
+    .btn-choice-go {
+      width: 100%;
+      border: none;
+      padding: 0.7rem;
+      border-radius: 10px;
+      font-family: var(--font-family);
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.4rem;
+      transition: var(--transition-smooth);
+    }
+
+    .modal-choice-card:not(.alt-card) .btn-choice-go {
+      background-color: var(--azul-marino);
+      color: var(--white);
+    }
+
+    .modal-choice-card:not(.alt-card):hover .btn-choice-go {
+      background-color: var(--turquesa);
+      box-shadow: 0 0 10px rgba(53, 184, 184, 0.4);
+    }
+
+    .modal-choice-card.alt-card .btn-choice-go {
+      background-color: var(--azul-marino);
+      color: var(--white);
+    }
+
+    .modal-choice-card.alt-card:hover .btn-choice-go {
+      background-color: var(--terracota);
+      box-shadow: 0 0 10px rgba(217, 122, 93, 0.4);
+    }
+
+    /* ---------------------------------------------------- */
+    /* OVERLAY DE LOADING / ÉXITO */
+    /* ---------------------------------------------------- */
+    .success-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--white);
+      z-index: 50;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 3rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .success-overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .spinner-ring {
+      width: 60px;
+      height: 60px;
+      border: 4px solid var(--blanco-humo);
+      border-top: 4px solid var(--turquesa);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-bottom: 1.5rem;
+    }
+
+    .success-check-badge {
+      width: 72px;
+      height: 72px;
+      background-color: rgba(53, 184, 184, 0.1);
+      border-radius: 50%;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      color: var(--turquesa);
+      font-size: 2.2rem;
+      margin-bottom: 1.5rem;
+      transform: scale(0.6);
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .success-overlay.show-check .spinner-ring {
+      display: none;
+    }
+
+    .success-overlay.show-check .success-check-badge {
+      display: flex;
+      transform: scale(1);
+    }
+
+    .success-title {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--azul-marino);
+      margin-bottom: 0.5rem;
+      text-align: center;
+    }
+
+    .success-subtitle {
+      font-size: 0.85rem;
+      color: var(--gris-azulado);
+      font-weight: 500;
+      text-align: center;
+    }
+
+    /* ---------------------------------------------------- */
+    /* ANIMACIONES Y ADAPTACIONES */
+    /* ---------------------------------------------------- */
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @keyframes pulse-dot {
+      0% { transform: scale(0.9); opacity: 0.5; }
+      50% { transform: scale(1.2); opacity: 1; }
+      100% { transform: scale(0.9); opacity: 0.5; }
+    }
+
+    @keyframes modalOpenGlow {
+      from {
+        box-shadow: 0 10px 25px -5px rgba(11, 35, 69, 0.08), 0 0 10px rgba(53, 184, 184, 0.05);
+      }
+      to {
+        box-shadow: 0 20px 45px -10px rgba(11, 35, 69, 0.15), 0 0 25px rgba(53, 184, 184, 0.15);
+      }
+    }
+
+    /* RESPONSIVO PARA TABLET Y MÓVIL */
+    @media (max-width: 992px) {
+      body {
+        align-items: flex-start;
+        padding: 1rem 0;
+      }
+      .auth-wrapper {
+        flex-direction: column;
+        min-height: auto;
+        margin: 1rem;
+        border-radius: 20px;
+      }
+      .branding-panel {
+        padding: 3rem 2.5rem;
+        flex: auto;
+      }
+      .form-panel {
+        padding: 3rem 2.5rem;
+        flex: auto;
+      }
+      .branding-panel::after {
+        display: none;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .branding-panel {
+        padding: 2.5rem 1.5rem;
+      }
+      .form-panel {
+        padding: 2.5rem 1.5rem;
+      }
+      .brand-title {
+        font-size: 1.8rem;
+      }
+      .brand-slogan {
+        font-size: 1rem;
+      }
+      .modal-choices-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+      .modal-container {
+        padding: 2rem 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- CAPA DE FONDO CON RENDER DE DATA -->
+  <div class="bg-grid-overlay"></div>
+
+  <!-- CONTENEDOR CENTRAL DE AUTENTICACIÓN -->
+  <div class="auth-wrapper">
+    
+    <!-- PANTALLA DE REDIRECCIÓN EN PROGRESO (EXCLUSIVA) -->
+    <div class="success-overlay" id="lbl-success-overlay">
+      <div class="spinner-ring" id="lbl-overlay-spinner"></div>
+      <div class="success-check-badge" id="lbl-overlay-badge">✓</div>
+      <h3 class="success-title" id="lbl-overlay-title">Verificando Credenciales</h3>
+      <p class="success-subtitle" id="lbl-overlay-subtitle">Conectando de forma segura con el servidor...</p>
+    </div>
+
+    <!-- ================================================== -->
+    <!-- PANEL IZQUIERDO: COMUNICACIÓN DE PRODUCTO Y DATOS  -->
+    <!-- ================================================== -->
+    <div class="branding-panel">
+      
+      <!-- Bloque de Cabecera -->
+      <div class="branding-header">
+        <div class="mother-brand">
+          <svg class="findings-mini-logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <g stroke-width="8" stroke-linecap="round" opacity="0.9">
+              <line x1="52.6" y1="15.0" x2="25.0" y2="40.0" stroke="#35B8B8" />
+              <line x1="25.0" y1="40.0" x2="35.0" y2="80.0" stroke="#35B8B8" />
+              <line x1="35.0" y1="80.0" x2="75.0" y2="85.0" stroke="#FFFFFF" />
+              <line x1="75.0" y1="85.0" x2="85.0" y2="45.0" stroke="#FFFFFF" />
+              <line x1="85.0" y1="45.0" x2="52.6" y2="15.0" stroke="#2F7FBF" />
+              <line x1="45.0" y1="50.0" x2="52.6" y2="15.0" stroke="#35B8B8" />
+            </g>
+            <circle cx="52.6" cy="15.0" r="12" fill="#35B8B8" />
+            <circle cx="25.0" cy="40.0" r="10" fill="#35B8B8" />
+            <circle cx="35.0" cy="80.0" r="10" fill="#2F7FBF" />
+            <circle cx="75.0" cy="85.0" r="12" fill="#FFFFFF" />
+            <circle cx="85.0" cy="45.0" r="11" fill="#FFFFFF" />
+            <circle cx="45.0" cy="50.0" r="14" fill="#2F7FBF" />
+          </svg>
+          The FI-ndings presenta
+        </div>
+        
+        <div class="brand-title-block">
+          <!-- Logo Exclusivo ValoraCasa -->
+          <svg class="brand-logo-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <g stroke-width="3" stroke-linecap="round" opacity="0.85">
+              <line x1="52.6" y1="8.6" x2="29.5" y2="24.7" stroke="#35B8B8" />
+              <line x1="29.5" y1="24.7" x2="8.2" y2="40.2" stroke="#35B8B8" />
+              <line x1="8.2" y1="40.2" x2="11.9" y2="63.9" stroke="#35B8B8" />
+              <line x1="11.9" y1="63.9" x2="14.7" y2="87.5" stroke="#FFFFFF" />
+              <line x1="14.7" y1="87.5" x2="40.4" y2="85.5" stroke="#FFFFFF" />
+              <line x1="40.4" y1="85.5" x2="68.6" y2="91.7" stroke="#FFFFFF" />
+              <line x1="68.6" y1="91.7" x2="88.8" y2="90.6" stroke="#2F7FBF" />
+              <line x1="88.8" y1="90.6" x2="89.2" y2="73.0" stroke="#2F7FBF" />
+              <line x1="89.2" y1="73.0" x2="92.1" y2="40.9" stroke="#2F7FBF" />
+              <line x1="92.1" y1="40.9" x2="78.2" y2="23.5" stroke="#2F7FBF" />
+              <line x1="78.2" y1="23.5" x2="52.6" y2="8.6" stroke="#35B8B8" />
+              <line x1="42.2" y1="56.4" x2="8.2" y2="40.2" stroke="#35B8B8" />
+              <line x1="42.2" y1="56.4" x2="89.2" y2="73.0" stroke="#2F7FBF" />
+            </g>
+            <circle cx="52.6" cy="8.6" r="8" fill="#35B8B8" />
+            <circle cx="29.5" cy="24.7" r="6" fill="#35B8B8" />
+            <circle cx="8.2" cy="40.2" r="9" fill="#35B8B8" />
+            <circle cx="42.2" cy="56.4" r="11" fill="#2F7FBF" />
+            <circle cx="89.2" cy="73.0" r="7" fill="#2F7FBF" />
+            <circle cx="14.7" cy="87.5" r="10" fill="#FFFFFF" />
+            <circle cx="68.6" cy="91.7" r="9" fill="#FFFFFF" />
+          </svg>
+          <h2 class="brand-title">Valora<span>Casa</span></h2>
+        </div>
+        <p class="brand-slogan">Menos intuición, más información. 
+</p>
+      </div>
+
+      <!-- Niveles de Acceso Explicativos -->
+      <div class="access-levels-container">
+        <!-- 1. Individual -->
+        <div class="access-level-card">
+          <div class="card-icon-box">🏠</div>
+          <div class="card-info">
+            <h4>Acceso Individual</h4>
+            <p>Para rentar o poner en renta una vivienda de forma ágil y rápida.</p>
+          </div>
+        </div>
+        
+        <!-- 2. Profesional -->
+        <div class="access-level-card">
+          <div class="card-icon-box">💼</div>
+          <div class="card-info">
+            <h4>Acceso Profesional</h4>
+            <p>Para asesores independientes, inmobiliarias, despachos y administradores de propiedades.</p>
+          </div>
+        </div>
+        
+        <!-- 3. Institucional -->
+        <div class="access-level-card">
+          <div class="card-icon-box">🏛️</div>
+          <div class="card-info">
+            <h4>Acceso Institucional</h4>
+            <p>Para análisis, investigación, instituciones públicas o centros de análisis espacial.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bloque de Pie de Página -->
+      <div class="branding-footer">
+        <div class="disclaimer-box">
+          <span class="disclaimer-icon">⚠️</span>
+          <span class="disclaimer-text">Referencia analítica, no avalúo profesional.</span>
+        </div>
+        <div class="findings-slogan-block">
+          <span>The FI-ndings © 2026</span>
+          <span style="font-style: italic;">Del dato al valor
+</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================================================== -->
+    <!-- PANEL DERECHO: FORMULARIOS TABS Y ACCIONES        -->
+    <!-- ================================================== -->
+    <div class="form-panel">
+      
+      <!-- Cabecera de Formulario -->
+      <div class="form-header">
+        <!-- Tabs deslizantes de navegación -->
+        <div class="tab-container" id="lbl-tab-container">
+          <div class="tab-slider" id="lbl-tab-slider"></div>
+          <button class="tab-btn active" id="tab-login-btn" onclick="switchTab('login')">Iniciar Sesión</button>
+          <button class="tab-btn" id="tab-register-btn" onclick="switchTab('register')">Crear Cuenta</button>
+        </div>
+        
+        <p style="font-size: 0.8rem; color: var(--gris-azulado); text-align: center; font-weight: 500;" id="form-subtext">
+          Accede a tus estimaciones, reportes y herramientas de análisis inmobiliario.
+        </p>
+      </div>
+
+      <!-- Contenedor dinámico de formularios -->
+      <div class="form-content-wrapper">
+        
+        <!-- ================================================== -->
+        <!-- FORMULARIO 1: INICIAR SESIÓN                       -->
+        <!-- ================================================== -->
+        <form class="form-section active" id="form-login" onsubmit="handleFormSubmit(event, 'login')">
+          
+          <!-- Correo Electrónico -->
+          <div class="input-group">
+            <label class="input-label" for="login_email">Correo Electrónico</label>
+            <div class="input-container">
+              <input type="email" id="login_email" class="input-control" placeholder="nombre@ejemplo.com" required />
+              <span class="input-icon">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                  <polyline points="22,6 12,13 2,6"/>
+                </svg>
+              </span>
+            </div>
+          </div>
+
+          <!-- Contraseña -->
+          <div class="input-group">
+            <div class="input-label">
+              <span>Contraseña</span>
+              <a href="#" class="forgot-link" onclick="triggerToast('Solicitud de recuperación de contraseña enviada a tu correo.')">¿Olvidaste tu contraseña?</a>
+            </div>
+            <div class="input-container">
+              <input type="password" id="login_pass" class="input-control" placeholder="••••••••" required />
+              <span class="input-icon">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                </svg>
+              </span>
+              <button type="button" class="btn-toggle-password" onclick="togglePasswordVisibility('login_pass')">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" class="eye-icon">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                  <circle cx="12" cy="12" r="3"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Botón de Envío -->
+          <button type="submit" class="btn-submit-action">
+            Iniciar Sesión
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </button>
+
+          <!-- Link secundario para Crear Cuenta -->
+          <div style="text-align: center; margin-top: 1rem;">
+            <a href="#" class="forgot-link" onclick="switchTab('register'); return false;" style="align-self: center; font-size: 0.8rem; text-decoration: none;">
+              ¿No tienes una cuenta? <span style="color: var(--turquesa); font-weight: 700;">Crear cuenta gratis</span>
+            </a>
+          </div>
+        </form>
+
+        <!-- ================================================== -->
+        <!-- FORMULARIO 2: CREAR CUENTA                         -->
+        <!-- ================================================== -->
+        <form class="form-section" id="form-register" onsubmit="handleFormSubmit(event, 'register')">
+          
+          <!-- Nombre Completo -->
+          <div class="input-group">
+            <label class="input-label" for="reg_nombre">Nombre Completo</label>
+            <div class="input-container">
+              <input type="text" id="reg_nombre" class="input-control" placeholder="Ej. Ana Gómez" required />
+              <span class="input-icon">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                  <circle cx="12" cy="7" r="4"/>
+                </svg>
+              </span>
+            </div>
+          </div>
+
+          <!-- Correo Electrónico -->
+          <div class="input-group">
+            <label class="input-label" for="reg_email">Correo Electrónico</label>
+            <div class="input-container">
+              <input type="email" id="reg_email" class="input-control" placeholder="correo@ejemplo.com" required />
+              <span class="input-icon">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                  <polyline points="22,6 12,13 2,6"/>
+                </svg>
+              </span>
+            </div>
+          </div>
+
+          <!-- Contraseña -->
+          <div class="input-group">
+            <label class="input-label" for="reg_pass">Contraseña</label>
+            <div class="input-container">
+              <input type="password" id="reg_pass" class="input-control" placeholder="Mínimo 8 caracteres" required minlength="8" />
+              <span class="input-icon">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                </svg>
+              </span>
+              <button type="button" class="btn-toggle-password" onclick="togglePasswordVisibility('reg_pass')">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                  <circle cx="12" cy="12" r="3"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Confirmar Contraseña -->
+          <div class="input-group">
+            <label class="input-label" for="reg_pass_conf">Confirmar Contraseña</label>
+            <div class="input-container">
+              <input type="password" id="reg_pass_conf" class="input-control" placeholder="Repite tu contraseña" required />
+              <span class="input-icon">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                </svg>
+              </span>
+            </div>
+          </div>
+
+          <!-- Selección del Tipo de Cuenta (Muy Importante) -->
+          <div class="input-group">
+            <label class="input-label" for="reg_tipo_cuenta">Tipo de Cuenta</label>
+            <div class="select-container">
+              <select id="reg_tipo_cuenta" class="select-control" onchange="updateProfileOptions()" required>
+                <option value="individual" selected>Usuario individual</option>
+                <option value="profesional">Profesional inmobiliario</option>
+                <option value="institucional">Institucional</option>
+              </select>
+              <span class="input-icon">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                  <circle cx="9" cy="7" r="4"/>
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                </svg>
+              </span>
+              <span class="select-arrow">▼</span>
+            </div>
+          </div>
+
+          <!-- Selección del Perfil (Dinámico) -->
+          <div class="input-group">
+            <label class="input-label" for="reg_perfil">Perfil de Usuario</label>
+            <div class="select-container">
+              <select id="reg_perfil" class="select-control" required>
+                <!-- Opciones dinámicas cargadas por JS -->
+              </select>
+              <span class="input-icon">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                  <polyline points="14 2 14 8 20 8"/>
+                  <line x1="16" y1="13" x2="8" y2="13"/>
+                  <line x1="16" y1="17" x2="8" y2="17"/>
+                  <polyline points="10 9 9 9 8 9"/>
+                </svg>
+              </span>
+              <span class="select-arrow">▼</span>
+            </div>
+          </div>
+
+          <!-- Botón de Registro -->
+          <button type="submit" class="btn-submit-action">
+            Crear Cuenta
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+              <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/>
+            </svg>
+          </button>
+          
+          <p class="register-footer-text">
+            Comienza con acceso básico y escala a funciones avanzadas según tus necesidades.
+          </p>
+        </form>
+
+      </div>
+
+      <!-- Acceso Demo / Exploración Rápida -->
+      <div class="demo-button-wrapper">
+        <div class="demo-divider">Modo Demostración Académica</div>
+        <button class="btn-demo-link" onclick="openDemoModal()">
+          🔑 Acceso Demo / Explorar Plataforma
+        </button>
+      </div>
+
+      <!-- Créditos Marca Madre -->
+      <div class="form-panel-footer">
+        <a href="index.html" class="findings-logo-block">
+          <svg class="findings-footer-logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <g stroke-width="10" stroke-linecap="round">
+              <line x1="52.6" y1="15.0" x2="25.0" y2="40.0" stroke="#35B8B8" />
+              <line x1="25.0" y1="40.0" x2="35.0" y2="80.0" stroke="#35B8B8" />
+              <line x1="35.0" y1="80.0" x2="75.0" y2="85.0" stroke="#0B2345" />
+              <line x1="75.0" y1="85.0" x2="85.0" y2="45.0" stroke="#0B2345" />
+              <line x1="85.0" y1="45.0" x2="52.6" y2="15.0" stroke="#2F7FBF" />
+              <line x1="45.0" y1="50.0" x2="52.6" y2="15.0" stroke="#35B8B8" />
+            </g>
+            <circle cx="52.6" cy="15.0" r="14" fill="#35B8B8" />
+            <circle cx="25.0" cy="40.0" r="12" fill="#35B8B8" />
+            <circle cx="35.0" cy="80.0" r="12" fill="#2F7FBF" />
+            <circle cx="75.0" cy="85.0" r="14" fill="#0B2345" />
+            <circle cx="85.0" cy="45.0" r="13" fill="#0B2345" />
+            <circle cx="45.0" cy="50.0" r="16" fill="#2F7FBF" />
+          </svg>
+          <span class="findings-footer-text">The FI-ndings</span>
+        </a>
+        <span class="findings-footer-slogan">“Convertimos datos en decisiones.”</span>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- ================================================== -->
+  <!-- MODAL SECTOR DE CAPAS: EXPLORACIÓN DIRECTA         -->
+  <!-- ================================================== -->
+  <div class="modal-overlay" id="lbl-demo-modal">
+    <div class="modal-container">
+      <button class="modal-close-btn" onclick="closeDemoModal()">✕</button>
+      
+      <div class="modal-header">
+        <div class="modal-badge">
+          <span class="modal-badge-dot"></span>
+          ENTORNO DE DEMOSTRACIÓN ACTIVO
+        </div>
+        <h4 class="modal-title">Explorar ValoraCasa</h4>
+        <p class="modal-desc">
+          Esta plataforma académica está segmentada en dos capas funcionales optimizadas según perfiles de uso. Selecciona el entorno que deseas explorar:
+        </p>
+      </div>
+
+      <div class="modal-choices-grid">
+        <!-- Tarjeta Capa 1 -->
+        <div class="modal-choice-card" onclick="redirectWithLoader('usuariofinal.html', 'Accediendo al Portal de Simulación...')">
+          <div>
+            <span class="choice-header-icon">🏠</span>
+            <span class="choice-tagline">Capa 1 · Comercial</span>
+            <h5 class="choice-title">Usuario Final</h5>
+            <p class="choice-desc">
+              Simulador referencial de rentas ideal para propietarios, inquilinos e intermediarios inmobiliarios.
+            </p>
+          </div>
+          <button class="btn-choice-go">
+            Explorar Capa 1
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Tarjeta Capa 2 -->
+        <div class="modal-choice-card alt-card" onclick="redirectWithLoader('consola.html', 'Accediendo al Centro Analítico de Datos...')">
+          <div>
+            <span class="choice-header-icon">📊</span>
+            <span class="choice-tagline">Capa 2 · Técnica</span>
+            <h5 class="choice-title">Centro Analítico</h5>
+            <p class="choice-desc">
+              Consola estadística, visualización del pipeline con XGBoost, análisis de la ENIGH y Power BI Gateway.
+            </p>
+          </div>
+          <button class="btn-choice-go">
+            Explorar Capa 2
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SCRIPTS Y LÓGICA DINÁMICA DE USUARIO -->
+  <script>
+    // DEFINICIÓN DE PERFILES SEGÚN EL TIPO DE CUENTA
+    const perfilesData = {
+      individual: [
+        { value: 'interesado', label: 'Persona interesada en rentar' },
+        { value: 'propietario', label: 'Propietario' }
+      ],
+      profesional: [
+        { value: 'asesor', label: 'Asesor inmobiliario' },
+        { value: 'inmobiliaria', label: 'Inmobiliaria / despacho' },
+        { value: 'administrador', label: 'Administrador de propiedades' },
+        { value: 'desarrollador', label: 'Desarrollador / inversionista' }
+      ],
+      institucional: [
+        { value: 'educacion', label: 'Institución educativa' },
+        { value: 'publica', label: 'Institución pública' },
+        { value: 'investigacion', label: 'Centro de investigación' }
+      ]
+    };
+
+    // CONTROL DE VISIBILIDAD DE CONTRASEÑA
+    function togglePasswordVisibility(inputId) {
+      const input = document.getElementById(inputId);
+      if (input.type === 'password') {
+        input.type = 'text';
+      } else {
+        input.type = 'password';
+      }
+    }
+
+    // ACTUALIZACIÓN DINÁMICA DEL SELECTOR DE PERFILES
+    function updateProfileOptions() {
+      const tipoCuentaSelect = document.getElementById('reg_tipo_cuenta');
+      const perfilSelect = document.getElementById('reg_perfil');
+      const selectedTipo = tipoCuentaSelect.value;
+      
+      // Limpiar opciones previas
+      perfilSelect.innerHTML = '';
+      
+      // Cargar nuevos perfiles correspondientes
+      const perfiles = perfilesData[selectedTipo];
+      perfiles.forEach(perf => {
+        const option = document.createElement('option');
+        option.value = perf.value;
+        option.textContent = perf.label;
+        perfilSelect.appendChild(option);
+      });
+    }
+
+    // CONTROL DE TABS (INICIAR SESIÓN / REGISTRO)
+    function switchTab(tabName) {
+      const tabContainer = document.getElementById('lbl-tab-container');
+      const loginBtn = document.getElementById('tab-login-btn');
+      const registerBtn = document.getElementById('tab-register-btn');
+      const formLogin = document.getElementById('form-login');
+      const formRegister = document.getElementById('form-register');
+      const subtext = document.getElementById('form-subtext');
+
+      if (tabName === 'login') {
+        tabContainer.classList.remove('register-active');
+        loginBtn.classList.add('active');
+        registerBtn.classList.remove('active');
+        formLogin.classList.add('active');
+        formRegister.classList.remove('active');
+        subtext.innerText = "Accede a tus estimaciones, reportes y herramientas de análisis inmobiliario.";
+      } else {
+        tabContainer.classList.add('register-active');
+        loginBtn.classList.remove('active');
+        registerBtn.classList.add('active');
+        formLogin.classList.remove('active');
+        formRegister.classList.add('active');
+        subtext.innerText = "Crea una cuenta en segundos para registrar estimaciones y descargar reportes completos.";
+      }
+    }
+
+    // CONTROL DEL MODAL DE ACCESO DIRECTO DEMO
+    function openDemoModal() {
+      document.getElementById('lbl-demo-modal').classList.add('active');
+    }
+
+    function closeDemoModal() {
+      document.getElementById('lbl-demo-modal').classList.remove('active');
+    }
+
+    // SIMULACIÓN DE REDIRECCIONAMIENTO CON ANIMACIÓN DE ENLACE DE DATOS
+    function redirectWithLoader(url, message) {
+      closeDemoModal();
+      const overlay = document.getElementById('lbl-success-overlay');
+      const title = document.getElementById('lbl-overlay-title');
+      const subtitle = document.getElementById('lbl-overlay-subtitle');
+      const spinner = document.getElementById('lbl-overlay-spinner');
+      const badge = document.getElementById('lbl-overlay-badge');
+
+      overlay.classList.add('active');
+      title.innerText = "Estableciendo Conexión de Datos";
+      subtitle.innerText = message;
+
+      setTimeout(() => {
+        overlay.classList.add('show-check');
+        title.innerText = "Acceso Autorizado";
+        subtitle.innerText = "Redireccionando de forma segura...";
+        
+        setTimeout(() => {
+          window.location.href = url;
+        }, 1000);
+      }, 1800);
+    }
+
+    // CONTROL DE MENSAJES TEMPORALES (TOAST / AVISO)
+    function triggerToast(message) {
+      alert(message);
+    }
+
+    // CONTROL DE ENVÍO DE FORMULARIOS CON VALIDACIÓN Y REDIRECCIÓN INTELIGENTE
+    function handleFormSubmit(event, type) {
+      event.preventDefault();
+      
+      const overlay = document.getElementById('lbl-success-overlay');
+      const title = document.getElementById('lbl-overlay-title');
+      const subtitle = document.getElementById('lbl-overlay-subtitle');
+      
+      // Mostrar overlay de carga predictiva
+      overlay.classList.remove('show-check');
+      overlay.classList.add('active');
+      
+      if (type === 'login') {
+        const email = document.getElementById('login_email').value;
+        title.innerText = "Autenticando Identidad";
+        subtitle.innerText = `Sincronizando sesión para ${email}...`;
+        
+        // Simular éxito y redirección inteligente según contexto de datos
+        setTimeout(() => {
+          overlay.classList.add('show-check');
+          title.innerText = "Sesión Iniciada Exitosamente";
+          subtitle.innerText = "Cargando tus credenciales de negocio...";
+          
+          setTimeout(() => {
+            // Mandamos al portal selector index.html
+            window.location.href = 'index.html';
+          }, 1200);
+        }, 2000);
+        
+      } else {
+        const nombre = document.getElementById('reg_nombre').value;
+        const tipoCuenta = document.getElementById('reg_tipo_cuenta').value;
+        title.innerText = "Procesando Registro";
+        subtitle.innerText = `Creando cuenta de perfil ${tipoCuenta} para ${nombre}...`;
+        
+        // Redirección inteligente basada en el tipo de cuenta creada
+        setTimeout(() => {
+          overlay.classList.add('show-check');
+          title.innerText = "Cuenta Creada Exitosamente";
+          
+          let targetUrl = 'usuariofinal.html';
+          if (tipoCuenta === 'individual') {
+            subtitle.innerText = "Redireccionando al Simulador Habitacional...";
+            targetUrl = 'usuariofinal.html';
+          } else {
+            subtitle.innerText = "Redireccionando a la Consola Técnica de Ciencia de Datos...";
+            targetUrl = 'consola.html';
+          }
+          
+          setTimeout(() => {
+            window.location.href = targetUrl;
+          }, 1500);
+        }, 2200);
+      }
+    }
+
+    // Inicializar selectores dinámicos al iniciar la carga
+    window.addEventListener('DOMContentLoaded', () => {
+      updateProfileOptions();
+    });
+  </script>
+</body>
+</html>

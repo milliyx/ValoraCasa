@@ -13,6 +13,620 @@
   
   <!-- Estilos Personalizados Premium -->
   <link rel="stylesheet" href="style.css?v=7" />
+
+  <!-- Estilos del FAQ, Contacto y Chatbot -->
+  <style>
+    /* SECCIÓN DE SOPORTE E INFORMACIÓN (FAQ & CONTACTO) */
+    .support-grid-section {
+      margin: 4rem auto 5rem auto;
+      max-width: 1200px;
+      padding: 0 1.5rem;
+      position: relative;
+      z-index: 5;
+    }
+
+    .support-container {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .faq-column {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .section-title {
+      font-size: 1.7rem;
+      font-weight: 800;
+      color: var(--azul-marino);
+      margin-bottom: 1.8rem;
+      letter-spacing: -0.02em;
+      position: relative;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -0.5rem;
+      left: 0;
+      width: 40px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--turquesa), var(--azul-medio));
+      border-radius: 2px;
+    }
+
+    /* ACORDEÓN DE PREGUNTAS FRECUENTES */
+    .accordion-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+    }
+
+    .accordion-item {
+      background: var(--white);
+      border: 1px solid rgba(11, 35, 69, 0.05);
+      border-radius: 12px;
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+      transition: var(--transition-smooth);
+    }
+
+    .accordion-item:hover {
+      border-color: rgba(53, 184, 184, 0.15);
+      box-shadow: 0 4px 15px rgba(11, 35, 69, 0.02);
+    }
+
+    .accordion-header {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.15rem 1.4rem;
+      background: none;
+      border: none;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--azul-marino);
+      cursor: pointer;
+      text-align: left;
+      transition: var(--transition-smooth);
+      outline: none;
+    }
+
+    .accordion-header:hover {
+      color: var(--turquesa);
+    }
+
+    .accordion-icon {
+      font-size: 0.7rem;
+      color: var(--azul-medio);
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      opacity: 0.8;
+    }
+
+    .accordion-content {
+      max-height: 0;
+      overflow: hidden;
+      padding: 0 1.4rem;
+      transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), padding 0.35s ease;
+    }
+
+    .accordion-content p {
+      font-size: 0.8rem;
+      color: var(--gris-azulado);
+      line-height: 1.55;
+      font-weight: 500;
+      padding-bottom: 1.15rem;
+    }
+
+    /* Estado Activo Acordeón */
+    .accordion-item.active {
+      border-color: rgba(53, 184, 184, 0.25);
+      box-shadow: 0 6px 20px rgba(11, 35, 69, 0.03);
+    }
+
+    .accordion-item.active .accordion-icon {
+      transform: rotate(180deg);
+      color: var(--turquesa);
+    }
+
+    .accordion-item.active .accordion-content {
+      max-height: 250px;
+    }
+
+    /* TARJETA DE FORMULARIO DE CONTACTO GLASSMORPHIC */
+    .contact-column {
+      position: relative;
+    }
+
+    .contact-card {
+      background: var(--white);
+      border: 1px solid rgba(11, 35, 69, 0.05);
+      border-radius: 20px;
+      padding: 2.2rem;
+      box-shadow: var(--shadow-md);
+      position: relative;
+      overflow: hidden;
+      transition: var(--transition-smooth);
+    }
+
+    .contact-card:hover {
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-2px);
+    }
+
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--azul-marino);
+      margin-bottom: 0.4rem;
+      letter-spacing: -0.01em;
+    }
+
+    .card-subtitle {
+      font-size: 0.78rem;
+      color: var(--gris-azulado);
+      margin-bottom: 1.6rem;
+      font-weight: 500;
+      line-height: 1.4;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      margin-bottom: 1rem;
+    }
+
+    .form-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--gris-azulado);
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 0.8rem 1.1rem;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--azul-marino);
+      background: var(--blanco-humo);
+      border: 1.5px solid rgba(11, 35, 69, 0.04);
+      border-radius: 10px;
+      outline: none;
+      transition: var(--transition-smooth);
+    }
+
+    .form-control:focus {
+      background: var(--white);
+      border-color: var(--turquesa);
+      box-shadow: 0 0 0 3px rgba(53, 184, 184, 0.06);
+    }
+
+    .form-select {
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%23475569' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: calc(100% - 1.1rem) center;
+      background-size: 10px;
+      cursor: pointer;
+    }
+
+    .form-textarea {
+      resize: none;
+      height: 90px;
+    }
+
+    .btn-contact-submit {
+      width: 100%;
+      background: linear-gradient(135deg, var(--turquesa) 0%, var(--azul-medio) 100%);
+      color: var(--white);
+      border: none;
+      padding: 0.9rem;
+      border-radius: 10px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+      box-shadow: 0 4px 12px rgba(53, 184, 184, 0.15);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .btn-contact-submit:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(53, 184, 184, 0.25);
+    }
+
+    .btn-contact-submit:active {
+      transform: translateY(0);
+    }
+
+    /* CAPA DE ÉXITO EN EL FORMULARIO */
+    .contact-success-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--white);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2.2rem;
+      text-align: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 10;
+    }
+
+    .contact-success-overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .success-circle {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: rgba(53, 184, 184, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--turquesa);
+      font-size: 1.8rem;
+      margin-bottom: 1.2rem;
+      animation: scaleUpSuccess 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .success-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--azul-marino);
+      margin-bottom: 0.4rem;
+    }
+
+    .success-desc {
+      font-size: 0.8rem;
+      color: var(--gris-azulado);
+      line-height: 1.45;
+      font-weight: 500;
+    }
+
+    /* WIDGET DEL CHATBOT VIRTUAL ASISTENTE (VALORABOT) */
+    .chatbot-widget {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 999;
+    }
+
+    .chatbot-trigger {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--turquesa) 0%, var(--azul-medio) 100%);
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 8px 24px rgba(53, 184, 184, 0.3);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: var(--transition-smooth);
+      position: relative;
+      z-index: 1000;
+      outline: none;
+      animation: floatTrigger 4s ease-in-out infinite;
+    }
+
+    .chatbot-trigger:hover {
+      transform: scale(1.08) translateY(-2px);
+      box-shadow: 0 12px 30px rgba(53, 184, 184, 0.45);
+    }
+
+    .chat-icon {
+      font-size: 1.6rem;
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .chat-badge {
+      position: absolute;
+      top: -2px;
+      right: -2px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--terracota);
+      border: 2px solid var(--white);
+      color: var(--white);
+      font-size: 0.65rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: pulseBadge 1.8s infinite;
+    }
+
+    /* PANEL DE CONVERSACIÓN DEL CHAT */
+    .chat-panel {
+      position: absolute;
+      bottom: 4.8rem;
+      right: 0;
+      width: 360px;
+      height: 480px;
+      background: var(--white);
+      border-radius: 20px;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid rgba(11, 35, 69, 0.08);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transform: scale(0.8) translateY(30px);
+      opacity: 0;
+      pointer-events: none;
+      transform-origin: bottom right;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .chat-panel.active {
+      transform: scale(1) translateY(0);
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .chat-header {
+      background: var(--azul-marino);
+      color: var(--white);
+      padding: 1rem 1.25rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .chat-bot-info {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .chat-status-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--turquesa);
+      border-radius: 50%;
+      display: inline-block;
+      animation: pulseDotGreen 1.5s infinite;
+    }
+
+    .chat-bot-name {
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .chat-minimize-btn {
+      background: none;
+      border: none;
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+    }
+
+    .chat-minimize-btn:hover {
+      color: var(--white);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    /* HISTORIAL Y DIÁLOGO */
+    .chat-messages {
+      flex-grow: 1;
+      padding: 1.2rem;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      background: var(--blanco-humo);
+    }
+
+    .chat-bubble {
+      max-width: 82%;
+      padding: 0.7rem 0.9rem;
+      border-radius: 14px;
+      font-size: 0.78rem;
+      font-weight: 500;
+      line-height: 1.4;
+      word-wrap: break-word;
+    }
+
+    .chat-bubble.bot {
+      background: var(--white);
+      color: var(--azul-marino);
+      align-self: flex-start;
+      border-bottom-left-radius: 4px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid rgba(11, 35, 69, 0.03);
+    }
+
+    .chat-bubble.user {
+      background: linear-gradient(135deg, var(--turquesa) 0%, var(--azul-medio) 100%);
+      color: var(--white);
+      align-self: flex-end;
+      border-bottom-right-radius: 4px;
+      box-shadow: 0 3px 10px rgba(53, 184, 184, 0.12);
+    }
+
+    .chat-bubble.typing {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 0.7rem 1rem;
+    }
+
+    .typing-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--gris-azulado);
+      border-radius: 50%;
+      opacity: 0.4;
+      animation: typingBounce 1.4s infinite both;
+    }
+
+    .typing-dot:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    .typing-dot:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+
+    /* BURBUJAS DE SUGERENCIA */
+    .chat-suggestions {
+      padding: 0.65rem 0.85rem;
+      background: var(--white);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      border-top: 1px solid rgba(11, 35, 69, 0.04);
+    }
+
+    .suggestion-btn {
+      background: var(--blanco-humo);
+      border: 1px solid rgba(11, 35, 69, 0.06);
+      padding: 0.4rem 0.65rem;
+      border-radius: 12px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: var(--azul-medio);
+      cursor: pointer;
+      transition: var(--transition-smooth);
+    }
+
+    .suggestion-btn:hover {
+      background: rgba(53, 184, 184, 0.08);
+      border-color: var(--turquesa);
+      color: var(--turquesa);
+    }
+
+    /* ENTRADA DE TEXTO */
+    .chat-input-form {
+      padding: 0.75rem 1rem;
+      background: var(--white);
+      border-top: 1px solid rgba(11, 35, 69, 0.06);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .chat-input-form input {
+      flex-grow: 1;
+      border: none;
+      outline: none;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--azul-marino);
+      padding: 0.4rem 0;
+    }
+
+    .chat-input-form input::placeholder {
+      color: var(--gris-azulado);
+      opacity: 0.6;
+    }
+
+    .chat-send-btn {
+      background: none;
+      border: none;
+      color: var(--turquesa);
+      font-size: 1.05rem;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+    }
+
+    .chat-send-btn:hover {
+      color: var(--azul-medio);
+      background: var(--blanco-humo);
+    }
+
+    /* KEYFRAMES & ANIMACIONES */
+    @keyframes scaleUpSuccess {
+      from { transform: scale(0.7); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes floatTrigger {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+      100% { transform: translateY(0); }
+    }
+
+    @keyframes pulseBadge {
+      0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(217, 122, 93, 0.6); }
+      70% { transform: scale(1.1); box-shadow: 0 0 0 6px rgba(217, 122, 93, 0); }
+      100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(217, 122, 93, 0); }
+    }
+
+    @keyframes pulseDotGreen {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.25); opacity: 0.7; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes typingBounce {
+      0%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-4px); }
+    }
+
+    /* RESPONSIVIDAD GENERAL */
+    @media (max-width: 991px) {
+      .support-container {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .support-grid-section {
+        margin: 3rem auto;
+      }
+      .chat-panel {
+        width: calc(100vw - 3rem);
+        height: 420px;
+        right: -0.5rem;
+      }
+    }
+  </style>
 </head>
 <body>
 
@@ -112,7 +726,7 @@
           <a href="#insights" class="nav-link">Casos de Estudio</a>
           <a href="#insights" class="nav-link">Sobre Nosotros</a>
         </nav>
-        <a href="consola.html" class="btn-login-pill">INICIAR SESIÓN</a>
+        <a href="login.html" class="btn-login-pill">INICIAR SESIÓN</a>
       </div>
     </div>
   </header>
@@ -684,7 +1298,127 @@
         </div>
       </section>
 
+      <!-- ========================================== -->
+      <!-- SECCIÓN DE SOPORTE E INFORMACIÓN (FAQ & CONTACTO) -->
+      <!-- ========================================== -->
+      <section class="support-grid-section no-print" id="soporte">
+        <div class="support-container">
+          <!-- Columna Izquierda: FAQ Accordion -->
+          <div class="faq-column">
+            <h3 class="section-title">Preguntas Frecuentes</h3>
+            <div class="accordion-group">
+              
+              <!-- Pregunta 1 -->
+              <div class="accordion-item">
+                <button class="accordion-header" onclick="toggleAccordion(this)">
+                  <span>¿Qué es ValoraCasa y para qué sirve?</span>
+                  <span class="accordion-icon">▼</span>
+                </button>
+                <div class="accordion-content">
+                  <p>
+                    ValoraCasa es una plataforma predictiva de ciencia de datos desarrollada por <strong>The FI-ndings</strong>. Su propósito es estimar de forma referencial y ágil las rentas habitacionales en México basándose en información pública oficial y modelos matemáticos avanzados. Es ideal para que propietarios, inquilinos y asesores inmobiliarios entiendan el contexto de precios del mercado de forma clara e intuitiva.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Pregunta 2 -->
+              <div class="accordion-item">
+                <button class="accordion-header" onclick="toggleAccordion(this)">
+                  <span>¿De dónde provienen los datos utilizados?</span>
+                  <span class="accordion-icon">▼</span>
+                </button>
+                <div class="accordion-content">
+                  <p>
+                    Nuestro motor matemático se alimenta de fuentes oficiales públicas y actualizadas de México, principalmente del <strong>INEGI</strong> (incluyendo el Censo de Población y Vivienda y la Encuesta Nacional de Ingresos y Gastos de los Hogares 2024 - ENIGH). Adicionalmente, combinamos esta información con datos abiertos de conectividad vial, servicios locales y cercanía a infraestructura de transporte urbano, procesados rigurosamente por The FI-ndings para reflejar el dinamismo de cada microzona.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Pregunta 3 -->
+              <div class="accordion-item">
+                <button class="accordion-header" onclick="toggleAccordion(this)">
+                  <span>¿Cuál es la precisión de las estimaciones?</span>
+                  <span class="accordion-icon">▼</span>
+                </button>
+                <div class="accordion-content">
+                  <p>
+                    El modelo predictivo core está basado en el algoritmo de machine learning <strong>XGBoost</strong>, logrando una excelente precisión estadística con un Error Absoluto Medio (MAE) promedio de <strong>$838 pesos</strong>. Cabe destacar que las predicciones son altamente confiables en zonas metropolitanas consolidadas; sin embargo, al ser estimaciones matemáticas automatizadas de carácter informativo, deben considerarse una referencia sólida de mercado y no constituyen un avalúo comercial o fiscal formal.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Pregunta 4 -->
+              <div class="accordion-item">
+                <button class="accordion-header" onclick="toggleAccordion(this)">
+                  <span>¿Tiene algún costo utilizar esta plataforma?</span>
+                  <span class="accordion-icon">▼</span>
+                </button>
+                <div class="accordion-content">
+                  <p>
+                    El acceso a la simulación comercial básica (<strong>Capa 1: Portal del Usuario Final</strong>) es completamente gratuito y está disponible para toda la comunidad de propietarios y buscadores de vivienda en México. Para profesionales inmobiliarios, directores de negocio y científicos de datos que requieren validación metodológica, auditoría estadística y descarga masiva de datos (<strong>Capa 2: Centro Analítico de Datos</strong>), ofrecemos planes corporativos bajo esquema de suscripción profesional.
+                  </p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Columna Derecha: Formulario de Contacto Glassmorphic -->
+          <div class="contact-column">
+            <div class="contact-card">
+              <!-- Capa de Éxito del Formulario -->
+              <div class="contact-success-overlay" id="contact-success-overlay">
+                <div class="success-circle">✓</div>
+                <h4 class="success-title">¡Mensaje Recibido!</h4>
+                <p class="success-desc">
+                  Tu solicitud ha sido registrada con éxito en nuestros servidores de ciencia de datos. Un especialista analítico de <strong>The FI-ndings</strong> se pondrá en contacto contigo en breve para dar seguimiento a tu caso.
+                </p>
+              </div>
+
+              <h3 class="card-title">¿Tienes dudas específicas?</h3>
+              <p class="card-subtitle">
+                Escríbenos y un miemThe FI-ndings resolverá tu consulta en menos de 24 horas hábiles.
+              </p>
+
+              <form id="portal-contact-form" onsubmit="handleContactSubmit(event)">
+                <div class="form-group">
+                  <label class="form-label" for="contact-name">Nombre Completo</label>
+                  <input type="text" id="contact-name" class="form-control" placeholder="Ej. Alejandra Gómez" required />
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="contact-email">Correo Electrónico</label>
+                  <input type="email" id="contact-email" class="form-control" placeholder="Ej. alejandra@ejemplo.com" required />
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="contact-profile">Tipo de Perfil</label>
+                  <select id="contact-profile" class="form-control form-select" required>
+                    <option value="" disabled selected>Selecciona tu perfil...</option>
+                    <option value="usuario_individual">Usuario Individual (Propietario / Inquilino)</option>
+                    <option value="asesor_inmobiliario">Asesor Inmobiliario Profesional</option>
+                    <option value="inmobiliaria_desarrollador">Inmobiliaria o Desarrollador</option>
+                    <option value="cientifico_datos">Científico de Datos o Evaluador</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="contact-message">Mensaje o Consulta</label>
+                  <textarea id="contact-message" class="form-control form-textarea" placeholder="Describe brevemente tus dudas sobre la precisión, la metodología o las suscripciones de ValoraCasa..." required></textarea>
+                </div>
+
+                <button type="submit" class="btn-contact-submit" id="btn-contact-submit">
+                  <span>Enviar Consulta</span>
+                  <span style="font-size: 0.9rem;">✉</span>
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+
     </div>
+    
 
   </main>
 
@@ -726,6 +1460,49 @@
       </div>
     </div>
   </footer>
+
+  <!-- ========================================== -->
+  <!-- WIDGET DEL CHATBOT VIRTUAL ASISTENTE (VALORABOT) -->
+  <!-- ========================================== -->
+  <div class="chatbot-widget no-print" id="chatbot-widget">
+    <!-- Botón de apertura flotante -->
+    <button class="chatbot-trigger" id="chatbot-trigger" onclick="toggleChatbot()">
+      <span class="chat-icon">💬</span>
+      <span class="chat-badge" id="chat-badge">1</span>
+    </button>
+
+    <!-- Panel de Conversación -->
+    <div class="chat-panel" id="chat-panel">
+      <!-- Cabecera -->
+      <div class="chat-header">
+        <div class="chat-bot-info">
+          <span class="chat-status-dot"></span>
+          <span class="chat-bot-name">ValoraBot</span>
+        </div>
+        <button class="chat-minimize-btn" onclick="toggleChatbot()">✖</button>
+      </div>
+      
+      <!-- Historial de Mensajes -->
+      <div class="chat-messages" id="chat-messages">
+        <div class="chat-bubble bot">
+          ¡Hola! Soy <strong>ValoraBot</strong>, asistente inteligente de <strong>The FI-ndings</strong>. ¿Te gustaría saber cómo valoramos las viviendas con datos oficiales y machine learning?
+        </div>
+      </div>
+
+      <!-- Sugerencias de consulta rápida -->
+      <div class="chat-suggestions" id="chat-suggestions">
+        <button class="suggestion-btn" onclick="sendSuggestion('precision')">📊 Precisión</button>
+        <button class="suggestion-btn" onclick="sendSuggestion('datos')">🔍 Datos</button>
+        <button class="suggestion-btn" onclick="sendSuggestion('metodo')">⚙️ Algoritmo</button>
+      </div>
+
+      <!-- Campo de entrada -->
+      <form class="chat-input-form" onsubmit="handleChatSubmit(event)">
+        <input type="text" id="chat-input" placeholder="Escribe tu mensaje..." required autocomplete="off" />
+        <button type="submit" class="chat-send-btn">➤</button>
+      </form>
+    </div>
+  </div>
 
   <!-- SCRIPTS Y LÓGICA INTERACTIVA -->
   <script>
@@ -954,6 +1731,219 @@
     window.addEventListener('DOMContentLoaded', () => {
       recalculate();
     });
+
+    /* ==========================================
+       1. ACORDEÓN DE PREGUNTAS FRECUENTES (FAQ)
+       ========================================== */
+    function toggleAccordion(button) {
+      const item = button.parentElement;
+      const isActive = item.classList.contains('active');
+      
+      // Cerrar todos los demás acordeones para un efecto de acordeón exclusivo
+      document.querySelectorAll('.accordion-item').forEach(i => {
+        i.classList.remove('active');
+        const content = i.querySelector('.accordion-content');
+        if (content) content.style.maxHeight = null;
+      });
+
+      // Si no estaba activo, abrir el actual
+      if (!isActive) {
+        item.classList.add('active');
+        const content = item.querySelector('.accordion-content');
+        if (content) {
+          content.style.maxHeight = content.scrollHeight + "px";
+        }
+      }
+    }
+
+    /* ==========================================
+       2. FORMULARIO DE CONTACTO PREMIUM CON LOADER
+       ========================================== */
+    function handleContactSubmit(event) {
+      event.preventDefault();
+      
+      const form = document.getElementById('portal-contact-form');
+      const submitBtn = document.getElementById('btn-contact-submit');
+      const successOverlay = document.getElementById('contact-success-overlay');
+      
+      // Deshabilitar botón y cambiar a estado de carga
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = `
+        <span class="chat-status-dot" style="background:#fff; margin-right:4px;"></span>
+        <span>Procesando...</span>
+      `;
+      
+      // Simular tiempo de respuesta de la base de datos o API (1.5 segundos)
+      setTimeout(() => {
+        // Mostrar capa de éxito con micro-animación
+        successOverlay.classList.add('active');
+        
+        // Limpiar el formulario
+        form.reset();
+        
+        // Auto-cerrar la confirmación y restablecer el botón tras 4.5 segundos
+        setTimeout(() => {
+          successOverlay.classList.remove('active');
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = `
+            <span>Enviar Consulta</span>
+            <span style="font-size: 0.9rem;">✉</span>
+          `;
+        }, 4500);
+      }, 1500);
+    }
+
+    /* ==========================================
+       3. CHATBOT FLOTANTE VIRTUAL (VALORABOT)
+       ========================================== */
+    let hasChatOpened = false;
+
+    function toggleChatbot() {
+      const panel = document.getElementById('chat-panel');
+      const badge = document.getElementById('chat-badge');
+      
+      panel.classList.toggle('active');
+      
+      // Ocultar la notificación "1" al abrir por primera vez
+      if (badge && panel.classList.contains('active')) {
+        badge.style.display = 'none';
+        hasChatOpened = true;
+      }
+    }
+
+    // Agregar mensaje al historial de chat
+    function addChatMessage(sender, text) {
+      const messagesContainer = document.getElementById('chat-messages');
+      const bubble = document.createElement('div');
+      bubble.className = `chat-bubble ${sender}`;
+      bubble.innerHTML = text;
+      
+      messagesContainer.appendChild(bubble);
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+      return bubble;
+    }
+
+    // Mostrar simulador de escritura
+    function showTypingIndicator() {
+      const messagesContainer = document.getElementById('chat-messages');
+      const typingBubble = document.createElement('div');
+      typingBubble.className = 'chat-bubble bot typing';
+      typingBubble.id = 'chat-typing-indicator';
+      
+      typingBubble.innerHTML = `
+        <span class="typing-dot"></span>
+        <span class="typing-dot"></span>
+        <span class="typing-dot"></span>
+      `;
+      
+      messagesContainer.appendChild(typingBubble);
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+
+    // Remover simulador de escritura
+    function removeTypingIndicator() {
+      const indicator = document.getElementById('chat-typing-indicator');
+      if (indicator) {
+        indicator.remove();
+      }
+    }
+
+    // Enviar sugerencia rápida
+    function sendSuggestion(type) {
+      let userText = "";
+      if (type === 'precision') {
+        userText = "¿Cuál es la precisión real del modelo?";
+      } else if (type === 'datos') {
+        userText = "¿Qué fuentes oficiales de datos utilizan?";
+      } else if (type === 'metodo') {
+        userText = "¿Cómo funciona metodológicamente el algoritmo?";
+      }
+      
+      if (userText) {
+        processUserMessage(userText);
+      }
+    }
+
+    // Manejar envío de mensaje por input
+    function handleChatSubmit(event) {
+      event.preventDefault();
+      const input = document.getElementById('chat-input');
+      const userText = input.value.trim();
+      
+      if (userText) {
+        processUserMessage(userText);
+        input.value = "";
+      }
+    }
+
+    // Procesar mensaje del usuario y generar auto-respuesta
+    function processUserMessage(userText) {
+      // 1. Agregar mensaje del usuario
+      addChatMessage('user', userText);
+      
+      // Ocultar temporalmente las sugerencias para enfocar la conversación
+      const suggestions = document.getElementById('chat-suggestions');
+      suggestions.style.opacity = '0.5';
+      suggestions.style.pointerEvents = 'none';
+      
+      // 2. Mostrar indicador de escritura del bot
+      showTypingIndicator();
+      
+      // 3. Generar la respuesta contextual tras 1.2 segundos
+      setTimeout(() => {
+        removeTypingIndicator();
+        
+        const responseText = getBotContextualReply(userText);
+        addChatMessage('bot', responseText);
+        
+        // Rehabilitar sugerencias
+        suggestions.style.opacity = '1';
+        suggestions.style.pointerEvents = 'auto';
+      }, 1200);
+    }
+
+    // Lógica conversacional en español basada en palabras clave
+    function getBotContextualReply(message) {
+      const msg = message.toLowerCase();
+      
+      // Caso 1: Saludo
+      if (msg.includes('hola') || msg.includes('buenos') || msg.includes('buenas') || msg.includes('saludos')) {
+        return "¡Hola! Un gusto saludarte. Soy ValoraBot. Estoy entrenado para platicar sobre la ciencia de datos detrás de ValoraCasa y las decisiones analíticas de <strong>The FI-ndings</strong>. ¿Qué duda metodológica o práctica te gustaría revisar?";
+      }
+      
+      // Caso 2: Precisión / XGBoost / Error / MAE / Confianza
+      if (msg.includes('precision') || msg.includes('precisión') || msg.includes('error') || msg.includes('mae') || msg.includes('confia') || msg.includes('segur') || msg.includes('exact')) {
+        return "El modelo core de ValoraCasa posee un <strong>Error Absoluto Medio (MAE) promedio de $838 pesos</strong>. Esto significa que las estimaciones referenciales varían muy poco respecto al mercado real. El algoritmo base es <strong>XGBoost</strong>, optimizado mediante validación cruzada espacial para evitar sobreajustes y garantizar estabilidad zonal.";
+      }
+      
+      // Caso 3: Datos / Origen / Fuente / INEGI / ENIGH / Censo
+      if (msg.includes('dato') || msg.includes('fuente') || msg.includes('origen') || msg.includes('inegi') || msg.includes('enigh') || msg.includes('censo')) {
+        return "Nuestra base informativa está cimentada en conjuntos de datos oficiales y validados en México. Principalmente empleamos el <strong>Censo de Población y Vivienda</strong> de INEGI y las microdatos de la encuesta de ingresos <strong>ENIGH 2024</strong>. Enriquecemos esto con capas geográficas de equipamiento urbano, transporte público de la CONABIO y variables contextuales procesadas en la nube.";
+      }
+
+      // Caso 4: Algoritmo / Metodología / Funcionamiento / XGBoost / Modelo / Ciencia de Datos
+      if (msg.includes('metodo') || msg.includes('método') || msg.includes('algoritmo') || msg.includes('funcion') || msg.includes('cómo hace') || msg.includes('cómo funciona') || msg.includes('ciencia')) {
+        return "Metodológicamente, ValoraCasa no realiza un avalúo físico tradicional. Aplicamos un modelo predictivo supervisado <strong>XGBoost</strong> sobre más de 20 variables de vivienda (recámaras, baños, metros, estacionamiento) y variables macro del entorno socioeconómico e infraestructura (distancia a avenidas principales y centros comerciales). Esto nos permite 'aprender' los precios de renta óptimos y explicarlos en pesos mediante <strong>valores SHAP</strong> en la Capa 1.";
+      }
+
+      // Caso 5: Costo / Gratis / Cobro / Pagar / Suscripción
+      if (msg.includes('costo') || msg.includes('gratis') || msg.includes('precio') || msg.includes('pagar') || msg.includes('cobro') || msg.includes('suscrip')) {
+        return "¡La Capa 1 (Portal del Usuario Final) es y seguirá siendo <strong>100% gratuita</strong>! Está pensada para empoderar a la sociedad. La Capa 2 (Centro Analítico y Consola Metodológica) está diseñada para uso corporativo, brokers e inmobiliarias, operando bajo un accesible esquema de suscripción analítica mensual.";
+      }
+
+      // Caso 6: The FI-ndings / Creadores / Empresa / Quiénes
+      if (msg.includes('findings') || msg.includes('finding') || msg.includes('creador') || msg.includes('empresa') || msg.includes('quien') || msg.includes('quién')) {
+        return "ValoraCasa es un producto desarrollado por <strong>The FI-ndings</strong>, una firma consultora y desarrolladora de tecnología especializada en ciencia de datos aplicada a negocios. Nuestro slogan principal define nuestra filosofía: <em>\"Convertimos datos en decisiones.\"</em>";
+      }
+
+      // Caso 7: Despedida o Agradecimiento
+      if (msg.includes('gracias') || msg.includes('ok') || msg.includes('perfecto') || msg.includes('adios') || msg.includes('adiós') || msg.includes('bye')) {
+        return "¡De nada! Ha sido un placer conversar contigo. Si tienes más dudas, puedes escribirle a nuestro equipo técnico mediante el formulario de contacto glassmorphic que diseñamos al lado del acordeón FAQ. ¡Hasta pronto!";
+      }
+
+      // Por defecto
+      return "Entiendo tu consulta. Como modelo de IA enfocado en la metodología de <strong>ValoraCasa</strong>, te recomiendo revisar la <strong>Capa 2 (Consola Metodológica)</strong> para auditar los coeficientes y métricas, o bien, enviarnos tu correo en la sección de contacto adjunta para que un científico de datos se comunique contigo en persona.";
+    }
   </script>
 </body>
 </html>
