@@ -1,1949 +1,1954 @@
 <!DOCTYPE html>
 <html lang="es" class="scroll-smooth">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Simulador ValoraCasa | Capa 1 - Usuario Final</title>
-  <meta name="description" content="Simulador predictivo referencial de rentas residenciales en México basado en microdatos de la ENIGH 2024 del INEGI." />
-  
-  <!-- Google Fonts: Montserrat (300, 400, 500, 600, 700, 800) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  
-  <!-- Estilos Personalizados Premium -->
-  <link rel="stylesheet" href="style.css?v=7" />
-
-  <!-- Estilos del FAQ, Contacto y Chatbot -->
-  <style>
-    /* SECCIÓN DE SOPORTE E INFORMACIÓN (FAQ & CONTACTO) */
-    .support-grid-section {
-      margin: 4rem auto 5rem auto;
-      max-width: 1200px;
-      padding: 0 1.5rem;
-      position: relative;
-      z-index: 5;
-    }
-
-    .support-container {
-      display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      gap: 3rem;
-      align-items: start;
-    }
-
-    .faq-column {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .section-title {
-      font-size: 1.7rem;
-      font-weight: 800;
-      color: var(--azul-marino);
-      margin-bottom: 1.8rem;
-      letter-spacing: -0.02em;
-      position: relative;
-    }
-
-    .section-title::after {
-      content: '';
-      position: absolute;
-      bottom: -0.5rem;
-      left: 0;
-      width: 40px;
-      height: 3px;
-      background: linear-gradient(90deg, var(--turquesa), var(--azul-medio));
-      border-radius: 2px;
-    }
-
-    /* ACORDEÓN DE PREGUNTAS FRECUENTES */
-    .accordion-group {
-      display: flex;
-      flex-direction: column;
-      gap: 0.9rem;
-    }
-
-    .accordion-item {
-      background: var(--white);
-      border: 1px solid rgba(11, 35, 69, 0.05);
-      border-radius: 12px;
-      box-shadow: var(--shadow-sm);
-      overflow: hidden;
-      transition: var(--transition-smooth);
-    }
-
-    .accordion-item:hover {
-      border-color: rgba(53, 184, 184, 0.15);
-      box-shadow: 0 4px 15px rgba(11, 35, 69, 0.02);
-    }
-
-    .accordion-header {
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1.15rem 1.4rem;
-      background: none;
-      border: none;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.9rem;
-      font-weight: 700;
-      color: var(--azul-marino);
-      cursor: pointer;
-      text-align: left;
-      transition: var(--transition-smooth);
-      outline: none;
-    }
-
-    .accordion-header:hover {
-      color: var(--turquesa);
-    }
-
-    .accordion-icon {
-      font-size: 0.7rem;
-      color: var(--azul-medio);
-      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      opacity: 0.8;
-    }
-
-    .accordion-content {
-      max-height: 0;
-      overflow: hidden;
-      padding: 0 1.4rem;
-      transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), padding 0.35s ease;
-    }
-
-    .accordion-content p {
-      font-size: 0.8rem;
-      color: var(--gris-azulado);
-      line-height: 1.55;
-      font-weight: 500;
-      padding-bottom: 1.15rem;
-    }
-
-    /* Estado Activo Acordeón */
-    .accordion-item.active {
-      border-color: rgba(53, 184, 184, 0.25);
-      box-shadow: 0 6px 20px rgba(11, 35, 69, 0.03);
-    }
-
-    .accordion-item.active .accordion-icon {
-      transform: rotate(180deg);
-      color: var(--turquesa);
-    }
-
-    .accordion-item.active .accordion-content {
-      max-height: 250px;
-    }
-
-    /* TARJETA DE FORMULARIO DE CONTACTO GLASSMORPHIC */
-    .contact-column {
-      position: relative;
-    }
-
-    .contact-card {
-      background: var(--white);
-      border: 1px solid rgba(11, 35, 69, 0.05);
-      border-radius: 20px;
-      padding: 2.2rem;
-      box-shadow: var(--shadow-md);
-      position: relative;
-      overflow: hidden;
-      transition: var(--transition-smooth);
-    }
-
-    .contact-card:hover {
-      box-shadow: var(--shadow-lg);
-      transform: translateY(-2px);
-    }
-
-    .card-title {
-      font-size: 1.25rem;
-      font-weight: 800;
-      color: var(--azul-marino);
-      margin-bottom: 0.4rem;
-      letter-spacing: -0.01em;
-    }
-
-    .card-subtitle {
-      font-size: 0.78rem;
-      color: var(--gris-azulado);
-      margin-bottom: 1.6rem;
-      font-weight: 500;
-      line-height: 1.4;
-    }
-
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 0.35rem;
-      margin-bottom: 1rem;
-    }
-
-    .form-label {
-      font-size: 0.68rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--gris-azulado);
-    }
-
-    .form-control {
-      width: 100%;
-      padding: 0.8rem 1.1rem;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.8rem;
-      font-weight: 500;
-      color: var(--azul-marino);
-      background: var(--blanco-humo);
-      border: 1.5px solid rgba(11, 35, 69, 0.04);
-      border-radius: 10px;
-      outline: none;
-      transition: var(--transition-smooth);
-    }
-
-    .form-control:focus {
-      background: var(--white);
-      border-color: var(--turquesa);
-      box-shadow: 0 0 0 3px rgba(53, 184, 184, 0.06);
-    }
-
-    .form-select {
-      appearance: none;
-      -webkit-appearance: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%23475569' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: calc(100% - 1.1rem) center;
-      background-size: 10px;
-      cursor: pointer;
-    }
-
-    .form-textarea {
-      resize: none;
-      height: 90px;
-    }
-
-    .btn-contact-submit {
-      width: 100%;
-      background: linear-gradient(135deg, var(--turquesa) 0%, var(--azul-medio) 100%);
-      color: var(--white);
-      border: none;
-      padding: 0.9rem;
-      border-radius: 10px;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.8rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      cursor: pointer;
-      transition: var(--transition-smooth);
-      box-shadow: 0 4px 12px rgba(53, 184, 184, 0.15);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 0.5rem;
-      margin-top: 0.5rem;
-    }
-
-    .btn-contact-submit:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 6px 18px rgba(53, 184, 184, 0.25);
-    }
-
-    .btn-contact-submit:active {
-      transform: translateY(0);
-    }
-
-    /* CAPA DE ÉXITO EN EL FORMULARIO */
-    .contact-success-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: var(--white);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 2.2rem;
-      text-align: center;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-      z-index: 10;
-    }
-
-    .contact-success-overlay.active {
-      opacity: 1;
-      pointer-events: all;
-    }
-
-    .success-circle {
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      background: rgba(53, 184, 184, 0.1);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--turquesa);
-      font-size: 1.8rem;
-      margin-bottom: 1.2rem;
-      animation: scaleUpSuccess 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }
-
-    .success-title {
-      font-size: 1.2rem;
-      font-weight: 800;
-      color: var(--azul-marino);
-      margin-bottom: 0.4rem;
-    }
-
-    .success-desc {
-      font-size: 0.8rem;
-      color: var(--gris-azulado);
-      line-height: 1.45;
-      font-weight: 500;
-    }
-
-    /* WIDGET DEL CHATBOT VIRTUAL ASISTENTE (VALORABOT) */
-    .chatbot-widget {
-      position: fixed;
-      bottom: 2rem;
-      right: 2rem;
-      z-index: 999;
-    }
-
-    .chatbot-trigger {
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--turquesa) 0%, var(--azul-medio) 100%);
-      border: none;
-      cursor: pointer;
-      box-shadow: 0 8px 24px rgba(53, 184, 184, 0.3);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      transition: var(--transition-smooth);
-      position: relative;
-      z-index: 1000;
-      outline: none;
-      animation: floatTrigger 4s ease-in-out infinite;
-    }
-
-    .chatbot-trigger:hover {
-      transform: scale(1.08) translateY(-2px);
-      box-shadow: 0 12px 30px rgba(53, 184, 184, 0.45);
-    }
-
-    .chat-icon {
-      font-size: 1.6rem;
-      color: var(--white);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .chat-badge {
-      position: absolute;
-      top: -2px;
-      right: -2px;
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background: var(--terracota);
-      border: 2px solid var(--white);
-      color: var(--white);
-      font-size: 0.65rem;
-      font-weight: 800;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      animation: pulseBadge 1.8s infinite;
-    }
-
-    /* PANEL DE CONVERSACIÓN DEL CHAT */
-    .chat-panel {
-      position: absolute;
-      bottom: 4.8rem;
-      right: 0;
-      width: 360px;
-      height: 480px;
-      background: var(--white);
-      border-radius: 20px;
-      box-shadow: var(--shadow-lg);
-      border: 1px solid rgba(11, 35, 69, 0.08);
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      transform: scale(0.8) translateY(30px);
-      opacity: 0;
-      pointer-events: none;
-      transform-origin: bottom right;
-      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .chat-panel.active {
-      transform: scale(1) translateY(0);
-      opacity: 1;
-      pointer-events: all;
-    }
-
-    .chat-header {
-      background: var(--azul-marino);
-      color: var(--white);
-      padding: 1rem 1.25rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .chat-bot-info {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-    }
-
-    .chat-status-dot {
-      width: 8px;
-      height: 8px;
-      background: var(--turquesa);
-      border-radius: 50%;
-      display: inline-block;
-      animation: pulseDotGreen 1.5s infinite;
-    }
-
-    .chat-bot-name {
-      font-size: 0.85rem;
-      font-weight: 700;
-      letter-spacing: 0.02em;
-    }
-
-    .chat-minimize-btn {
-      background: none;
-      border: none;
-      color: rgba(255, 255, 255, 0.6);
-      font-size: 0.8rem;
-      cursor: pointer;
-      transition: var(--transition-smooth);
-      width: 24px;
-      height: 24px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 50%;
-    }
-
-    .chat-minimize-btn:hover {
-      color: var(--white);
-      background: rgba(255, 255, 255, 0.08);
-    }
-
-    /* HISTORIAL Y DIÁLOGO */
-    .chat-messages {
-      flex-grow: 1;
-      padding: 1.2rem;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 0.8rem;
-      background: var(--blanco-humo);
-    }
-
-    .chat-bubble {
-      max-width: 82%;
-      padding: 0.7rem 0.9rem;
-      border-radius: 14px;
-      font-size: 0.78rem;
-      font-weight: 500;
-      line-height: 1.4;
-      word-wrap: break-word;
-    }
-
-    .chat-bubble.bot {
-      background: var(--white);
-      color: var(--azul-marino);
-      align-self: flex-start;
-      border-bottom-left-radius: 4px;
-      box-shadow: var(--shadow-sm);
-      border: 1px solid rgba(11, 35, 69, 0.03);
-    }
-
-    .chat-bubble.user {
-      background: linear-gradient(135deg, var(--turquesa) 0%, var(--azul-medio) 100%);
-      color: var(--white);
-      align-self: flex-end;
-      border-bottom-right-radius: 4px;
-      box-shadow: 0 3px 10px rgba(53, 184, 184, 0.12);
-    }
-
-    .chat-bubble.typing {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      padding: 0.7rem 1rem;
-    }
-
-    .typing-dot {
-      width: 6px;
-      height: 6px;
-      background: var(--gris-azulado);
-      border-radius: 50%;
-      opacity: 0.4;
-      animation: typingBounce 1.4s infinite both;
-    }
-
-    .typing-dot:nth-child(2) {
-      animation-delay: 0.2s;
-    }
-
-    .typing-dot:nth-child(3) {
-      animation-delay: 0.4s;
-    }
-
-    /* BURBUJAS DE SUGERENCIA */
-    .chat-suggestions {
-      padding: 0.65rem 0.85rem;
-      background: var(--white);
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-      border-top: 1px solid rgba(11, 35, 69, 0.04);
-    }
-
-    .suggestion-btn {
-      background: var(--blanco-humo);
-      border: 1px solid rgba(11, 35, 69, 0.06);
-      padding: 0.4rem 0.65rem;
-      border-radius: 12px;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.68rem;
-      font-weight: 600;
-      color: var(--azul-medio);
-      cursor: pointer;
-      transition: var(--transition-smooth);
-    }
-
-    .suggestion-btn:hover {
-      background: rgba(53, 184, 184, 0.08);
-      border-color: var(--turquesa);
-      color: var(--turquesa);
-    }
-
-    /* ENTRADA DE TEXTO */
-    .chat-input-form {
-      padding: 0.75rem 1rem;
-      background: var(--white);
-      border-top: 1px solid rgba(11, 35, 69, 0.06);
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-    }
-
-    .chat-input-form input {
-      flex-grow: 1;
-      border: none;
-      outline: none;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.8rem;
-      font-weight: 500;
-      color: var(--azul-marino);
-      padding: 0.4rem 0;
-    }
-
-    .chat-input-form input::placeholder {
-      color: var(--gris-azulado);
-      opacity: 0.6;
-    }
-
-    .chat-send-btn {
-      background: none;
-      border: none;
-      color: var(--turquesa);
-      font-size: 1.05rem;
-      cursor: pointer;
-      transition: var(--transition-smooth);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-    }
-
-    .chat-send-btn:hover {
-      color: var(--azul-medio);
-      background: var(--blanco-humo);
-    }
-
-    /* KEYFRAMES & ANIMACIONES */
-    @keyframes scaleUpSuccess {
-      from { transform: scale(0.7); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
-    }
-
-    @keyframes floatTrigger {
-      0% { transform: translateY(0); }
-      50% { transform: translateY(-5px); }
-      100% { transform: translateY(0); }
-    }
-
-    @keyframes pulseBadge {
-      0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(217, 122, 93, 0.6); }
-      70% { transform: scale(1.1); box-shadow: 0 0 0 6px rgba(217, 122, 93, 0); }
-      100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(217, 122, 93, 0); }
-    }
-
-    @keyframes pulseDotGreen {
-      0% { transform: scale(1); opacity: 1; }
-      50% { transform: scale(1.25); opacity: 0.7; }
-      100% { transform: scale(1); opacity: 1; }
-    }
-
-    @keyframes typingBounce {
-      0%, 80%, 100% { transform: translateY(0); }
-      40% { transform: translateY(-4px); }
-    }
-
-    /* RESPONSIVIDAD GENERAL */
-    @media (max-width: 991px) {
-      .support-container {
-        grid-template-columns: 1fr;
-        gap: 2.5rem;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .support-grid-section {
-        margin: 3rem auto;
-      }
-      .chat-panel {
-        width: calc(100vw - 3rem);
-        height: 420px;
-        right: -0.5rem;
-      }
-    }
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Simulador ValoraCasa | Portal del Usuario Final</title>
+<meta name="description" content="Simulador predictivo referencial de rentas residenciales en México basado en microdatos de la ENIGH 2024 del INEGI." />
+ 
+<!-- Google Fonts: Montserrat (300, 400, 500, 600, 700, 800) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+ 
+<!-- Estilos Personalizados Premium -->
+<link rel="stylesheet" href="style.css?v=7" />
+
+<!-- Estilos del FAQ, Contacto y Chatbot -->
+<style>
+ /* SECCIÓN DE SOPORTE E INFORMACIÓN (FAQ & CONTACTO) */
+ .support-grid-section {
+ margin: 4rem auto 5rem auto;
+ max-width: 1200px;
+ padding: 0 1.5rem;
+ position: relative;
+ z-index: 5;
+ }
+
+ .support-container {
+ display: grid;
+ grid-template-columns: 1.15fr 0.85fr;
+ gap: 3rem;
+ align-items: start;
+ }
+
+ .faq-column {
+ display: flex;
+ flex-direction: column;
+ }
+
+ .section-title {
+ font-size: 1.7rem;
+ font-weight: 800;
+ color: var(--azul-marino);
+ margin-bottom: 1.8rem;
+ letter-spacing: -0.02em;
+ position: relative;
+ }
+
+ .section-title::after {
+ content: '';
+ position: absolute;
+ bottom: -0.5rem;
+ left: 0;
+ width: 40px;
+ height: 3px;
+ background: linear-gradient(90deg, var(--turquesa), var(--azul-medio));
+ border-radius: 2px;
+ }
+
+ /* ACORDEÓN DE PREGUNTAS FRECUENTES */
+ .accordion-group {
+ display: flex;
+ flex-direction: column;
+ gap: 0.9rem;
+ }
+
+ .accordion-item {
+ background: var(--white);
+ border: 1px solid rgba(11, 35, 69, 0.05);
+ border-radius: 12px;
+ box-shadow: var(--shadow-sm);
+ overflow: hidden;
+ transition: var(--transition-smooth);
+ }
+
+ .accordion-item:hover {
+ border-color: rgba(53, 184, 184, 0.15);
+ box-shadow: 0 4px 15px rgba(11, 35, 69, 0.02);
+ }
+
+ .accordion-header {
+ width: 100%;
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ padding: 1.15rem 1.4rem;
+ background: none;
+ border: none;
+ font-family: 'Montserrat', sans-serif;
+ font-size: 0.9rem;
+ font-weight: 700;
+ color: var(--azul-marino);
+ cursor: pointer;
+ text-align: left;
+ transition: var(--transition-smooth);
+ outline: none;
+ }
+
+ .accordion-header:hover {
+ color: var(--turquesa);
+ }
+
+ .accordion-icon {
+ font-size: 0.7rem;
+ color: var(--azul-medio);
+ transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+ opacity: 0.8;
+ }
+
+ .accordion-content {
+ max-height: 0;
+ overflow: hidden;
+ padding: 0 1.4rem;
+ transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), padding 0.35s ease;
+ }
+
+ .accordion-content p {
+ font-size: 0.8rem;
+ color: var(--gris-azulado);
+ line-height: 1.55;
+ font-weight: 500;
+ padding-bottom: 1.15rem;
+ }
+
+ /* Estado Activo Acordeón */
+ .accordion-item.active {
+ border-color: rgba(53, 184, 184, 0.25);
+ box-shadow: 0 6px 20px rgba(11, 35, 69, 0.03);
+ }
+
+ .accordion-item.active .accordion-icon {
+ transform: rotate(180deg);
+ color: var(--turquesa);
+ }
+
+ .accordion-item.active .accordion-content {
+ max-height: 250px;
+ }
+
+ /* TARJETA DE FORMULARIO DE CONTACTO GLASSMORPHIC */
+ .contact-column {
+ position: relative;
+ }
+
+ .contact-card {
+ background: var(--white);
+ border: 1px solid rgba(11, 35, 69, 0.05);
+ border-radius: 20px;
+ padding: 2.2rem;
+ box-shadow: var(--shadow-md);
+ position: relative;
+ overflow: hidden;
+ transition: var(--transition-smooth);
+ }
+
+ .contact-card:hover {
+ box-shadow: var(--shadow-lg);
+ transform: translateY(-2px);
+ }
+
+ .card-title {
+ font-size: 1.25rem;
+ font-weight: 800;
+ color: var(--azul-marino);
+ margin-bottom: 0.4rem;
+ letter-spacing: -0.01em;
+ }
+
+ .card-subtitle {
+ font-size: 0.78rem;
+ color: var(--gris-azulado);
+ margin-bottom: 1.6rem;
+ font-weight: 500;
+ line-height: 1.4;
+ }
+
+ .form-group {
+ display: flex;
+ flex-direction: column;
+ gap: 0.35rem;
+ margin-bottom: 1rem;
+ }
+
+ .form-label {
+ font-size: 0.68rem;
+ font-weight: 700;
+ text-transform: uppercase;
+ letter-spacing: 0.05em;
+ color: var(--gris-azulado);
+ }
+
+ .form-control {
+ width: 100%;
+ padding: 0.8rem 1.1rem;
+ font-family: 'Montserrat', sans-serif;
+ font-size: 0.8rem;
+ font-weight: 500;
+ color: var(--azul-marino);
+ background: var(--blanco-humo);
+ border: 1.5px solid rgba(11, 35, 69, 0.04);
+ border-radius: 10px;
+ outline: none;
+ transition: var(--transition-smooth);
+ }
+
+ .form-control:focus {
+ background: var(--white);
+ border-color: var(--turquesa);
+ box-shadow: 0 0 0 3px rgba(53, 184, 184, 0.06);
+ }
+
+ .form-select {
+ appearance: none;
+ -webkit-appearance: none;
+ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%23475569' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+ background-repeat: no-repeat;
+ background-position: calc(100% - 1.1rem) center;
+ background-size: 10px;
+ cursor: pointer;
+ }
+
+ .form-textarea {
+ resize: none;
+ height: 90px;
+ }
+
+ .btn-contact-submit {
+ width: 100%;
+ background: linear-gradient(135deg, var(--turquesa) 0%, var(--azul-medio) 100%);
+ color: var(--white);
+ border: none;
+ padding: 0.9rem;
+ border-radius: 10px;
+ font-family: 'Montserrat', sans-serif;
+ font-size: 0.8rem;
+ font-weight: 700;
+ text-transform: uppercase;
+ letter-spacing: 0.08em;
+ cursor: pointer;
+ transition: var(--transition-smooth);
+ box-shadow: 0 4px 12px rgba(53, 184, 184, 0.15);
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ gap: 0.5rem;
+ margin-top: 0.5rem;
+ }
+
+ .btn-contact-submit:hover {
+ transform: translateY(-1px);
+ box-shadow: 0 6px 18px rgba(53, 184, 184, 0.25);
+ }
+
+ .btn-contact-submit:active {
+ transform: translateY(0);
+ }
+
+ /* CAPA DE ÉXITO EN EL FORMULARIO */
+ .contact-success-overlay {
+ position: absolute;
+ top: 0;
+ left: 0;
+ width: 100%;
+ height: 100%;
+ background: var(--white);
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ justify-content: center;
+ padding: 2.2rem;
+ text-align: center;
+ opacity: 0;
+ pointer-events: none;
+ transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+ z-index: 10;
+ }
+
+ .contact-success-overlay.active {
+ opacity: 1;
+ pointer-events: all;
+ }
+
+ .success-circle {
+ width: 60px;
+ height: 60px;
+ border-radius: 50%;
+ background: rgba(53, 184, 184, 0.1);
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ color: var(--turquesa);
+ font-size: 1.8rem;
+ margin-bottom: 1.2rem;
+ animation: scaleUpSuccess 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+ }
+
+ .success-title {
+ font-size: 1.2rem;
+ font-weight: 800;
+ color: var(--azul-marino);
+ margin-bottom: 0.4rem;
+ }
+
+ .success-desc {
+ font-size: 0.8rem;
+ color: var(--gris-azulado);
+ line-height: 1.45;
+ font-weight: 500;
+ }
+
+ /* WIDGET DEL CHATBOT VIRTUAL ASISTENTE (VALORABOT) */
+ .chatbot-widget {
+ position: fixed;
+ bottom: 2rem;
+ right: 2rem;
+ z-index: 999;
+ }
+
+ .chatbot-trigger {
+ width: 60px;
+ height: 60px;
+ border-radius: 50%;
+ background: linear-gradient(135deg, var(--turquesa) 0%, var(--azul-medio) 100%);
+ border: none;
+ cursor: pointer;
+ box-shadow: 0 8px 24px rgba(53, 184, 184, 0.3);
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ transition: var(--transition-smooth);
+ position: relative;
+ z-index: 1000;
+ outline: none;
+ animation: floatTrigger 4s ease-in-out infinite;
+ }
+
+ .chatbot-trigger:hover {
+ transform: scale(1.08) translateY(-2px);
+ box-shadow: 0 12px 30px rgba(53, 184, 184, 0.45);
+ }
+
+ .chat-icon {
+ font-size: 1.6rem;
+ color: var(--white);
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ }
+
+ .chat-badge {
+ position: absolute;
+ top: -2px;
+ right: -2px;
+ width: 20px;
+ height: 20px;
+ border-radius: 50%;
+ background: var(--terracota);
+ border: 2px solid var(--white);
+ color: var(--white);
+ font-size: 0.65rem;
+ font-weight: 800;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ animation: pulseBadge 1.8s infinite;
+ }
+
+ /* PANEL DE CONVERSACIÓN DEL CHAT */
+ .chat-panel {
+ position: absolute;
+ bottom: 4.8rem;
+ right: 0;
+ width: 360px;
+ height: 480px;
+ background: var(--white);
+ border-radius: 20px;
+ box-shadow: var(--shadow-lg);
+ border: 1px solid rgba(11, 35, 69, 0.08);
+ display: flex;
+ flex-direction: column;
+ overflow: hidden;
+ transform: scale(0.8) translateY(30px);
+ opacity: 0;
+ pointer-events: none;
+ transform-origin: bottom right;
+ transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+ }
+
+ .chat-panel.active {
+ transform: scale(1) translateY(0);
+ opacity: 1;
+ pointer-events: all;
+ }
+
+ .chat-header {
+ background: var(--azul-marino);
+ color: var(--white);
+ padding: 1rem 1.25rem;
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ }
+
+ .chat-bot-info {
+ display: flex;
+ align-items: center;
+ gap: 0.6rem;
+ }
+
+ .chat-status-dot {
+ width: 8px;
+ height: 8px;
+ background: var(--turquesa);
+ border-radius: 50%;
+ display: inline-block;
+ animation: pulseDotGreen 1.5s infinite;
+ }
+
+ .chat-bot-name {
+ font-size: 0.85rem;
+ font-weight: 700;
+ letter-spacing: 0.02em;
+ }
+
+ .chat-minimize-btn {
+ background: none;
+ border: none;
+ color: rgba(255, 255, 255, 0.6);
+ font-size: 0.8rem;
+ cursor: pointer;
+ transition: var(--transition-smooth);
+ width: 24px;
+ height: 24px;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ border-radius: 50%;
+ }
+
+ .chat-minimize-btn:hover {
+ color: var(--white);
+ background: rgba(255, 255, 255, 0.08);
+ }
+
+ /* HISTORIAL Y DIÁLOGO */
+ .chat-messages {
+ flex-grow: 1;
+ padding: 1.2rem;
+ overflow-y: auto;
+ display: flex;
+ flex-direction: column;
+ gap: 0.8rem;
+ background: var(--blanco-humo);
+ }
+
+ .chat-bubble {
+ max-width: 82%;
+ padding: 0.7rem 0.9rem;
+ border-radius: 14px;
+ font-size: 0.78rem;
+ font-weight: 500;
+ line-height: 1.4;
+ word-wrap: break-word;
+ }
+
+ .chat-bubble.bot {
+ background: var(--white);
+ color: var(--azul-marino);
+ align-self: flex-start;
+ border-bottom-left-radius: 4px;
+ box-shadow: var(--shadow-sm);
+ border: 1px solid rgba(11, 35, 69, 0.03);
+ }
+
+ .chat-bubble.user {
+ background: linear-gradient(135deg, var(--turquesa) 0%, var(--azul-medio) 100%);
+ color: var(--white);
+ align-self: flex-end;
+ border-bottom-right-radius: 4px;
+ box-shadow: 0 3px 10px rgba(53, 184, 184, 0.12);
+ }
+
+ .chat-bubble.typing {
+ display: flex;
+ align-items: center;
+ gap: 4px;
+ padding: 0.7rem 1rem;
+ }
+
+ .typing-dot {
+ width: 6px;
+ height: 6px;
+ background: var(--gris-azulado);
+ border-radius: 50%;
+ opacity: 0.4;
+ animation: typingBounce 1.4s infinite both;
+ }
+
+ .typing-dot:nth-child(2) {
+ animation-delay: 0.2s;
+ }
+
+ .typing-dot:nth-child(3) {
+ animation-delay: 0.4s;
+ }
+
+ /* BURBUJAS DE SUGERENCIA */
+ .chat-suggestions {
+ padding: 0.65rem 0.85rem;
+ background: var(--white);
+ display: flex;
+ flex-wrap: wrap;
+ gap: 0.4rem;
+ border-top: 1px solid rgba(11, 35, 69, 0.04);
+ }
+
+ .suggestion-btn {
+ background: var(--blanco-humo);
+ border: 1px solid rgba(11, 35, 69, 0.06);
+ padding: 0.4rem 0.65rem;
+ border-radius: 12px;
+ font-family: 'Montserrat', sans-serif;
+ font-size: 0.68rem;
+ font-weight: 600;
+ color: var(--azul-medio);
+ cursor: pointer;
+ transition: var(--transition-smooth);
+ }
+
+ .suggestion-btn:hover {
+ background: rgba(53, 184, 184, 0.08);
+ border-color: var(--turquesa);
+ color: var(--turquesa);
+ }
+
+ /* ENTRADA DE TEXTO */
+ .chat-input-form {
+ padding: 0.75rem 1rem;
+ background: var(--white);
+ border-top: 1px solid rgba(11, 35, 69, 0.06);
+ display: flex;
+ align-items: center;
+ gap: 0.6rem;
+ }
+
+ .chat-input-form input {
+ flex-grow: 1;
+ border: none;
+ outline: none;
+ font-family: 'Montserrat', sans-serif;
+ font-size: 0.8rem;
+ font-weight: 500;
+ color: var(--azul-marino);
+ padding: 0.4rem 0;
+ }
+
+ .chat-input-form input::placeholder {
+ color: var(--gris-azulado);
+ opacity: 0.6;
+ }
+
+ .chat-send-btn {
+ background: none;
+ border: none;
+ color: var(--turquesa);
+ font-size: 1.05rem;
+ cursor: pointer;
+ transition: var(--transition-smooth);
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ width: 28px;
+ height: 28px;
+ border-radius: 50%;
+ }
+
+ .chat-send-btn:hover {
+ color: var(--azul-medio);
+ background: var(--blanco-humo);
+ }
+
+ /* KEYFRAMES & ANIMACIONES */
+ @keyframes scaleUpSuccess {
+ from { transform: scale(0.7); opacity: 0; }
+ to { transform: scale(1); opacity: 1; }
+ }
+
+ @keyframes floatTrigger {
+ 0% { transform: translateY(0); }
+ 50% { transform: translateY(-5px); }
+ 100% { transform: translateY(0); }
+ }
+
+ @keyframes pulseBadge {
+ 0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(217, 122, 93, 0.6); }
+ 70% { transform: scale(1.1); box-shadow: 0 0 0 6px rgba(217, 122, 93, 0); }
+ 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(217, 122, 93, 0); }
+ }
+
+ @keyframes pulseDotGreen {
+ 0% { transform: scale(1); opacity: 1; }
+ 50% { transform: scale(1.25); opacity: 0.7; }
+ 100% { transform: scale(1); opacity: 1; }
+ }
+
+ @keyframes typingBounce {
+ 0%, 80%, 100% { transform: translateY(0); }
+ 40% { transform: translateY(-4px); }
+ }
+
+ /* RESPONSIVIDAD GENERAL */
+ @media (max-width: 991px) {
+ .support-container {
+ grid-template-columns: 1fr;
+ gap: 2.5rem;
+ }
+ }
+
+ @media (max-width: 480px) {
+ .support-grid-section {
+ margin: 3rem auto;
+ }
+ .chat-panel {
+ width: calc(100vw - 3rem);
+ height: 420px;
+ right: -0.5rem;
+ }
+ }
+</style>
 </head>
 <body>
 
-  <!-- BARRA DE NAVEGACIÓN STICKY (no-print) -->
-  <header class="no-print">
-    <div class="container nav-container">
-      <!-- Identidad de Marca -->
-      <a href="index.html" class="brand-logo">
-        <div class="logo-badge">
-          <svg class="findings-logo-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <filter id="logo-shadow" x="-30%" y="-30%" width="160%" height="160%">
-                <feDropShadow dx="1" dy="1.5" stdDeviation="1.2" flood-color="#0B2345" flood-opacity="0.15" />
-              </filter>
-              <linearGradient id="grad-teal-blue" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#35B8B8" />
-                <stop offset="100%" stop-color="#2F7FBF" />
-              </linearGradient>
-              <linearGradient id="grad-teal-dark" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#35B8B8" />
-                <stop offset="100%" stop-color="#0B2345" />
-              </linearGradient>
-              <linearGradient id="grad-blue-dark" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#2F7FBF" />
-                <stop offset="100%" stop-color="#0B2345" />
-              </linearGradient>
-            </defs>
-            <!-- Conexiones -->
-            <g class="logo-links" stroke-width="2.5" stroke-linecap="round" opacity="0.8">
-              <!-- Outline -->
-              <line x1="52.6" y1="8.6" x2="29.5" y2="24.7" stroke="#35B8B8" />
-              <line x1="29.5" y1="24.7" x2="8.2" y2="40.2" stroke="#35B8B8" />
-              <line x1="8.2" y1="40.2" x2="11.9" y2="63.9" stroke="#35B8B8" />
-              <line x1="11.9" y1="63.9" x2="14.7" y2="87.5" stroke="url(#grad-teal-dark)" />
-              <line x1="14.7" y1="87.5" x2="40.4" y2="85.5" stroke="url(#grad-teal-dark)" />
-              <line x1="40.4" y1="85.5" x2="68.6" y2="91.7" stroke="url(#grad-teal-dark)" />
-              <line x1="68.6" y1="91.7" x2="88.8" y2="90.6" stroke="#0B2345" />
-              <line x1="88.8" y1="90.6" x2="89.2" y2="73.0" stroke="#0B2345" />
-              <line x1="89.2" y1="73.0" x2="92.1" y2="40.9" stroke="#0B2345" />
-              <line x1="92.1" y1="40.9" x2="78.2" y2="23.5" stroke="url(#grad-blue-dark)" />
-              <line x1="78.2" y1="23.5" x2="52.6" y2="8.6" stroke="url(#grad-teal-blue)" />
-
-              <!-- Internal center connections -->
-              <line x1="42.2" y1="56.4" x2="8.2" y2="40.2" stroke="url(#grad-teal-blue)" />
-              <line x1="42.2" y1="56.4" x2="11.9" y2="63.9" stroke="url(#grad-teal-blue)" />
-              <line x1="42.2" y1="56.4" x2="14.7" y2="87.5" stroke="url(#grad-teal-dark)" />
-              <line x1="42.2" y1="56.4" x2="40.4" y2="85.5" stroke="#35B8B8" />
-              <line x1="42.2" y1="56.4" x2="68.6" y2="91.7" stroke="url(#grad-blue-dark)" />
-              <line x1="42.2" y1="56.4" x2="69.1" y2="60.5" stroke="url(#grad-blue-dark)" />
-              <line x1="42.2" y1="56.4" x2="64.9" y2="37.4" stroke="#2F7FBF" />
-              <line x1="42.2" y1="56.4" x2="29.5" y2="24.7" stroke="#35B8B8" />
-              <line x1="42.2" y1="56.4" x2="52.6" y2="8.6" stroke="url(#grad-teal-blue)" />
-
-              <!-- Other internal connections -->
-              <line x1="52.6" y1="8.6" x2="64.9" y2="37.4" stroke="url(#grad-teal-blue)" />
-              <line x1="64.9" y1="37.4" x2="92.1" y2="40.9" stroke="url(#grad-blue-dark)" />
-              <line x1="64.9" y1="37.4" x2="78.2" y2="23.5" stroke="#2F7FBF" />
-              <line x1="64.9" y1="37.4" x2="69.1" y2="60.5" stroke="url(#grad-blue-dark)" />
-              <line x1="69.1" y1="60.5" x2="92.1" y2="40.9" stroke="#0B2345" />
-              <line x1="69.1" y1="60.5" x2="89.2" y2="73.0" stroke="#0B2345" />
-              <line x1="69.1" y1="60.5" x2="68.6" y2="91.7" stroke="#0B2345" />
-              <line x1="89.2" y1="73.0" x2="68.6" y2="91.7" stroke="#0B2345" />
-            </g>
-            <!-- Nodos con Sombra -->
-            <g class="logo-nodes" filter="url(#logo-shadow)">
-              <!-- Teal/Cyan Nodes -->
-              <circle cx="52.6" cy="8.6" r="7.5" fill="#35B8B8" />
-              <circle cx="29.5" cy="24.7" r="5.5" fill="#35B8B8" />
-              <circle cx="8.2" cy="40.2" r="8.5" fill="#35B8B8" />
-              <circle cx="40.4" cy="85.5" r="5.5" fill="#35B8B8" />
-              
-              <!-- Blue Nodes -->
-              <circle cx="11.9" cy="63.9" r="5.5" fill="#2F7FBF" />
-              <circle cx="78.2" cy="23.5" r="4.5" fill="#2F7FBF" />
-              <circle cx="42.2" cy="56.4" r="11" fill="#2F7FBF" />
-              <circle cx="64.9" cy="37.4" r="4.5" fill="#2F7FBF" />
-
-              <!-- Deep Navy Nodes -->
-              <circle cx="14.7" cy="87.5" r="9.5" fill="#0B2345" />
-              <circle cx="68.6" cy="91.7" r="8.5" fill="#0B2345" />
-              <circle cx="88.8" cy="90.6" r="7" fill="#0B2345" />
-              <circle cx="89.2" cy="73.0" r="6.5" fill="#0B2345" />
-              <circle cx="92.1" cy="40.9" r="9" fill="#0B2345" />
-              <circle cx="69.1" cy="60.5" r="7" fill="#0B2345" />
-            </g>
-          </svg>
-        </div>
-        <div class="brand-text-block">
-          <h1 class="brand-name" style="font-weight: 800; font-size: 1.25rem;">Valora<span style="color: var(--turquesa);">Casa</span></h1>
-        </div>
-      </a>
-
-      <!-- Navegación Premium -->
-      <div style="display: flex; align-items: center; gap: 1.5rem;">
-        <nav class="nav-links">
-          <a href="#estimar" class="nav-link">Cómo Funciona</a>
-          <a href="#insights" class="nav-link">Casos de Estudio</a>
-          <a href="#insights" class="nav-link">Sobre Nosotros</a>
-        </nav>
-        <a href="login.html" class="btn-login-pill">INICIAR SESIÓN</a>
-      </div>
-    </div>
-  </header>
-
-  <!-- CONTENEDOR PRINCIPAL -->
-  <main class="container" style="margin-top: 0.5rem;">
-
-    <!-- CAPA 1: EXPERIENCIA USUARIO FINAL -->
-    <div id="capa-usuario-seccion">
-      
-      <!-- INDICADOR VISUAL DE CAPA (no-print) - Ocultado para fidelidad de diseño de la landing page real
-      <div class="capa-indicador no-print">
-        <div class="capa-tag capa-usuario-tag">
-          <span class="capa-dot"></span>
-          Capa 1: Experiencia de Usuario Final
-        </div>
-        <div class="capa-subtext">Optimizado para propietarios, inquilinos e intermediarios comerciales</div>
-      </div>
-      -->
-      <!-- SECCIÓN 1: INICIO (HERO PREMIUM) -->
-      <section id="inicio" class="premium-hero">
-        <div class="premium-hero-container">
-          
-          <!-- Columna Izquierda (Tarjetas flotantes e itinerario de características) -->
-          <div class="hero-column hero-left">
-            <!-- Tarjeta Superior Izquierda: Onda de Datos SVG -->
-            <div class="floating-card wave-card" style="animation-delay: 0s;">
-              <div class="card-chart-container">
-                <svg viewBox="0 0 200 100" class="chart-svg">
-                  <defs>
-                    <linearGradient id="wave-grad" x1="0%" y1="0%" x2="0%" y2="100%">
-                      <stop offset="0%" stop-color="var(--turquesa)" stop-opacity="0.25" />
-                      <stop offset="100%" stop-color="var(--turquesa)" stop-opacity="0" />
-                    </linearGradient>
-                  </defs>
-                  <path d="M 0 80 Q 30 70, 60 50 T 120 40 T 180 20 L 200 15 L 200 100 L 0 100 Z" fill="url(#wave-grad)" />
-                  <path d="M 0 80 Q 30 70, 60 50 T 120 40 T 180 20 L 200 15" fill="none" stroke="var(--turquesa)" stroke-width="3" stroke-linecap="round" />
-                  <circle cx="60" cy="50" r="4" fill="var(--azul-marino)" />
-                  <circle cx="120" cy="40" r="4" fill="var(--azul-marino)" />
-                  <circle cx="180" cy="20" r="5" fill="var(--turquesa)" stroke="var(--white)" stroke-width="2" />
-                </svg>
-              </div>
-            </div>
-
-            <!-- Conector de Características con Línea Curva Discontinua -->
-            <div class="features-timeline">
-              <svg class="timeline-curve" viewBox="0 0 50 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M25 0 C -5 50, -5 130, 25 180" stroke="#CBD5E1" stroke-width="2" stroke-dasharray="5 5" stroke-linecap="round" />
-              </svg>
-              <div class="timeline-items">
-                <div class="timeline-item">
-                  <div class="timeline-icon">
-                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
-                      <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
-                    </svg>
-                  </div>
-                  <div class="timeline-content">
-                    <h4>Conecta tus Datos</h4>
-                  </div>
-                </div>
-                <div class="timeline-item">
-                  <div class="timeline-icon">
-                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                      <line x1="18" y1="20" x2="18" y2="10"></line>
-                      <line x1="12" y1="20" x2="12" y2="4"></line>
-                      <line x1="6" y1="20" x2="6" y2="14"></line>
-                    </svg>
-                  </div>
-                  <div class="timeline-content">
-                    <h4>Recibe Análisis</h4>
-                  </div>
-                </div>
-                <div class="timeline-item">
-                  <div class="timeline-icon">
-                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                      <polyline points="9 22 9 12 15 12 15 22"></polyline>
-                    </svg>
-                  </div>
-                  <div class="timeline-content">
-                    <h4>Gestiona tu Portafolio</h4>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Tarjeta Inferior Izquierda: Pastel y Barras -->
-            <div class="floating-card network-card-left" style="animation-delay: 1.5s;">
-              <div class="network-card-inner">
-                <div class="mini-chart-pie">
-                  <svg viewBox="0 0 100 100" class="pie-svg">
-                    <circle cx="50" cy="50" r="40" fill="none" stroke="#E2E8F0" stroke-width="20" />
-                    <circle cx="50" cy="50" r="40" fill="none" stroke="var(--turquesa)" stroke-width="20" stroke-dasharray="175 251" stroke-dashoffset="0" />
-                  </svg>
-                </div>
-                <div class="mini-chart-bars">
-                  <div class="bar" style="height: 40%;"></div>
-                  <div class="bar" style="height: 70%;"></div>
-                  <div class="bar" style="height: 90%;"></div>
-                </div>
-                <div class="mini-network-icon">
-                  <svg viewBox="0 0 40 40" width="24" height="24">
-                    <circle cx="20" cy="20" r="5" fill="var(--turquesa)" />
-                    <circle cx="8" cy="8" r="4" fill="var(--azul-medio)" />
-                    <circle cx="32" cy="32" r="4" fill="var(--azul-marino)" />
-                    <line x1="20" y1="20" x2="8" y2="8" stroke="#CBD5E1" stroke-width="1.5" />
-                    <line x1="20" y1="20" x2="32" y2="32" stroke="#CBD5E1" stroke-width="1.5" />
-                  </svg>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Columna Central: Copys y Botón de Exploración Principal con Red Orgánica -->
-          <div class="hero-column hero-center">
-            <!-- Logotipo de Red Orgánica Grande -->
-            <div class="large-hero-logo">
-              <svg viewBox="0 0 100 100" class="hero-logo-svg" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                  <filter id="hero-logo-shadow" x="-30%" y="-30%" width="160%" height="160%">
-                    <feDropShadow dx="1.5" dy="2.5" stdDeviation="2" flood-color="#0B2345" flood-opacity="0.12" />
-                  </filter>
-                  <linearGradient id="hero-grad-teal-blue" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#35B8B8" />
-                    <stop offset="100%" stop-color="#2F7FBF" />
-                  </linearGradient>
-                  <linearGradient id="hero-grad-teal-dark" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#35B8B8" />
-                    <stop offset="100%" stop-color="#0B2345" />
-                  </linearGradient>
-                  <linearGradient id="hero-grad-blue-dark" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#2F7FBF" />
-                    <stop offset="100%" stop-color="#0B2345" />
-                  </linearGradient>
-                </defs>
-                <!-- Conexiones -->
-                <g class="logo-links" stroke-width="2.2" stroke-linecap="round" opacity="0.85">
-                  <line x1="52.6" y1="8.6" x2="29.5" y2="24.7" stroke="#35B8B8" />
-                  <line x1="29.5" y1="24.7" x2="8.2" y2="40.2" stroke="#35B8B8" />
-                  <line x1="8.2" y1="40.2" x2="11.9" y2="63.9" stroke="#35B8B8" />
-                  <line x1="11.9" y1="63.9" x2="14.7" y2="87.5" stroke="url(#hero-grad-teal-dark)" />
-                  <line x1="14.7" y1="87.5" x2="40.4" y2="85.5" stroke="url(#hero-grad-teal-dark)" />
-                  <line x1="40.4" y1="85.5" x2="68.6" y2="91.7" stroke="url(#hero-grad-teal-dark)" />
-                  <line x1="68.6" y1="91.7" x2="88.8" y2="90.6" stroke="#0B2345" />
-                  <line x1="88.8" y1="90.6" x2="89.2" y2="73.0" stroke="#0B2345" />
-                  <line x1="89.2" y1="73.0" x2="92.1" y2="40.9" stroke="#0B2345" />
-                  <line x1="92.1" y1="40.9" x2="78.2" y2="23.5" stroke="url(#hero-grad-blue-dark)" />
-                  <line x1="78.2" y1="23.5" x2="52.6" y2="8.6" stroke="url(#hero-grad-teal-blue)" />
-
-                  <line x1="42.2" y1="56.4" x2="8.2" y2="40.2" stroke="url(#hero-grad-teal-blue)" />
-                  <line x1="42.2" y1="56.4" x2="11.9" y2="63.9" stroke="url(#hero-grad-teal-blue)" />
-                  <line x1="42.2" y1="56.4" x2="14.7" y2="87.5" stroke="url(#hero-grad-teal-dark)" />
-                  <line x1="42.2" y1="56.4" x2="40.4" y2="85.5" stroke="#35B8B8" />
-                  <line x1="42.2" y1="56.4" x2="68.6" y2="91.7" stroke="url(#hero-grad-blue-dark)" />
-                  <line x1="42.2" y1="56.4" x2="69.1" y2="60.5" stroke="url(#hero-grad-blue-dark)" />
-                  <line x1="42.2" y1="56.4" x2="64.9" y2="37.4" stroke="#2F7FBF" />
-                  <line x1="42.2" y1="56.4" x2="29.5" y2="24.7" stroke="#35B8B8" />
-                  <line x1="42.2" y1="56.4" x2="52.6" y2="8.6" stroke="url(#hero-grad-teal-blue)" />
-
-                  <line x1="52.6" y1="8.6" x2="64.9" y2="37.4" stroke="url(#hero-grad-teal-blue)" />
-                  <line x1="64.9" y1="37.4" x2="92.1" y2="40.9" stroke="url(#hero-grad-blue-dark)" />
-                  <line x1="64.9" y1="37.4" x2="78.2" y2="23.5" stroke="#2F7FBF" />
-                  <line x1="64.9" y1="37.4" x2="69.1" y2="60.5" stroke="url(#hero-grad-blue-dark)" />
-                  <line x1="69.1" y1="60.5" x2="92.1" y2="40.9" stroke="#0B2345" />
-                  <line x1="69.1" y1="60.5" x2="89.2" y2="73.0" stroke="#0B2345" />
-                  <line x1="69.1" y1="60.5" x2="68.6" y2="91.7" stroke="#0B2345" />
-                  <line x1="89.2" y1="73.0" x2="68.6" y2="91.7" stroke="#0B2345" />
-                </g>
-                <!-- Nodos -->
-                <g class="logo-nodes" filter="url(#hero-logo-shadow)">
-                  <circle cx="52.6" cy="8.6" r="7.5" fill="#35B8B8" />
-                  <circle cx="29.5" cy="24.7" r="5.5" fill="#35B8B8" />
-                  <circle cx="8.2" cy="40.2" r="8.5" fill="#35B8B8" />
-                  <circle cx="40.4" cy="85.5" r="5.5" fill="#35B8B8" />
-                  
-                  <circle cx="11.9" cy="63.9" r="5.5" fill="#2F7FBF" />
-                  <circle cx="78.2" cy="23.5" r="4.5" fill="#2F7FBF" />
-                  <circle cx="42.2" cy="56.4" r="11" fill="#2F7FBF" />
-                  <circle cx="64.9" cy="37.4" r="4.5" fill="#2F7FBF" />
-
-                  <circle cx="14.7" cy="87.5" r="9.5" fill="#0B2345" />
-                  <circle cx="68.6" cy="91.7" r="8.5" fill="#0B2345" />
-                  <circle cx="88.8" cy="90.6" r="7" fill="#0B2345" />
-                  <circle cx="89.2" cy="73.0" r="6.5" fill="#0B2345" />
-                  <circle cx="92.1" cy="40.9" r="9" fill="#0B2345" />
-                  <circle cx="69.1" cy="60.5" r="7" fill="#0B2345" />
-                </g>
-              </svg>
-            </div>
-
-            <!-- Títulos e Identidad -->
-            <h2 class="premium-hero-title">VALORACASA:</h2>
-            <h3 class="premium-hero-subtitle-network">Tu Red de Valor Inmobiliario</h3>
-            <p class="premium-hero-description">
-              Conecta y descubre el valor real de tu propiedad.<br />Comienza tu viaje aquí abajo.
-            </p>
-
-            <!-- Botón CTA con Cursor Animado y Guía -->
-            <div class="cta-button-wrapper">
-              <button onclick="document.getElementById('estimar').scrollIntoView({behavior: 'smooth'})" class="btn-premium-cta">
-                COMENZAR A EXPLORAR (GRATIS)
-              </button>
-              <div class="tour-guide-container">
-                <svg viewBox="0 0 24 24" class="guide-cursor" width="22" height="22" fill="none">
-                  <path d="M4 3l16 9-7 2.5L10.5 21 4 3z" fill="var(--azul-marino)" stroke="var(--white)" stroke-width="2" stroke-linejoin="round" />
-                </svg>
-                <span class="tour-guide-text">guía del recorrido</span>
-              </div>
-            </div>
-            <span class="cta-subtext">Sin tarjeta de crédito. Consulta datos públicos de inmediato.</span>
-          </div>
-
-          <!-- Columna Derecha (Tarjetas de datos flotantes) -->
-          <div class="hero-column hero-right">
-            <!-- Tarjeta Superior Derecha: Panel de Datos y Mini Barras -->
-            <div class="floating-card data-panel-card" style="animation-delay: 0.7s;">
-              <div class="data-panel-header">
-                <div class="mini-network-blue">
-                  <svg viewBox="0 0 30 30" width="20" height="20">
-                    <circle cx="15" cy="15" r="4" fill="var(--azul-medio)" />
-                    <circle cx="6" cy="6" r="3" fill="var(--turquesa)" />
-                    <circle cx="24" cy="24" r="3" fill="var(--azul-marino)" />
-                    <line x1="15" y1="15" x2="6" y2="6" stroke="#CBD5E1" stroke-width="1.5" />
-                    <line x1="15" y1="15" x2="24" y2="24" stroke="#CBD5E1" stroke-width="1.5" />
-                  </svg>
-                </div>
-              </div>
-              <div class="data-panel-progress-list">
-                <div class="progress-item">
-                  <div class="progress-bar-fill" style="width: 80%; background-color: var(--turquesa);"></div>
-                </div>
-                <div class="progress-item">
-                  <div class="progress-bar-fill" style="width: 55%; background-color: var(--azul-medio);"></div>
-                </div>
-                <div class="progress-item">
-                  <div class="progress-bar-fill" style="width: 35%; background-color: var(--azul-marino);"></div>
-                </div>
-              </div>
-              <div class="data-panel-bar-chart">
-                <svg viewBox="0 0 100 40" class="mini-bars-svg">
-                  <rect x="10" y="10" width="8" height="30" rx="2" fill="var(--turquesa)" />
-                  <rect x="25" y="15" width="8" height="25" rx="2" fill="#E2E8F0" />
-                  <rect x="40" y="5" width="8" height="35" rx="2" fill="var(--azul-medio)" />
-                  <rect x="55" y="20" width="8" height="20" rx="2" fill="#E2E8F0" />
-                  <rect x="70" y="8" width="8" height="32" rx="2" fill="var(--azul-marino)" />
-                  <rect x="85" y="18" width="8" height="22" rx="2" fill="#E2E8F0" />
-                </svg>
-              </div>
-            </div>
-
-            <!-- Tarjeta Inferior Derecha: Gráfico de Ondas de Interconexión -->
-            <div class="floating-card line-card-right" style="animation-delay: 2.2s;">
-              <div class="card-chart-container">
-                <svg viewBox="0 0 200 100" class="chart-svg">
-                  <path d="M 0 50 Q 40 20, 80 70 T 160 30 T 200 40" fill="none" stroke="var(--azul-medio)" stroke-width="2.5" />
-                  <path d="M 0 60 Q 40 40, 80 80 T 160 45 T 200 55" fill="none" stroke="var(--turquesa)" stroke-width="1.5" stroke-dasharray="3 3" />
-                  <circle cx="80" cy="70" r="5" fill="var(--azul-marino)" stroke="var(--white)" stroke-width="2" />
-                  <circle cx="160" cy="30" r="4" fill="var(--turquesa)" />
-                </svg>
-              </div>
-              <div class="line-card-badge">
-                <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5">
-                  <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
-                </svg>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      <!-- SECCIÓN DE KPIs DESTACADOS DEL DATASET -->
-      <section class="kpis-section">
-        <div class="grid-2 grid-4">
-          <div class="card kpi-card">
-            <span class="kpi-val">11,566</span>
-            <span class="kpi-lbl">Viviendas en Análisis</span>
-          </div>
-          <div class="card kpi-card">
-            <span class="kpi-val kpi-val-highlight">$2,500</span>
-            <span class="kpi-lbl">Renta Mediana (MXN)</span>
-          </div>
-          <div class="card kpi-card">
-            <span class="kpi-val">XGBoost</span>
-            <span class="kpi-lbl">Modelo Seleccionado</span>
-          </div>
-          <div class="card kpi-card">
-            <span class="kpi-val kpi-val-highlight">$838</span>
-            <span class="kpi-lbl">Error Promedio (MAE)</span>
-          </div>
-        </div>
-      </section>
-
-      <!-- SECCIÓN 2: ESTIMAR RENTA (SIMULADOR INTERACTIVO) -->
-      <section id="estimar" class="section-padding" style="margin-bottom: 4rem;">
-        <div class="section-title-box">
-          <span class="section-subtitle-tag">Estimación Analítica</span>
-          <h3 class="section-main-title">Simulador de Renta Sugerida</h3>
-          <p class="section-desc">
-            Modifica las características físicas, geográficas y de equipamiento para simular de forma analítica el valor referencial óptimo de arrendamiento de la vivienda.
-          </p>
-        </div>
-
-        <div class="grid-12" style="align-items: start;">
-          <!-- Columna Inputs: Formulario de características -->
-          <div style="grid-column: span 12;" class="md-col-7 card">
-            <form class="sim-form" onsubmit="return false;">
-              <!-- Grupo 1: Ubicación y Categoría -->
-              <div>
-                <h4 class="sim-group-title">1. Contexto e Inmueble</h4>
-                <div class="grid-2" style="gap: 1rem; margin-bottom: 1rem;">
-                  <div class="input-field">
-                    <label class="input-label" for="in_tipo_viv">Tipo de Inmueble</label>
-                    <select id="in_tipo_viv" class="select-control">
-                      <option value="casa_sol" selected>Casa Sola</option>
-                      <option value="depto">Departamento en Edificio</option>
-                      <option value="cuarto">Cuarto en Vecindad o Accesoria</option>
-                    </select>
-                  </div>
-                  <div class="input-field">
-                    <label class="input-label" for="in_loc">Tamaño de la Localidad</label>
-                    <select id="in_loc" class="select-control">
-                      <option value="urbana_g" selected>Urbana Grande (> 100k hab)</option>
-                      <option value="urbana_m">Urbana Mediana (15k - 99k hab)</option>
-                      <option value="urbana_p">Urbana Pequeña (2.5k - 14.9k hab)</option>
-                      <option value="rural">Rural (&lt; 2.5k hab)</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="input-field">
-                  <label class="input-label">Estrato Socioeconómico de la Zona</label>
-                  <div class="estrato-grid">
-                    <label class="estrato-btn" id="lbl-est-1" onclick="selectEstrato(1)">
-                      <input type="radio" name="in_estrato" value="1" />
-                      <span class="est-title">Bajo</span>
-                      <span class="est-sub">Estrato 1</span>
-                    </label>
-                    <label class="estrato-btn active" id="lbl-est-2" onclick="selectEstrato(2)">
-                      <input type="radio" name="in_estrato" value="2" checked />
-                      <span class="est-title">Medio Bajo</span>
-                      <span class="est-sub">Estrato 2</span>
-                    </label>
-                    <label class="estrato-btn" id="lbl-est-3" onclick="selectEstrato(3)">
-                      <input type="radio" name="in_estrato" value="3" />
-                      <span class="est-title">Medio Alto</span>
-                      <span class="est-sub">Estrato 3</span>
-                    </label>
-                    <label class="estrato-btn" id="lbl-est-4" onclick="selectEstrato(4)">
-                      <input type="radio" name="in_estrato" value="4" />
-                      <span class="est-title">Alto</span>
-                      <span class="est-sub">Estrato 4</span>
-                    </label>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Grupo 2: Características Físicas -->
-              <div>
-                <h4 class="sim-group-title">2. Estructura y Capacidad</h4>
-                <div class="grid-3" style="gap: 1.2rem; margin-bottom: 1rem;">
-                  <div class="input-field">
-                    <label class="input-label" for="in_cuartos">
-                      Cuartos Totales
-                      <span class="dynamic-val" id="val_cuartos">3</span>
-                    </label>
-                    <input type="range" id="in_cuartos" min="1" max="10" value="3" class="slider-control" />
-                  </div>
-                  <div class="input-field">
-                    <label class="input-label" for="in_dorm">
-                      Dormitorios
-                      <span class="dynamic-val" id="val_dorm">2</span>
-                    </label>
-                    <input type="range" id="in_dorm" min="1" max="5" value="2" class="slider-control" />
-                  </div>
-                  <div class="input-field">
-                    <label class="input-label" for="in_focos">
-                      Puntos de Luz (Focos)
-                      <span class="dynamic-val" id="val_focos">6</span>
-                    </label>
-                    <input type="range" id="in_focos" min="1" max="25" value="6" class="slider-control" />
-                  </div>
-                </div>
-                <div class="input-field">
-                  <label class="input-label" for="in_piso">Material del Piso</label>
-                  <select id="in_piso" class="select-control">
-                    <option value="mosaico" selected>Madera, Mosaico o Acabado Fino</option>
-                    <option value="cemento">Cemento o Firme</option>
-                    <option value="tierra">Tierra</option>
-                  </select>
-                </div>
-              </div>
-
-              <!-- Grupo 3: Servicios y Amenidades -->
-              <div>
-                <h4 class="sim-group-title">3. Amenidades e Instalaciones</h4>
-                <div class="input-field" style="margin-bottom: 1rem;">
-                  <label class="input-label" for="in_agua">Acceso a Agua Entubada</label>
-                  <select id="in_agua" class="select-control">
-                    <option value="dentro" selected>Dentro de la vivienda</option>
-                    <option value="fuera">Fuera de la vivienda, pero en el terreno</option>
-                    <option value="no">No tiene acceso formal</option>
-                  </select>
-                </div>
-                <div class="amenities-grid">
-                  <label class="amenity-checkbox active" id="lbl-bano">
-                    <input type="checkbox" id="in_bano" checked onchange="toggleAmenityActive('bano')" />
-                    Baño Completo Exclusivo
-                  </label>
-                  <label class="amenity-checkbox active" id="lbl-dren">
-                    <input type="checkbox" id="in_dren" checked onchange="toggleAmenityActive('dren')" />
-                    Tiene Drenaje
-                  </label>
-                  <label class="amenity-checkbox active" id="lbl-calentador">
-                    <input type="checkbox" id="in_calentador" checked onchange="toggleAmenityActive('calentador')" />
-                    Calentador de Gas
-                  </label>
-                  <label class="amenity-checkbox" id="lbl-cisterna">
-                    <input type="checkbox" id="in_cisterna" onchange="toggleAmenityActive('cisterna')" />
-                    Cisterna de Agua
-                  </label>
-                  <label class="amenity-checkbox active" id="lbl-tinaco">
-                    <input type="checkbox" id="in_tinaco" checked onchange="toggleAmenityActive('tinaco')" />
-                    Tinaco Instalado
-                  </label>
-                </div>
-              </div>
-            </form>
-          </div>
-
-          <!-- Columna Resultados -->
-          <div style="grid-column: span 12;" class="md-col-5">
-            <div class="output-card">
-              <!-- Header -->
-              <div class="output-header">
-                <span class="output-badge">Referencia Estimada</span>
-                <span class="output-error-badge">MAE: ±$838 MXN</span>
-              </div>
-
-              <!-- Price Box -->
-              <div class="price-block">
-                <span class="price-lbl">Renta Sugerida Mensual</span>
-                <div class="price-val" id="lbl-renta-estimada">$3,560</div>
-                <span class="price-currency">PESOS MEXICANOS (MXN)</span>
-              </div>
-
-              <!-- Rango Tolerable -->
-              <div class="range-box">
-                <div class="range-title">Rango Referencial Sugerido</div>
-                <div class="range-val" id="lbl-rango-estimado">$2,722 – $4,398</div>
-                <p class="range-desc">
-                  Intervalo estadístico sustentable basado en la desviación promedio histórica del mercado analizado.
-                </p>
-              </div>
-
-              <!-- Medidor Visual (Gauge) -->
-              <div class="gauge-container">
-                <div class="gauge-labels">
-                  <span>Bajo</span>
-                  <span>Mediana ($2,500)</span>
-                  <span>Alto</span>
-                </div>
-                <div class="gauge-track">
-                  <div class="gauge-fill" id="gauge-sim-fill"></div>
-                </div>
-              </div>
-
-              <!-- Lectura Ejecutiva -->
-              <div class="narrative-box">
-                <h5 class="narrative-title">Lectura del Escenario</h5>
-                <p id="lbl-lectura-ejecutiva" style="font-size: 0.72rem; font-weight: 500;">
-                  La propiedad se sitúa en un rango medio. La estimación está impulsada por ubicaciones de estrato medio-bajo con equipamiento y servicios básicos completos.
-                </p>
-              </div>
-
-              <!-- Factores -->
-              <div class="factors-box">
-                <h5 class="factors-title">
-                  <span style="color: var(--turquesa);">📊</span> Factores de Valoración
-                </h5>
-                <!-- Promotores -->
-                <div class="factor-item">
-                  <span class="factor-icon icon-plus">▲</span>
-                  <div>
-                    <span class="factor-name">Promotores: </span>
-                    <span class="factor-desc" id="lbl-promotores">Estrato socioeconómico medio-bajo, localidad urbana grande.</span>
-                  </div>
-                </div>
-                <!-- Detractores -->
-                <div class="factor-item">
-                  <span class="factor-icon icon-minus">▼</span>
-                  <div>
-                    <span class="factor-name">Detractores: </span>
-                    <span class="factor-desc" id="lbl-detractores">Falta de cisterna de agua entubada.</span>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Aviso legal -->
-              <div class="disclaimer-box">
-                <span class="disclaimer-icon">⚠️</span>
-                <div>
-                  <strong>Aviso:</strong> ValoraCasa ofrece una referencia analítica para la toma de decisiones y no sustituye de ninguna forma un avalúo comercial profesional.
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- SECCIÓN 3: INSIGHTS CLAVE -->
-      <section id="insights" class="insights-section">
-        <div class="section-title-box">
-          <span class="section-subtitle-tag" style="color: var(--turquesa);">Evidencia Comercial</span>
-          <h3 class="section-main-title">¿Qué determina el precio de la renta?</h3>
-          <p class="section-desc">
-            Los patrones más representativos descubiertos en los microdatos oficiales del INEGI que impactan el valor comercial de una vivienda.
-          </p>
-        </div>
-
-        <div class="grid-4">
-          <!-- Card 1 -->
-          <div class="card insight-card">
-            <div>
-              <div class="insight-icon-box">📍</div>
-              <h4 class="insight-title">Entorno Socioeconómico</h4>
-              <p class="insight-text">
-                El tamaño de la localidad y el nivel socioeconómico de la zona explican más del 50% de las diferencias de renta a nivel nacional. Las capitales y urbes empujan con fuerza el precio base.
-              </p>
-            </div>
-            <span class="insight-impact">Impacto: Muy Alto</span>
-          </div>
-
-          <!-- Card 2 -->
-          <div class="card insight-card">
-            <div>
-              <div class="insight-icon-box">🚿</div>
-              <h4 class="insight-title">Servicios Habitacionales</h4>
-              <p class="insight-text">
-                Tener drenaje conectado, baño completo exclusivo e instalación formal de agua entubada dentro del hogar representan las mayores barreras físicas que elevan la plusvalía del arrendamiento.
-              </p>
-            </div>
-            <span class="insight-impact">Impacto: Alto</span>
-          </div>
-
-          <!-- Card 3 -->
-          <div class="card insight-card">
-            <div>
-              <div class="insight-icon-box">🔥</div>
-              <h4 class="insight-title">Equipamiento Estructural</h4>
-              <p class="insight-text">
-                Amenidades adicionales como calentador de gas, tinaco o cisterna amortiguan la volatilidad del valor del inmueble, al garantizar resiliencia funcional frente a fallas urbanas de agua.
-              </p>
-            </div>
-            <span class="insight-impact">Impacto: Medio</span>
-          </div>
-
-          <!-- Card 4 -->
-          <div class="card insight-card">
-            <div>
-              <div class="insight-icon-box">📐</div>
-              <h4 class="insight-title">Tolerancia Predictiva</h4>
-              <p class="insight-text">
-                El modelo es altamente preciso para estimaciones en segmentos de rentas bajas y medias (menores a $10,000 MXN). En rentas altas de lujo, las particularidades cualitativas elevan la dispersión.
-              </p>
-            </div>
-            <span class="insight-impact insight-impact-alt">Metodología</span>
-          </div>
-        </div>
-      </section>
-
-      <!-- ========================================== -->
-      <!-- SECCIÓN DE SOPORTE E INFORMACIÓN (FAQ & CONTACTO) -->
-      <!-- ========================================== -->
-      <section class="support-grid-section no-print" id="soporte">
-        <div class="support-container">
-          <!-- Columna Izquierda: FAQ Accordion -->
-          <div class="faq-column">
-            <h3 class="section-title">Preguntas Frecuentes</h3>
-            <div class="accordion-group">
-              
-              <!-- Pregunta 1 -->
-              <div class="accordion-item">
-                <button class="accordion-header" onclick="toggleAccordion(this)">
-                  <span>¿Qué es ValoraCasa y para qué sirve?</span>
-                  <span class="accordion-icon">▼</span>
-                </button>
-                <div class="accordion-content">
-                  <p>
-                    ValoraCasa es una plataforma predictiva de ciencia de datos desarrollada por <strong>The FI-ndings</strong>. Su propósito es estimar de forma referencial y ágil las rentas habitacionales en México basándose en información pública oficial y modelos matemáticos avanzados. Es ideal para que propietarios, inquilinos y asesores inmobiliarios entiendan el contexto de precios del mercado de forma clara e intuitiva.
-                  </p>
-                </div>
-              </div>
-
-              <!-- Pregunta 2 -->
-              <div class="accordion-item">
-                <button class="accordion-header" onclick="toggleAccordion(this)">
-                  <span>¿De dónde provienen los datos utilizados?</span>
-                  <span class="accordion-icon">▼</span>
-                </button>
-                <div class="accordion-content">
-                  <p>
-                    Nuestro motor matemático se alimenta de fuentes oficiales públicas y actualizadas de México, principalmente del <strong>INEGI</strong> (incluyendo el Censo de Población y Vivienda y la Encuesta Nacional de Ingresos y Gastos de los Hogares 2024 - ENIGH). Adicionalmente, combinamos esta información con datos abiertos de conectividad vial, servicios locales y cercanía a infraestructura de transporte urbano, procesados rigurosamente por The FI-ndings para reflejar el dinamismo de cada microzona.
-                  </p>
-                </div>
-              </div>
-
-              <!-- Pregunta 3 -->
-              <div class="accordion-item">
-                <button class="accordion-header" onclick="toggleAccordion(this)">
-                  <span>¿Cuál es la precisión de las estimaciones?</span>
-                  <span class="accordion-icon">▼</span>
-                </button>
-                <div class="accordion-content">
-                  <p>
-                    El modelo predictivo core está basado en el algoritmo de machine learning <strong>XGBoost</strong>, logrando una excelente precisión estadística con un Error Absoluto Medio (MAE) promedio de <strong>$838 pesos</strong>. Cabe destacar que las predicciones son altamente confiables en zonas metropolitanas consolidadas; sin embargo, al ser estimaciones matemáticas automatizadas de carácter informativo, deben considerarse una referencia sólida de mercado y no constituyen un avalúo comercial o fiscal formal.
-                  </p>
-                </div>
-              </div>
-
-              <!-- Pregunta 4 -->
-              <div class="accordion-item">
-                <button class="accordion-header" onclick="toggleAccordion(this)">
-                  <span>¿Tiene algún costo utilizar esta plataforma?</span>
-                  <span class="accordion-icon">▼</span>
-                </button>
-                <div class="accordion-content">
-                  <p>
-                    El acceso a la simulación comercial básica (<strong>Capa 1: Portal del Usuario Final</strong>) es completamente gratuito y está disponible para toda la comunidad de propietarios y buscadores de vivienda en México. Para profesionales inmobiliarios, directores de negocio y científicos de datos que requieren validación metodológica, auditoría estadística y descarga masiva de datos (<strong>Capa 2: Centro Analítico de Datos</strong>), ofrecemos planes corporativos bajo esquema de suscripción profesional.
-                  </p>
-                </div>
-              </div>
-
-            </div>
-          </div>
-
-          <!-- Columna Derecha: Formulario de Contacto Glassmorphic -->
-          <div class="contact-column">
-            <div class="contact-card">
-              <!-- Capa de Éxito del Formulario -->
-              <div class="contact-success-overlay" id="contact-success-overlay">
-                <div class="success-circle">✓</div>
-                <h4 class="success-title">¡Mensaje Recibido!</h4>
-                <p class="success-desc">
-                  Tu solicitud ha sido registrada con éxito en nuestros servidores de ciencia de datos. Un especialista analítico de <strong>The FI-ndings</strong> se pondrá en contacto contigo en breve para dar seguimiento a tu caso.
-                </p>
-              </div>
-
-              <h3 class="card-title">¿Tienes dudas específicas?</h3>
-              <p class="card-subtitle">
-                Escríbenos y un miemThe FI-ndings resolverá tu consulta en menos de 24 horas hábiles.
-              </p>
-
-              <form id="portal-contact-form" onsubmit="handleContactSubmit(event)">
-                <div class="form-group">
-                  <label class="form-label" for="contact-name">Nombre Completo</label>
-                  <input type="text" id="contact-name" class="form-control" placeholder="Ej. Alejandra Gómez" required />
-                </div>
-
-                <div class="form-group">
-                  <label class="form-label" for="contact-email">Correo Electrónico</label>
-                  <input type="email" id="contact-email" class="form-control" placeholder="Ej. alejandra@ejemplo.com" required />
-                </div>
-
-                <div class="form-group">
-                  <label class="form-label" for="contact-profile">Tipo de Perfil</label>
-                  <select id="contact-profile" class="form-control form-select" required>
-                    <option value="" disabled selected>Selecciona tu perfil...</option>
-                    <option value="usuario_individual">Usuario Individual (Propietario / Inquilino)</option>
-                    <option value="asesor_inmobiliario">Asesor Inmobiliario Profesional</option>
-                    <option value="inmobiliaria_desarrollador">Inmobiliaria o Desarrollador</option>
-                    <option value="cientifico_datos">Científico de Datos o Evaluador</option>
-                  </select>
-                </div>
-
-                <div class="form-group">
-                  <label class="form-label" for="contact-message">Mensaje o Consulta</label>
-                  <textarea id="contact-message" class="form-control form-textarea" placeholder="Describe brevemente tus dudas sobre la precisión, la metodología o las suscripciones de ValoraCasa..." required></textarea>
-                </div>
-
-                <button type="submit" class="btn-contact-submit" id="btn-contact-submit">
-                  <span>Enviar Consulta</span>
-                  <span style="font-size: 0.9rem;">✉</span>
-                </button>
-              </form>
-            </div>
-          </div>
-        </div>
-      </section>
-
-    </div>
-    
-
-  </main>
-
-  <!-- PIE DE PÁGINA (no-print) -->
-  <!-- PIE DE PÁGINA PREMIUM DE LA LANDING (no-print) -->
-  <footer class="no-print" style="background-color: var(--white); border-top: 1px solid var(--border-color); padding: 1.8rem 0; margin-top: 5rem;">
-    <div class="container" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
-      <!-- Left side: Powered by The Findings -->
-      <div style="display: flex; align-items: center; gap: 0.5rem;">
-        <span style="font-size: 0.75rem; color: var(--gris-azulado); font-weight: 500;">Desarrollado por</span>
-        <div style="display: flex; align-items: center; gap: 0.35rem;">
-          <!-- Custom Findings Logo Isotype -->
-          <svg style="width: 16px; height: 16px; display: block; opacity: 0.9;" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-            <g stroke-width="6" stroke-linecap="round" opacity="0.8">
-              <line x1="52.6" y1="15.0" x2="25.0" y2="40.0" stroke="#35B8B8" />
-              <line x1="25.0" y1="40.0" x2="35.0" y2="80.0" stroke="#35B8B8" />
-              <line x1="35.0" y1="80.0" x2="75.0" y2="85.0" stroke="#0B2345" />
-              <line x1="75.0" y1="85.0" x2="85.0" y2="45.0" stroke="#0B2345" />
-              <line x1="85.0" y1="45.0" x2="52.6" y2="15.0" stroke="#2F7FBF" />
-              <line x1="45.0" y1="50.0" x2="52.6" y2="15.0" stroke="#35B8B8" />
-              <line x1="45.0" y1="50.0" x2="35.0" y2="80.0" stroke="#35B8B8" />
-              <line x1="45.0" y1="50.0" x2="75.0" y2="85.0" stroke="#0B2345" />
-            </g>
-            <circle cx="52.6" cy="15.0" r="10" fill="#35B8B8" />
-            <circle cx="25.0" cy="40.0" r="8" fill="#35B8B8" />
-            <circle cx="35.0" cy="80.0" r="8" fill="#2F7FBF" />
-            <circle cx="75.0" cy="85.0" r="10" fill="#0B2345" />
-            <circle cx="85.0" cy="45.0" r="9" fill="#0B2345" />
-            <circle cx="45.0" cy="50.0" r="12" fill="#2F7FBF" />
-          </svg>
-          <span style="font-weight: 800; font-size: 0.8rem; color: var(--azul-marino); font-family: var(--font-family); letter-spacing: -0.01em;">The FI-ndings</span>
-        </div>
-      </div>
-
-      <!-- Right side: Links -->
-      <div style="display: flex; gap: 1.8rem;">
-        <a href="#" style="font-size: 0.75rem; color: var(--gris-azulado); text-decoration: none; font-weight: 600; transition: color 0.2s;" onmouseover="this.style.color='var(--turquesa)'" onmouseout="this.style.color='var(--gris-azulado)'">Política de Privacidad</a>
-        <a href="#" style="font-size: 0.75rem; color: var(--gris-azulado); text-decoration: none; font-weight: 600; transition: color 0.2s;" onmouseover="this.style.color='var(--turquesa)'" onmouseout="this.style.color='var(--gris-azulado)'">Términos y Condiciones</a>
-      </div>
-    </div>
-  </footer>
-
-  <!-- ========================================== -->
-  <!-- WIDGET DEL CHATBOT VIRTUAL ASISTENTE (VALORABOT) -->
-  <!-- ========================================== -->
-  <div class="chatbot-widget no-print" id="chatbot-widget">
-    <!-- Botón de apertura flotante -->
-    <button class="chatbot-trigger" id="chatbot-trigger" onclick="toggleChatbot()">
-      <span class="chat-icon">💬</span>
-      <span class="chat-badge" id="chat-badge">1</span>
-    </button>
-
-    <!-- Panel de Conversación -->
-    <div class="chat-panel" id="chat-panel">
-      <!-- Cabecera -->
-      <div class="chat-header">
-        <div class="chat-bot-info">
-          <span class="chat-status-dot"></span>
-          <span class="chat-bot-name">ValoraBot</span>
-        </div>
-        <button class="chat-minimize-btn" onclick="toggleChatbot()">✖</button>
-      </div>
-      
-      <!-- Historial de Mensajes -->
-      <div class="chat-messages" id="chat-messages">
-        <div class="chat-bubble bot">
-          ¡Hola! Soy <strong>ValoraBot</strong>, asistente inteligente de <strong>The FI-ndings</strong>. ¿Te gustaría saber cómo valoramos las viviendas con datos oficiales y machine learning?
-        </div>
-      </div>
-
-      <!-- Sugerencias de consulta rápida -->
-      <div class="chat-suggestions" id="chat-suggestions">
-        <button class="suggestion-btn" onclick="sendSuggestion('precision')">📊 Precisión</button>
-        <button class="suggestion-btn" onclick="sendSuggestion('datos')">🔍 Datos</button>
-        <button class="suggestion-btn" onclick="sendSuggestion('metodo')">⚙️ Algoritmo</button>
-      </div>
-
-      <!-- Campo de entrada -->
-      <form class="chat-input-form" onsubmit="handleChatSubmit(event)">
-        <input type="text" id="chat-input" placeholder="Escribe tu mensaje..." required autocomplete="off" />
-        <button type="submit" class="chat-send-btn">➤</button>
-      </form>
-    </div>
-  </div>
-
-  <!-- SCRIPTS Y LÓGICA INTERACTIVA -->
-  <script>
-    // FORMATEADOR DE MONEDA MEXICANA
-    const formatMXN = (val) => {
-      return new Intl.NumberFormat('es-MX', {
-        style: 'currency',
-        currency: 'MXN',
-        maximumFractionDigits: 0
-      }).format(val);
-    };
-
-    // CONTROL ESTRATO SELECCIONADO
-    let currentEstrato = 2; // Default Medio Bajo
-    function selectEstrato(estratoNum) {
-      currentEstrato = estratoNum;
-      
-      // Quitar clase active
-      for (let i = 1; i <= 4; i++) {
-        document.getElementById(`lbl-est-${i}`).classList.remove('active');
-      }
-      
-      // Agregar active al seleccionado
-      document.getElementById(`lbl-est-${estratoNum}`).classList.add('active');
-      
-      // Recalcular
-      recalculate();
-    }
-
-    // ACTIVACIÓN VISUAL DE AMENIDADES EN GRID
-    function toggleAmenityActive(idName) {
-      const chk = document.getElementById(`in_${idName}`);
-      const lbl = document.getElementById(`lbl-${idName}`);
-      
-      if (chk.checked) {
-        lbl.classList.add('active');
-      } else {
-        lbl.classList.remove('active');
-      }
-      
-      recalculate();
-    }
-
-    // CAPTURA DE INPUTS Y FÓRMULA DE SIMULACIÓN REFERENCIAL
-    const inTipoViv = document.getElementById('in_tipo_viv');
-    const inLoc = document.getElementById('in_loc');
-    const inCuartos = document.getElementById('in_cuartos');
-    const inDorm = document.getElementById('in_dorm');
-    const inFocos = document.getElementById('in_focos');
-    const inPiso = document.getElementById('in_piso');
-    const inAgua = document.getElementById('in_agua');
-    const inBano = document.getElementById('in_bano');
-    const inDren = document.getElementById('in_dren');
-    const inCalentador = document.getElementById('in_calentador');
-    const inCisterna = document.getElementById('in_cisterna');
-    const inTinaco = document.getElementById('in_tinaco');
-
-    // Outputs DOM
-    const valCuartos = document.getElementById('val_cuartos');
-    const valDorm = document.getElementById('val_dorm');
-    const valFocos = document.getElementById('val_focos');
-    const lblRentaEstimada = document.getElementById('lbl-renta-estimada');
-    const lblRangoEstimado = document.getElementById('lbl-rango-estimado');
-    const gaugeSimFill = document.getElementById('gauge-sim-fill');
-    const lblLecturaEjecutiva = document.getElementById('lbl-lectura-ejecutiva');
-    const lblPromotores = document.getElementById('lbl-promotores');
-    const lblDetractores = document.getElementById('lbl-detractores');
-
-    // Suscribir eventos de recalculo
-    [inTipoViv, inLoc, inCuartos, inDorm, inFocos, inPiso, inAgua].forEach(item => {
-      item.addEventListener('input', recalculate);
-      item.addEventListener('change', recalculate);
-    });
-
-    function recalculate() {
-      // Actualizar valores numéricos dinámicos
-      valCuartos.innerText = inCuartos.value;
-      valDorm.innerText = inDorm.value;
-      valFocos.innerText = inFocos.value;
-
-      // FÓRMULA DE ESTIMACIÓN PRELIMINAR (Basada en coeficientes del análisis real)
-      let renta = 850; // Constante base de estimación
-      const promotores = [];
-      const detractores = [];
-
-      // 1. Tipo de Vivienda
-      const tipo = inTipoViv.value;
-      if (tipo === 'casa_sol') {
-        renta += 450;
-      } else if (tipo === 'depto') {
-        renta += 850;
-        promotores.push('Departamento en condominio');
-      } else if (tipo === 'cuarto') {
-        renta -= 250;
-        detractores.push('Cuarto independiente o acceso limitado');
-      }
-
-      // 2. Tamaño Localidad
-      const loc = inLoc.value;
-      if (loc === 'urbana_g') {
-        renta += 1200;
-        promotores.push('Localidad urbana densa (>100k hab)');
-      } else if (loc === 'urbana_m') {
-        renta += 600;
-      } else if (loc === 'urbana_p') {
-        renta += 200;
-      } else if (loc === 'rural') {
-        renta -= 150;
-        detractores.push('Localidad rural o dispersa');
-      }
-
-      // 3. Estrato Socioeconómico
-      const estrato = currentEstrato;
-      if (estrato === 1) {
-        renta -= 300;
-        detractores.push('Zona socioeconómica baja (Estrato 1)');
-      } else if (estrato === 2) {
-        renta += 300;
-      } else if (estrato === 3) {
-        renta += 1100;
-        promotores.push('Zona socioeconómica media-alta (Estrato 3)');
-      } else if (estrato === 4) {
-        renta += 3200;
-        promotores.push('Zona socioeconómica alta (Estrato 4)');
-      }
-
-      // 4. Cuartos y Dormitorios
-      const cuartos = Number(inCuartos.value);
-      const dorm = Number(inDorm.value);
-      const focos = Number(inFocos.value);
-
-      renta += (cuartos * 120);
-      renta += (dorm * 180);
-      renta += (focos * 45);
-
-      if (cuartos >= 5) promotores.push(`Distribución funcional amplia (${cuartos} cuartos)`);
-      if (focos >= 12) promotores.push(`Instalación eléctrica amplia (${focos} focos)`);
-
-      // 5. Material de Piso
-      const piso = inPiso.value;
-      if (piso === 'mosaico') {
-        renta += 550;
-        promotores.push('Pisos de material fino (cerámica/madera)');
-      } else if (piso === 'cemento') {
-        renta += 100;
-      } else if (piso === 'tierra') {
-        renta -= 400;
-        detractores.push('Material de piso rudimentario (tierra)');
-      }
-
-      // 6. Agua y Saneamiento
-      const agua = inAgua.value;
-      if (agua === 'dentro') {
-        renta += 450;
-      } else if (agua === 'fuera') {
-        renta += 150;
-        detractores.push('Agua entubada exterior en el terreno');
-      } else if (agua === 'no') {
-        renta -= 600;
-        detractores.push('Falta de acceso formal a agua entubada');
-      }
-
-      if (inBano.checked) {
-        renta += 350;
-      } else {
-        renta -= 450;
-        detractores.push('Sin baño exclusivo de uso completo');
-      }
-
-      if (inDren.checked) {
-        renta += 250;
-      } else {
-        renta -= 400;
-        detractores.push('Sin conexión formal a drenaje público');
-      }
-
-      // 7. Amenidades Adicionales
-      if (inCalentador.checked) {
-        renta += 320;
-        promotores.push('Calentador de agua (gas/solar)');
-      } else {
-        detractores.push('Falta de calentador instalado');
-      }
-
-      if (inCisterna.checked) {
-        renta += 280;
-        promotores.push('Cisterna de almacenamiento de agua');
-      }
-      if (inTinaco.checked) {
-        renta += 120;
-      }
-
-      // Delimitar topes lógicos de renta residencial en pesos
-      renta = Math.round(renta);
-      renta = Math.max(200, Math.min(renta, 35000));
-
-      // Asignación de MAE ($838)
-      const mae = 838;
-      const minRange = Math.max(100, renta - mae);
-      const maxRange = renta + mae;
-
-      // Escribir outputs al DOM
-      lblRentaEstimada.innerText = formatMXN(renta);
-      lblRangoEstimado.innerText = `${formatMXN(minRange)} – ${formatMXN(maxRange)}`;
-
-      // Configurar Gauge (Escala sobre Rango Máximo de $12,000 en visualización)
-      let percent = (renta / 12000) * 100;
-      percent = Math.max(5, Math.min(100, percent));
-      gaugeSimFill.style.width = `${percent}%`;
-
-      // Lectura Ejecutiva Dinámica
-      let lectura = 'La vivienda se sitúa en un rango medio. La estimación está impulsada por ubicaciones de estrato medio-bajo con equipamiento y servicios básicos completos.';
-      if (renta < 2200) {
-        lectura = 'La propiedad se clasifica en el rango de renta baja/accesible. Esto corresponde a viviendas ubicadas en contextos semi-urbanos o rurales, con equipamiento básico indispensable.';
-      } else if (renta > 6500) {
-        lectura = 'La propiedad se sitúa en el rango de renta alta/residencial. Esta estimación responde a entornos de nivel socioeconómico alto, amplio número de habitaciones y excelentes acabados estructurales.';
-      }
-      lblLecturaEjecutiva.innerText = lectura;
-
-      // Render de Promotores y Detractores
-      lblPromotores.innerText = promotores.length > 0 ? promotores.slice(0, 3).join(', ') + '.' : 'Sin factores significativos que sumen valor.';
-      lblDetractores.innerText = detractores.length > 0 ? detractores.slice(0, 3).join(', ') + '.' : 'Sin penalizaciones importantes registradas.';
-    }
-
-    // Inicializar Recalculo
-    window.addEventListener('DOMContentLoaded', () => {
-      recalculate();
-    });
-
-    /* ==========================================
-       1. ACORDEÓN DE PREGUNTAS FRECUENTES (FAQ)
-       ========================================== */
-    function toggleAccordion(button) {
-      const item = button.parentElement;
-      const isActive = item.classList.contains('active');
-      
-      // Cerrar todos los demás acordeones para un efecto de acordeón exclusivo
-      document.querySelectorAll('.accordion-item').forEach(i => {
-        i.classList.remove('active');
-        const content = i.querySelector('.accordion-content');
-        if (content) content.style.maxHeight = null;
-      });
-
-      // Si no estaba activo, abrir el actual
-      if (!isActive) {
-        item.classList.add('active');
-        const content = item.querySelector('.accordion-content');
-        if (content) {
-          content.style.maxHeight = content.scrollHeight + "px";
-        }
-      }
-    }
-
-    /* ==========================================
-       2. FORMULARIO DE CONTACTO PREMIUM CON LOADER
-       ========================================== */
-    function handleContactSubmit(event) {
-      event.preventDefault();
-      
-      const form = document.getElementById('portal-contact-form');
-      const submitBtn = document.getElementById('btn-contact-submit');
-      const successOverlay = document.getElementById('contact-success-overlay');
-      
-      // Deshabilitar botón y cambiar a estado de carga
-      submitBtn.disabled = true;
-      submitBtn.innerHTML = `
-        <span class="chat-status-dot" style="background:#fff; margin-right:4px;"></span>
-        <span>Procesando...</span>
-      `;
-      
-      // Simular tiempo de respuesta de la base de datos o API (1.5 segundos)
-      setTimeout(() => {
-        // Mostrar capa de éxito con micro-animación
-        successOverlay.classList.add('active');
-        
-        // Limpiar el formulario
-        form.reset();
-        
-        // Auto-cerrar la confirmación y restablecer el botón tras 4.5 segundos
-        setTimeout(() => {
-          successOverlay.classList.remove('active');
-          submitBtn.disabled = false;
-          submitBtn.innerHTML = `
-            <span>Enviar Consulta</span>
-            <span style="font-size: 0.9rem;">✉</span>
-          `;
-        }, 4500);
-      }, 1500);
-    }
-
-    /* ==========================================
-       3. CHATBOT FLOTANTE VIRTUAL (VALORABOT)
-       ========================================== */
-    let hasChatOpened = false;
-
-    function toggleChatbot() {
-      const panel = document.getElementById('chat-panel');
-      const badge = document.getElementById('chat-badge');
-      
-      panel.classList.toggle('active');
-      
-      // Ocultar la notificación "1" al abrir por primera vez
-      if (badge && panel.classList.contains('active')) {
-        badge.style.display = 'none';
-        hasChatOpened = true;
-      }
-    }
-
-    // Agregar mensaje al historial de chat
-    function addChatMessage(sender, text) {
-      const messagesContainer = document.getElementById('chat-messages');
-      const bubble = document.createElement('div');
-      bubble.className = `chat-bubble ${sender}`;
-      bubble.innerHTML = text;
-      
-      messagesContainer.appendChild(bubble);
-      messagesContainer.scrollTop = messagesContainer.scrollHeight;
-      return bubble;
-    }
-
-    // Mostrar simulador de escritura
-    function showTypingIndicator() {
-      const messagesContainer = document.getElementById('chat-messages');
-      const typingBubble = document.createElement('div');
-      typingBubble.className = 'chat-bubble bot typing';
-      typingBubble.id = 'chat-typing-indicator';
-      
-      typingBubble.innerHTML = `
-        <span class="typing-dot"></span>
-        <span class="typing-dot"></span>
-        <span class="typing-dot"></span>
-      `;
-      
-      messagesContainer.appendChild(typingBubble);
-      messagesContainer.scrollTop = messagesContainer.scrollHeight;
-    }
-
-    // Remover simulador de escritura
-    function removeTypingIndicator() {
-      const indicator = document.getElementById('chat-typing-indicator');
-      if (indicator) {
-        indicator.remove();
-      }
-    }
-
-    // Enviar sugerencia rápida
-    function sendSuggestion(type) {
-      let userText = "";
-      if (type === 'precision') {
-        userText = "¿Cuál es la precisión real del modelo?";
-      } else if (type === 'datos') {
-        userText = "¿Qué fuentes oficiales de datos utilizan?";
-      } else if (type === 'metodo') {
-        userText = "¿Cómo funciona metodológicamente el algoritmo?";
-      }
-      
-      if (userText) {
-        processUserMessage(userText);
-      }
-    }
-
-    // Manejar envío de mensaje por input
-    function handleChatSubmit(event) {
-      event.preventDefault();
-      const input = document.getElementById('chat-input');
-      const userText = input.value.trim();
-      
-      if (userText) {
-        processUserMessage(userText);
-        input.value = "";
-      }
-    }
-
-    // Procesar mensaje del usuario y generar auto-respuesta
-    function processUserMessage(userText) {
-      // 1. Agregar mensaje del usuario
-      addChatMessage('user', userText);
-      
-      // Ocultar temporalmente las sugerencias para enfocar la conversación
-      const suggestions = document.getElementById('chat-suggestions');
-      suggestions.style.opacity = '0.5';
-      suggestions.style.pointerEvents = 'none';
-      
-      // 2. Mostrar indicador de escritura del bot
-      showTypingIndicator();
-      
-      // 3. Generar la respuesta contextual tras 1.2 segundos
-      setTimeout(() => {
-        removeTypingIndicator();
-        
-        const responseText = getBotContextualReply(userText);
-        addChatMessage('bot', responseText);
-        
-        // Rehabilitar sugerencias
-        suggestions.style.opacity = '1';
-        suggestions.style.pointerEvents = 'auto';
-      }, 1200);
-    }
-
-    // Lógica conversacional en español basada en palabras clave
-    function getBotContextualReply(message) {
-      const msg = message.toLowerCase();
-      
-      // Caso 1: Saludo
-      if (msg.includes('hola') || msg.includes('buenos') || msg.includes('buenas') || msg.includes('saludos')) {
-        return "¡Hola! Un gusto saludarte. Soy ValoraBot. Estoy entrenado para platicar sobre la ciencia de datos detrás de ValoraCasa y las decisiones analíticas de <strong>The FI-ndings</strong>. ¿Qué duda metodológica o práctica te gustaría revisar?";
-      }
-      
-      // Caso 2: Precisión / XGBoost / Error / MAE / Confianza
-      if (msg.includes('precision') || msg.includes('precisión') || msg.includes('error') || msg.includes('mae') || msg.includes('confia') || msg.includes('segur') || msg.includes('exact')) {
-        return "El modelo core de ValoraCasa posee un <strong>Error Absoluto Medio (MAE) promedio de $838 pesos</strong>. Esto significa que las estimaciones referenciales varían muy poco respecto al mercado real. El algoritmo base es <strong>XGBoost</strong>, optimizado mediante validación cruzada espacial para evitar sobreajustes y garantizar estabilidad zonal.";
-      }
-      
-      // Caso 3: Datos / Origen / Fuente / INEGI / ENIGH / Censo
-      if (msg.includes('dato') || msg.includes('fuente') || msg.includes('origen') || msg.includes('inegi') || msg.includes('enigh') || msg.includes('censo')) {
-        return "Nuestra base informativa está cimentada en conjuntos de datos oficiales y validados en México. Principalmente empleamos el <strong>Censo de Población y Vivienda</strong> de INEGI y las microdatos de la encuesta de ingresos <strong>ENIGH 2024</strong>. Enriquecemos esto con capas geográficas de equipamiento urbano, transporte público de la CONABIO y variables contextuales procesadas en la nube.";
-      }
-
-      // Caso 4: Algoritmo / Metodología / Funcionamiento / XGBoost / Modelo / Ciencia de Datos
-      if (msg.includes('metodo') || msg.includes('método') || msg.includes('algoritmo') || msg.includes('funcion') || msg.includes('cómo hace') || msg.includes('cómo funciona') || msg.includes('ciencia')) {
-        return "Metodológicamente, ValoraCasa no realiza un avalúo físico tradicional. Aplicamos un modelo predictivo supervisado <strong>XGBoost</strong> sobre más de 20 variables de vivienda (recámaras, baños, metros, estacionamiento) y variables macro del entorno socioeconómico e infraestructura (distancia a avenidas principales y centros comerciales). Esto nos permite 'aprender' los precios de renta óptimos y explicarlos en pesos mediante <strong>valores SHAP</strong> en la Capa 1.";
-      }
-
-      // Caso 5: Costo / Gratis / Cobro / Pagar / Suscripción
-      if (msg.includes('costo') || msg.includes('gratis') || msg.includes('precio') || msg.includes('pagar') || msg.includes('cobro') || msg.includes('suscrip')) {
-        return "¡La Capa 1 (Portal del Usuario Final) es y seguirá siendo <strong>100% gratuita</strong>! Está pensada para empoderar a la sociedad. La Capa 2 (Centro Analítico y Consola Metodológica) está diseñada para uso corporativo, brokers e inmobiliarias, operando bajo un accesible esquema de suscripción analítica mensual.";
-      }
-
-      // Caso 6: The FI-ndings / Creadores / Empresa / Quiénes
-      if (msg.includes('findings') || msg.includes('finding') || msg.includes('creador') || msg.includes('empresa') || msg.includes('quien') || msg.includes('quién')) {
-        return "ValoraCasa es un producto desarrollado por <strong>The FI-ndings</strong>, una firma consultora y desarrolladora de tecnología especializada en ciencia de datos aplicada a negocios. Nuestro slogan principal define nuestra filosofía: <em>\"Convertimos datos en decisiones.\"</em>";
-      }
-
-      // Caso 7: Despedida o Agradecimiento
-      if (msg.includes('gracias') || msg.includes('ok') || msg.includes('perfecto') || msg.includes('adios') || msg.includes('adiós') || msg.includes('bye')) {
-        return "¡De nada! Ha sido un placer conversar contigo. Si tienes más dudas, puedes escribirle a nuestro equipo técnico mediante el formulario de contacto glassmorphic que diseñamos al lado del acordeón FAQ. ¡Hasta pronto!";
-      }
-
-      // Por defecto
-      return "Entiendo tu consulta. Como modelo de IA enfocado en la metodología de <strong>ValoraCasa</strong>, te recomiendo revisar la <strong>Capa 2 (Consola Metodológica)</strong> para auditar los coeficientes y métricas, o bien, enviarnos tu correo en la sección de contacto adjunta para que un científico de datos se comunique contigo en persona.";
-    }
-  </script>
+<!-- BARRA DE NAVEGACIÓN STICKY (no-print) -->
+<header class="no-print">
+<div class="container nav-container">
+<!-- Identidad de Marca -->
+<a href="index.html" class="brand-logo">
+<div class="logo-badge">
+<svg class="findings-logo-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<filter id="logo-shadow" x="-30%" y="-30%" width="160%" height="160%">
+<feDropShadow dx="1" dy="1.5" stdDeviation="1.2" flood-color="#0B2345" flood-opacity="0.15" />
+</filter>
+<linearGradient id="grad-teal-blue" x1="0%" y1="0%" x2="100%" y2="100%">
+<stop offset="0%" stop-color="#35B8B8" />
+<stop offset="100%" stop-color="#2F7FBF" />
+</linearGradient>
+<linearGradient id="grad-teal-dark" x1="0%" y1="0%" x2="100%" y2="100%">
+<stop offset="0%" stop-color="#35B8B8" />
+<stop offset="100%" stop-color="#0B2345" />
+</linearGradient>
+<linearGradient id="grad-blue-dark" x1="0%" y1="0%" x2="100%" y2="100%">
+<stop offset="0%" stop-color="#2F7FBF" />
+<stop offset="100%" stop-color="#0B2345" />
+</linearGradient>
+</defs>
+<!-- Conexiones -->
+<g class="logo-links" stroke-width="2.5" stroke-linecap="round" opacity="0.8">
+<!-- Outline -->
+<line x1="52.6" y1="8.6" x2="29.5" y2="24.7" stroke="#35B8B8" />
+<line x1="29.5" y1="24.7" x2="8.2" y2="40.2" stroke="#35B8B8" />
+<line x1="8.2" y1="40.2" x2="11.9" y2="63.9" stroke="#35B8B8" />
+<line x1="11.9" y1="63.9" x2="14.7" y2="87.5" stroke="url(#grad-teal-dark)" />
+<line x1="14.7" y1="87.5" x2="40.4" y2="85.5" stroke="url(#grad-teal-dark)" />
+<line x1="40.4" y1="85.5" x2="68.6" y2="91.7" stroke="url(#grad-teal-dark)" />
+<line x1="68.6" y1="91.7" x2="88.8" y2="90.6" stroke="#0B2345" />
+<line x1="88.8" y1="90.6" x2="89.2" y2="73.0" stroke="#0B2345" />
+<line x1="89.2" y1="73.0" x2="92.1" y2="40.9" stroke="#0B2345" />
+<line x1="92.1" y1="40.9" x2="78.2" y2="23.5" stroke="url(#grad-blue-dark)" />
+<line x1="78.2" y1="23.5" x2="52.6" y2="8.6" stroke="url(#grad-teal-blue)" />
+
+<!-- Internal center connections -->
+<line x1="42.2" y1="56.4" x2="8.2" y2="40.2" stroke="url(#grad-teal-blue)" />
+<line x1="42.2" y1="56.4" x2="11.9" y2="63.9" stroke="url(#grad-teal-blue)" />
+<line x1="42.2" y1="56.4" x2="14.7" y2="87.5" stroke="url(#grad-teal-dark)" />
+<line x1="42.2" y1="56.4" x2="40.4" y2="85.5" stroke="#35B8B8" />
+<line x1="42.2" y1="56.4" x2="68.6" y2="91.7" stroke="url(#grad-blue-dark)" />
+<line x1="42.2" y1="56.4" x2="69.1" y2="60.5" stroke="url(#grad-blue-dark)" />
+<line x1="42.2" y1="56.4" x2="64.9" y2="37.4" stroke="#2F7FBF" />
+<line x1="42.2" y1="56.4" x2="29.5" y2="24.7" stroke="#35B8B8" />
+<line x1="42.2" y1="56.4" x2="52.6" y2="8.6" stroke="url(#grad-teal-blue)" />
+
+<!-- Other internal connections -->
+<line x1="52.6" y1="8.6" x2="64.9" y2="37.4" stroke="url(#grad-teal-blue)" />
+<line x1="64.9" y1="37.4" x2="92.1" y2="40.9" stroke="url(#grad-blue-dark)" />
+<line x1="64.9" y1="37.4" x2="78.2" y2="23.5" stroke="#2F7FBF" />
+<line x1="64.9" y1="37.4" x2="69.1" y2="60.5" stroke="url(#grad-blue-dark)" />
+<line x1="69.1" y1="60.5" x2="92.1" y2="40.9" stroke="#0B2345" />
+<line x1="69.1" y1="60.5" x2="89.2" y2="73.0" stroke="#0B2345" />
+<line x1="69.1" y1="60.5" x2="68.6" y2="91.7" stroke="#0B2345" />
+<line x1="89.2" y1="73.0" x2="68.6" y2="91.7" stroke="#0B2345" />
+</g>
+<!-- Nodos con Sombra -->
+<g class="logo-nodes" filter="url(#logo-shadow)">
+<!-- Teal/Cyan Nodes -->
+<circle cx="52.6" cy="8.6" r="7.5" fill="#35B8B8" />
+<circle cx="29.5" cy="24.7" r="5.5" fill="#35B8B8" />
+<circle cx="8.2" cy="40.2" r="8.5" fill="#35B8B8" />
+<circle cx="40.4" cy="85.5" r="5.5" fill="#35B8B8" />
+ 
+<!-- Blue Nodes -->
+<circle cx="11.9" cy="63.9" r="5.5" fill="#2F7FBF" />
+<circle cx="78.2" cy="23.5" r="4.5" fill="#2F7FBF" />
+<circle cx="42.2" cy="56.4" r="11" fill="#2F7FBF" />
+<circle cx="64.9" cy="37.4" r="4.5" fill="#2F7FBF" />
+
+<!-- Deep Navy Nodes -->
+<circle cx="14.7" cy="87.5" r="9.5" fill="#0B2345" />
+<circle cx="68.6" cy="91.7" r="8.5" fill="#0B2345" />
+<circle cx="88.8" cy="90.6" r="7" fill="#0B2345" />
+<circle cx="89.2" cy="73.0" r="6.5" fill="#0B2345" />
+<circle cx="92.1" cy="40.9" r="9" fill="#0B2345" />
+<circle cx="69.1" cy="60.5" r="7" fill="#0B2345" />
+</g>
+</svg>
+</div>
+<div class="brand-text-block" style="display: flex; flex-direction: column; line-height: 1.1;">
+<h1 class="brand-name" style="font-weight: 800; font-size: 1.25rem; margin: 0;">Valora<span style="color: var(--turquesa);">Casa</span></h1>
+<span style="font-size: 0.65rem; color: var(--gris-azulado); font-weight: 600; margin-top: 1px; letter-spacing: 0.02em;">by The FI-ndings</span>
+</div>
+</a>
+
+<!-- Navegación Premium -->
+<div style="display: flex; align-items: center; gap: 1.5rem;">
+<nav class="nav-links">
+<a href="#estimar" class="nav-link">Cómo Funciona</a>
+<a href="#insights" class="nav-link">Casos de Estudio</a>
+<a href="#insights" class="nav-link">Sobre Nosotros</a>
+</nav>
+<a href="login.html" class="btn-login-pill">INICIAR SESIÓN</a>
+</div>
+</div>
+</header>
+
+<!-- CONTENEDOR PRINCIPAL -->
+<main class="container" style="margin-top: 0.5rem;">
+
+<!-- CAPA 1: EXPERIENCIA USUARIO FINAL -->
+<div id="capa-usuario-seccion">
+ 
+<!-- INDICADOR VISUAL DE CAPA (no-print) - Ocultado para fidelidad de diseño de la landing page real
+<div class="capa-indicador no-print">
+<div class="capa-tag capa-usuario-tag">
+<span class="capa-dot"></span>
+ Portal del Usuario Final
+</div>
+<div class="capa-subtext">Optimizado para propietarios, inquilinos e intermediarios comerciales</div>
+</div>
+ -->
+<!-- SECCIÓN 1: INICIO (HERO PREMIUM) -->
+<section id="inicio" class="premium-hero">
+<div class="premium-hero-container">
+ 
+<!-- Columna Izquierda (Tarjetas flotantes e itinerario de características) -->
+<div class="hero-column hero-left">
+<!-- Tarjeta Superior Izquierda: Onda de Datos SVG -->
+<div class="floating-card wave-card" style="animation-delay: 0s;">
+<div class="card-chart-container">
+<svg viewBox="0 0 200 100" class="chart-svg">
+<defs>
+<linearGradient id="wave-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+<stop offset="0%" stop-color="var(--turquesa)" stop-opacity="0.25" />
+<stop offset="100%" stop-color="var(--turquesa)" stop-opacity="0" />
+</linearGradient>
+</defs>
+<path d="M 0 80 Q 30 70, 60 50 T 120 40 T 180 20 L 200 15 L 200 100 L 0 100 Z" fill="url(#wave-grad)" />
+<path d="M 0 80 Q 30 70, 60 50 T 120 40 T 180 20 L 200 15" fill="none" stroke="var(--turquesa)" stroke-width="3" stroke-linecap="round" />
+<circle cx="60" cy="50" r="4" fill="var(--azul-marino)" />
+<circle cx="120" cy="40" r="4" fill="var(--azul-marino)" />
+<circle cx="180" cy="20" r="5" fill="var(--turquesa)" stroke="var(--white)" stroke-width="2" />
+</svg>
+</div>
+</div>
+
+<!-- Conector de Características con Línea Curva Discontinua -->
+<div class="features-timeline">
+<svg class="timeline-curve" viewBox="0 0 50 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M25 0 C -5 50, -5 130, 25 180" stroke="#CBD5E1" stroke-width="2" stroke-dasharray="5 5" stroke-linecap="round" />
+</svg>
+<div class="timeline-items">
+<div class="timeline-item">
+<div class="timeline-icon">
+<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+<path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+</svg>
+</div>
+<div class="timeline-content">
+<h4>Conecta tus Datos</h4>
+</div>
+</div>
+<div class="timeline-item">
+<div class="timeline-icon">
+<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+<line x1="18" y1="20" x2="18" y2="10"></line>
+<line x1="12" y1="20" x2="12" y2="4"></line>
+<line x1="6" y1="20" x2="6" y2="14"></line>
+</svg>
+</div>
+<div class="timeline-content">
+<h4>Recibe Análisis</h4>
+</div>
+</div>
+<div class="timeline-item">
+<div class="timeline-icon">
+<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+<polyline points="9 22 9 12 15 12 15 22"></polyline>
+</svg>
+</div>
+<div class="timeline-content">
+<h4>Gestiona tu Portafolio</h4>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Tarjeta Inferior Izquierda: Pastel y Barras -->
+<div class="floating-card network-card-left" style="animation-delay: 1.5s;">
+<div class="network-card-inner">
+<div class="mini-chart-pie">
+<svg viewBox="0 0 100 100" class="pie-svg">
+<circle cx="50" cy="50" r="40" fill="none" stroke="#E2E8F0" stroke-width="20" />
+<circle cx="50" cy="50" r="40" fill="none" stroke="var(--turquesa)" stroke-width="20" stroke-dasharray="175 251" stroke-dashoffset="0" />
+</svg>
+</div>
+<div class="mini-chart-bars">
+<div class="bar" style="height: 40%;"></div>
+<div class="bar" style="height: 70%;"></div>
+<div class="bar" style="height: 90%;"></div>
+</div>
+<div class="mini-network-icon">
+<svg viewBox="0 0 40 40" width="24" height="24">
+<circle cx="20" cy="20" r="5" fill="var(--turquesa)" />
+<circle cx="8" cy="8" r="4" fill="var(--azul-medio)" />
+<circle cx="32" cy="32" r="4" fill="var(--azul-marino)" />
+<line x1="20" y1="20" x2="8" y2="8" stroke="#CBD5E1" stroke-width="1.5" />
+<line x1="20" y1="20" x2="32" y2="32" stroke="#CBD5E1" stroke-width="1.5" />
+</svg>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Columna Central: Copys y Botón de Exploración Principal con Red Orgánica -->
+<div class="hero-column hero-center">
+<!-- Logotipo de Red Orgánica Grande -->
+<div class="large-hero-logo">
+<svg viewBox="0 0 100 100" class="hero-logo-svg" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<filter id="hero-logo-shadow" x="-30%" y="-30%" width="160%" height="160%">
+<feDropShadow dx="1.5" dy="2.5" stdDeviation="2" flood-color="#0B2345" flood-opacity="0.12" />
+</filter>
+<linearGradient id="hero-grad-teal-blue" x1="0%" y1="0%" x2="100%" y2="100%">
+<stop offset="0%" stop-color="#35B8B8" />
+<stop offset="100%" stop-color="#2F7FBF" />
+</linearGradient>
+<linearGradient id="hero-grad-teal-dark" x1="0%" y1="0%" x2="100%" y2="100%">
+<stop offset="0%" stop-color="#35B8B8" />
+<stop offset="100%" stop-color="#0B2345" />
+</linearGradient>
+<linearGradient id="hero-grad-blue-dark" x1="0%" y1="0%" x2="100%" y2="100%">
+<stop offset="0%" stop-color="#2F7FBF" />
+<stop offset="100%" stop-color="#0B2345" />
+</linearGradient>
+</defs>
+<!-- Conexiones -->
+<g class="logo-links" stroke-width="2.2" stroke-linecap="round" opacity="0.85">
+<line x1="52.6" y1="8.6" x2="29.5" y2="24.7" stroke="#35B8B8" />
+<line x1="29.5" y1="24.7" x2="8.2" y2="40.2" stroke="#35B8B8" />
+<line x1="8.2" y1="40.2" x2="11.9" y2="63.9" stroke="#35B8B8" />
+<line x1="11.9" y1="63.9" x2="14.7" y2="87.5" stroke="url(#hero-grad-teal-dark)" />
+<line x1="14.7" y1="87.5" x2="40.4" y2="85.5" stroke="url(#hero-grad-teal-dark)" />
+<line x1="40.4" y1="85.5" x2="68.6" y2="91.7" stroke="url(#hero-grad-teal-dark)" />
+<line x1="68.6" y1="91.7" x2="88.8" y2="90.6" stroke="#0B2345" />
+<line x1="88.8" y1="90.6" x2="89.2" y2="73.0" stroke="#0B2345" />
+<line x1="89.2" y1="73.0" x2="92.1" y2="40.9" stroke="#0B2345" />
+<line x1="92.1" y1="40.9" x2="78.2" y2="23.5" stroke="url(#hero-grad-blue-dark)" />
+<line x1="78.2" y1="23.5" x2="52.6" y2="8.6" stroke="url(#hero-grad-teal-blue)" />
+
+<line x1="42.2" y1="56.4" x2="8.2" y2="40.2" stroke="url(#hero-grad-teal-blue)" />
+<line x1="42.2" y1="56.4" x2="11.9" y2="63.9" stroke="url(#hero-grad-teal-blue)" />
+<line x1="42.2" y1="56.4" x2="14.7" y2="87.5" stroke="url(#hero-grad-teal-dark)" />
+<line x1="42.2" y1="56.4" x2="40.4" y2="85.5" stroke="#35B8B8" />
+<line x1="42.2" y1="56.4" x2="68.6" y2="91.7" stroke="url(#hero-grad-blue-dark)" />
+<line x1="42.2" y1="56.4" x2="69.1" y2="60.5" stroke="url(#hero-grad-blue-dark)" />
+<line x1="42.2" y1="56.4" x2="64.9" y2="37.4" stroke="#2F7FBF" />
+<line x1="42.2" y1="56.4" x2="29.5" y2="24.7" stroke="#35B8B8" />
+<line x1="42.2" y1="56.4" x2="52.6" y2="8.6" stroke="url(#hero-grad-teal-blue)" />
+
+<line x1="52.6" y1="8.6" x2="64.9" y2="37.4" stroke="url(#hero-grad-teal-blue)" />
+<line x1="64.9" y1="37.4" x2="92.1" y2="40.9" stroke="url(#hero-grad-blue-dark)" />
+<line x1="64.9" y1="37.4" x2="78.2" y2="23.5" stroke="#2F7FBF" />
+<line x1="64.9" y1="37.4" x2="69.1" y2="60.5" stroke="url(#hero-grad-blue-dark)" />
+<line x1="69.1" y1="60.5" x2="92.1" y2="40.9" stroke="#0B2345" />
+<line x1="69.1" y1="60.5" x2="89.2" y2="73.0" stroke="#0B2345" />
+<line x1="69.1" y1="60.5" x2="68.6" y2="91.7" stroke="#0B2345" />
+<line x1="89.2" y1="73.0" x2="68.6" y2="91.7" stroke="#0B2345" />
+</g>
+<!-- Nodos -->
+<g class="logo-nodes" filter="url(#hero-logo-shadow)">
+<circle cx="52.6" cy="8.6" r="7.5" fill="#35B8B8" />
+<circle cx="29.5" cy="24.7" r="5.5" fill="#35B8B8" />
+<circle cx="8.2" cy="40.2" r="8.5" fill="#35B8B8" />
+<circle cx="40.4" cy="85.5" r="5.5" fill="#35B8B8" />
+ 
+<circle cx="11.9" cy="63.9" r="5.5" fill="#2F7FBF" />
+<circle cx="78.2" cy="23.5" r="4.5" fill="#2F7FBF" />
+<circle cx="42.2" cy="56.4" r="11" fill="#2F7FBF" />
+<circle cx="64.9" cy="37.4" r="4.5" fill="#2F7FBF" />
+
+<circle cx="14.7" cy="87.5" r="9.5" fill="#0B2345" />
+<circle cx="68.6" cy="91.7" r="8.5" fill="#0B2345" />
+<circle cx="88.8" cy="90.6" r="7" fill="#0B2345" />
+<circle cx="89.2" cy="73.0" r="6.5" fill="#0B2345" />
+<circle cx="92.1" cy="40.9" r="9" fill="#0B2345" />
+<circle cx="69.1" cy="60.5" r="7" fill="#0B2345" />
+</g>
+</svg>
+</div>
+
+<!-- Títulos e Identidad -->
+<h2 class="premium-hero-title">ValoraCasa</h2>
+<h3 class="premium-hero-subtitle-network">Tu Red de Valor Inmobiliario</h3>
+<p class="premium-hero-description">
+ Conecta y descubre el valor real de tu propiedad.<br />Comienza tu viaje aquí abajo.
+</p>
+
+<!-- Botón CTA con Cursor Animado y Guía -->
+<div class="cta-button-wrapper">
+<button onclick="document.getElementById('estimar').scrollIntoView({behavior: 'smooth'})" class="btn-premium-cta">
+ COMENZAR A EXPLORAR (GRATIS)
+</button>
+<div class="tour-guide-container">
+<svg viewBox="0 0 24 24" class="guide-cursor" width="22" height="22" fill="none">
+<path d="M4 3l16 9-7 2.5L10.5 21 4 3z" fill="var(--azul-marino)" stroke="var(--white)" stroke-width="2" stroke-linejoin="round" />
+</svg>
+<span class="tour-guide-text">guía del recorrido</span>
+</div>
+</div>
+<span class="cta-subtext">Sin tarjeta de crédito. Consulta datos públicos de inmediato.</span>
+</div>
+
+<!-- Columna Derecha (Tarjetas de datos flotantes) -->
+<div class="hero-column hero-right">
+<!-- Tarjeta Superior Derecha: Panel de Datos y Mini Barras -->
+<div class="floating-card data-panel-card" style="animation-delay: 0.7s;">
+<div class="data-panel-header">
+<div class="mini-network-blue">
+<svg viewBox="0 0 30 30" width="20" height="20">
+<circle cx="15" cy="15" r="4" fill="var(--azul-medio)" />
+<circle cx="6" cy="6" r="3" fill="var(--turquesa)" />
+<circle cx="24" cy="24" r="3" fill="var(--azul-marino)" />
+<line x1="15" y1="15" x2="6" y2="6" stroke="#CBD5E1" stroke-width="1.5" />
+<line x1="15" y1="15" x2="24" y2="24" stroke="#CBD5E1" stroke-width="1.5" />
+</svg>
+</div>
+</div>
+<div class="data-panel-progress-list">
+<div class="progress-item">
+<div class="progress-bar-fill" style="width: 80%; background-color: var(--turquesa);"></div>
+</div>
+<div class="progress-item">
+<div class="progress-bar-fill" style="width: 55%; background-color: var(--azul-medio);"></div>
+</div>
+<div class="progress-item">
+<div class="progress-bar-fill" style="width: 35%; background-color: var(--azul-marino);"></div>
+</div>
+</div>
+<div class="data-panel-bar-chart">
+<svg viewBox="0 0 100 40" class="mini-bars-svg">
+<rect x="10" y="10" width="8" height="30" rx="2" fill="var(--turquesa)" />
+<rect x="25" y="15" width="8" height="25" rx="2" fill="#E2E8F0" />
+<rect x="40" y="5" width="8" height="35" rx="2" fill="var(--azul-medio)" />
+<rect x="55" y="20" width="8" height="20" rx="2" fill="#E2E8F0" />
+<rect x="70" y="8" width="8" height="32" rx="2" fill="var(--azul-marino)" />
+<rect x="85" y="18" width="8" height="22" rx="2" fill="#E2E8F0" />
+</svg>
+</div>
+</div>
+
+<!-- Tarjeta Inferior Derecha: Gráfico de Ondas de Interconexión -->
+<div class="floating-card line-card-right" style="animation-delay: 2.2s;">
+<div class="card-chart-container">
+<svg viewBox="0 0 200 100" class="chart-svg">
+<path d="M 0 50 Q 40 20, 80 70 T 160 30 T 200 40" fill="none" stroke="var(--azul-medio)" stroke-width="2.5" />
+<path d="M 0 60 Q 40 40, 80 80 T 160 45 T 200 55" fill="none" stroke="var(--turquesa)" stroke-width="1.5" stroke-dasharray="3 3" />
+<circle cx="80" cy="70" r="5" fill="var(--azul-marino)" stroke="var(--white)" stroke-width="2" />
+<circle cx="160" cy="30" r="4" fill="var(--turquesa)" />
+</svg>
+</div>
+<div class="line-card-badge">
+<svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5">
+<path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+</svg>
+</div>
+</div>
+</div>
+
+</div>
+</section>
+
+<!-- SECCIÓN DE KPIs DESTACADOS DEL DATASET -->
+<section class="kpis-section">
+<div class="grid-2 grid-4">
+<div class="card kpi-card">
+<span class="kpi-val">11,566</span>
+<span class="kpi-lbl">Viviendas en Análisis</span>
+</div>
+<div class="card kpi-card">
+<span class="kpi-val kpi-val-highlight">$2,500</span>
+<span class="kpi-lbl">Renta Mediana (MXN)</span>
+</div>
+<div class="card kpi-card">
+<span class="kpi-val">XGBoost</span>
+<span class="kpi-lbl">Modelo Seleccionado</span>
+</div>
+<div class="card kpi-card">
+<span class="kpi-val kpi-val-highlight">$838</span>
+<span class="kpi-lbl">Error Promedio (MAE)</span>
+</div>
+</div>
+</section>
+
+<!-- SECCIÓN 2: ESTIMAR RENTA (SIMULADOR INTERACTIVO) -->
+<section id="estimar" class="section-padding" style="margin-bottom: 4rem;">
+<div class="section-title-box">
+<span class="section-subtitle-tag">Estimación Analítica</span>
+<h3 class="section-main-title">Simulador de Renta Sugerida</h3>
+<p class="section-desc">
+ Modifica las características físicas, geográficas y de equipamiento para simular de forma analítica el valor referencial óptimo de arrendamiento de la vivienda.
+</p>
+</div>
+
+<div class="grid-12" style="align-items: start;">
+<!-- Columna Inputs: Formulario de características -->
+<div style="grid-column: span 12;" class="md-col-7 card">
+<form class="sim-form" onsubmit="return false;">
+<!-- Grupo 1: Ubicación y Categoría -->
+<div>
+<h4 class="sim-group-title">1. Contexto e Inmueble</h4>
+<div class="grid-2" style="gap: 1rem; margin-bottom: 1rem;">
+<div class="input-field">
+<label class="input-label" for="in_tipo_viv">Tipo de Inmueble</label>
+<select id="in_tipo_viv" class="select-control">
+<option value="casa_sol" selected>Casa Sola</option>
+<option value="depto">Departamento en Edificio</option>
+<option value="cuarto">Cuarto en Vecindad o Accesoria</option>
+</select>
+</div>
+<div class="input-field">
+<label class="input-label" for="in_loc">Tamaño de la Localidad</label>
+<select id="in_loc" class="select-control">
+<option value="urbana_g" selected>Urbana Grande (>100k hab)</option>
+<option value="urbana_m">Urbana Mediana (15k - 99k hab)</option>
+<option value="urbana_p">Urbana Pequeña (2.5k - 14.9k hab)</option>
+<option value="rural">Rural (&lt; 2.5k hab)</option>
+</select>
+</div>
+</div>
+<div class="input-field">
+<label class="input-label">Estrato Socioeconómico de la Zona</label>
+<div class="estrato-grid">
+<label class="estrato-btn" id="lbl-est-1" onclick="selectEstrato(1)">
+<input type="radio" name="in_estrato" value="1" />
+<span class="est-title">Bajo</span>
+<span class="est-sub">Estrato 1</span>
+</label>
+<label class="estrato-btn active" id="lbl-est-2" onclick="selectEstrato(2)">
+<input type="radio" name="in_estrato" value="2" checked />
+<span class="est-title">Medio Bajo</span>
+<span class="est-sub">Estrato 2</span>
+</label>
+<label class="estrato-btn" id="lbl-est-3" onclick="selectEstrato(3)">
+<input type="radio" name="in_estrato" value="3" />
+<span class="est-title">Medio Alto</span>
+<span class="est-sub">Estrato 3</span>
+</label>
+<label class="estrato-btn" id="lbl-est-4" onclick="selectEstrato(4)">
+<input type="radio" name="in_estrato" value="4" />
+<span class="est-title">Alto</span>
+<span class="est-sub">Estrato 4</span>
+</label>
+</div>
+</div>
+</div>
+
+<!-- Grupo 2: Características Físicas -->
+<div>
+<h4 class="sim-group-title">2. Estructura y Capacidad</h4>
+<div class="grid-3" style="gap: 1.2rem; margin-bottom: 1rem;">
+<div class="input-field">
+<label class="input-label" for="in_cuartos">
+ Cuartos Totales
+<span class="dynamic-val" id="val_cuartos">3</span>
+</label>
+<input type="range" id="in_cuartos" min="1" max="10" value="3" class="slider-control" />
+</div>
+<div class="input-field">
+<label class="input-label" for="in_dorm">
+ Dormitorios
+<span class="dynamic-val" id="val_dorm">2</span>
+</label>
+<input type="range" id="in_dorm" min="1" max="5" value="2" class="slider-control" />
+</div>
+<div class="input-field">
+<label class="input-label" for="in_focos">
+ Puntos de Luz (Focos)
+<span class="dynamic-val" id="val_focos">6</span>
+</label>
+<input type="range" id="in_focos" min="1" max="25" value="6" class="slider-control" />
+</div>
+</div>
+<div class="input-field">
+<label class="input-label" for="in_piso">Material del Piso</label>
+<select id="in_piso" class="select-control">
+<option value="mosaico" selected>Madera, Mosaico o Acabado Fino</option>
+<option value="cemento">Cemento o Firme</option>
+<option value="tierra">Tierra</option>
+</select>
+</div>
+</div>
+
+<!-- Grupo 3: Servicios y Amenidades -->
+<div>
+<h4 class="sim-group-title">3. Amenidades e Instalaciones</h4>
+<div class="input-field" style="margin-bottom: 1rem;">
+<label class="input-label" for="in_agua">Acceso a Agua Entubada</label>
+<select id="in_agua" class="select-control">
+<option value="dentro" selected>Dentro de la vivienda</option>
+<option value="fuera">Fuera de la vivienda, pero en el terreno</option>
+<option value="no">No tiene acceso formal</option>
+</select>
+</div>
+<div class="amenities-grid">
+<label class="amenity-checkbox active" id="lbl-bano">
+<input type="checkbox" id="in_bano" checked onchange="toggleAmenityActive('bano')" />
+ Baño Completo Exclusivo
+</label>
+<label class="amenity-checkbox active" id="lbl-dren">
+<input type="checkbox" id="in_dren" checked onchange="toggleAmenityActive('dren')" />
+ Tiene Drenaje
+</label>
+<label class="amenity-checkbox active" id="lbl-calentador">
+<input type="checkbox" id="in_calentador" checked onchange="toggleAmenityActive('calentador')" />
+ Calentador de Gas
+</label>
+<label class="amenity-checkbox" id="lbl-cisterna">
+<input type="checkbox" id="in_cisterna" onchange="toggleAmenityActive('cisterna')" />
+ Cisterna de Agua
+</label>
+<label class="amenity-checkbox active" id="lbl-tinaco">
+<input type="checkbox" id="in_tinaco" checked onchange="toggleAmenityActive('tinaco')" />
+ Tinaco Instalado
+</label>
+</div>
+</div>
+</form>
+</div>
+
+<!-- Columna Resultados -->
+<div style="grid-column: span 12;" class="md-col-5">
+<div class="output-card">
+<!-- Header -->
+<div class="output-header">
+<span class="output-badge">Referencia Estimada</span>
+<span class="output-error-badge">MAE: ±$838 MXN</span>
+</div>
+
+<!-- Price Box -->
+<div class="price-block">
+<span class="price-lbl">Renta Sugerida Mensual</span>
+<div class="price-val" id="lbl-renta-estimada">$3,560</div>
+<span class="price-currency">PESOS MEXICANOS (MXN)</span>
+</div>
+
+<!-- Rango Tolerable -->
+<div class="range-box">
+<div class="range-title">Rango Referencial Sugerido</div>
+<div class="range-val" id="lbl-rango-estimado">$2,722 – $4,398</div>
+<p class="range-desc">
+ Intervalo estadístico sustentable basado en la desviación promedio histórica del mercado analizado.
+</p>
+</div>
+
+<!-- Medidor Visual (Gauge) -->
+<div class="gauge-container">
+<div class="gauge-labels">
+<span>Bajo</span>
+<span>Mediana ($2,500)</span>
+<span>Alto</span>
+</div>
+<div class="gauge-track">
+<div class="gauge-fill" id="gauge-sim-fill"></div>
+</div>
+</div>
+
+<!-- Lectura Ejecutiva -->
+<div class="narrative-box">
+<h5 class="narrative-title">Lectura del Escenario</h5>
+<p id="lbl-lectura-ejecutiva" style="font-size: 0.72rem; font-weight: 500;">
+ La propiedad se sitúa en un rango medio. La estimación está impulsada por ubicaciones de estrato medio-bajo con equipamiento y servicios básicos completos.
+</p>
+</div>
+
+<!-- Factores -->
+<div class="factors-box">
+<h5 class="factors-title">
+<span style="color: var(--turquesa);"></span>Factores de Valoración
+</h5>
+<!-- Promotores -->
+<div class="factor-item">
+<span class="factor-icon icon-plus">▲</span>
+<div>
+<span class="factor-name">Promotores:</span>
+<span class="factor-desc" id="lbl-promotores">Estrato socioeconómico medio-bajo, localidad urbana grande.</span>
+</div>
+</div>
+<!-- Detractores -->
+<div class="factor-item">
+<span class="factor-icon icon-minus">▼</span>
+<div>
+<span class="factor-name">Detractores:</span>
+<span class="factor-desc" id="lbl-detractores">Falta de cisterna de agua entubada.</span>
+</div>
+</div>
+</div>
+
+<!-- Aviso legal -->
+<div class="disclaimer-box">
+<span class="disclaimer-icon">️</span>
+<div>
+<strong>Aviso:</strong>ValoraCasa ofrece una referencia analítica para la toma de decisiones y no sustituye de ninguna forma un avalúo comercial profesional.
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- SECCIÓN 3: INSIGHTS CLAVE -->
+<section id="insights" class="insights-section">
+<div class="section-title-box">
+<span class="section-subtitle-tag" style="color: var(--turquesa);">Evidencia Comercial</span>
+<h3 class="section-main-title">¿Qué determina el precio de la renta?</h3>
+<p class="section-desc">
+ Los patrones más representativos descubiertos en los microdatos oficiales del INEGI que impactan el valor comercial de una vivienda.
+</p>
+</div>
+
+<div class="grid-4">
+<!-- Card 1 -->
+<div class="card insight-card">
+<div>
+<div class="insight-icon-box"></div>
+<h4 class="insight-title">Entorno Socioeconómico</h4>
+<p class="insight-text">
+ El tamaño de la localidad y el nivel socioeconómico de la zona explican más del 50% de las diferencias de renta a nivel nacional. Las capitales y urbes empujan con fuerza el precio base.
+</p>
+</div>
+<span class="insight-impact">Impacto: Muy Alto</span>
+</div>
+
+<!-- Card 2 -->
+<div class="card insight-card">
+<div>
+<div class="insight-icon-box"></div>
+<h4 class="insight-title">Servicios Habitacionales</h4>
+<p class="insight-text">
+ Tener drenaje conectado, baño completo exclusivo e instalación formal de agua entubada dentro del hogar representan las mayores barreras físicas que elevan la plusvalía del arrendamiento.
+</p>
+</div>
+<span class="insight-impact">Impacto: Alto</span>
+</div>
+
+<!-- Card 3 -->
+<div class="card insight-card">
+<div>
+<div class="insight-icon-box"></div>
+<h4 class="insight-title">Equipamiento Estructural</h4>
+<p class="insight-text">
+ Amenidades adicionales como calentador de gas, tinaco o cisterna amortiguan la volatilidad del valor del inmueble, al garantizar resiliencia funcional frente a fallas urbanas de agua.
+</p>
+</div>
+<span class="insight-impact">Impacto: Medio</span>
+</div>
+
+<!-- Card 4 -->
+<div class="card insight-card">
+<div>
+<div class="insight-icon-box"></div>
+<h4 class="insight-title">Tolerancia Predictiva</h4>
+<p class="insight-text">
+ El modelo es altamente preciso para estimaciones en segmentos de rentas bajas y medias (menores a $10,000 MXN). En rentas altas de lujo, las particularidades cualitativas elevan la dispersión.
+</p>
+</div>
+<span class="insight-impact insight-impact-alt">Metodología</span>
+</div>
+</div>
+</section>
+
+<!-- ========================================== -->
+<!-- SECCIÓN DE SOPORTE E INFORMACIÓN (FAQ & CONTACTO) -->
+<!-- ========================================== -->
+<section class="support-grid-section no-print" id="soporte">
+<div class="support-container">
+<!-- Columna Izquierda: FAQ Accordion -->
+<div class="faq-column">
+<h3 class="section-title">Preguntas Frecuentes</h3>
+<div class="accordion-group">
+ 
+<!-- Pregunta 1 -->
+<div class="accordion-item">
+<button class="accordion-header" onclick="toggleAccordion(this)">
+<span>¿Qué es ValoraCasa y para qué sirve?</span>
+<span class="accordion-icon">▼</span>
+</button>
+<div class="accordion-content">
+<p>
+ ValoraCasa es una plataforma predictiva de ciencia de datos desarrollada por<strong>The FI-ndings</strong>. Su propósito es estimar de forma referencial y ágil las rentas habitacionales en México basándose en información pública oficial y modelos matemáticos avanzados. Es ideal para que propietarios, inquilinos y asesores inmobiliarios entiendan el contexto de precios del mercado de forma clara e intuitiva.
+</p>
+</div>
+</div>
+
+<!-- Pregunta 2 -->
+<div class="accordion-item">
+<button class="accordion-header" onclick="toggleAccordion(this)">
+<span>¿De dónde provienen los datos utilizados?</span>
+<span class="accordion-icon">▼</span>
+</button>
+<div class="accordion-content">
+<p>
+ Nuestro motor matemático se alimenta de fuentes oficiales públicas y actualizadas de México, principalmente del<strong>INEGI</strong>(incluyendo el Censo de Población y Vivienda y la Encuesta Nacional de Ingresos y Gastos de los Hogares 2024 - ENIGH). Adicionalmente, combinamos esta información con datos abiertos de conectividad vial, servicios locales y cercanía a infraestructura de transporte urbano, procesados rigurosamente por The FI-ndings para reflejar el dinamismo de cada microzona.
+</p>
+</div>
+</div>
+
+<!-- Pregunta 3 -->
+<div class="accordion-item">
+<button class="accordion-header" onclick="toggleAccordion(this)">
+<span>¿Cuál es la precisión de las estimaciones?</span>
+<span class="accordion-icon">▼</span>
+</button>
+<div class="accordion-content">
+<p>
+ El modelo predictivo core está basado en el algoritmo de machine learning<strong>XGBoost</strong>, logrando una excelente precisión estadística con un Error Absoluto Medio (MAE) promedio de<strong>$838 pesos</strong>. Cabe destacar que las predicciones son altamente confiables en zonas metropolitanas consolidadas; sin embargo, al ser estimaciones matemáticas automatizadas de carácter informativo, deben considerarse una referencia sólida de mercado y no constituyen un avalúo comercial o fiscal formal.
+</p>
+</div>
+</div>
+
+<!-- Pregunta 4 -->
+<div class="accordion-item">
+<button class="accordion-header" onclick="toggleAccordion(this)">
+<span>¿Tiene algún costo utilizar esta plataforma?</span>
+<span class="accordion-icon">▼</span>
+</button>
+<div class="accordion-content">
+<p>
+ No, el acceso al simulador y a todas las herramientas de consulta pública de<strong>ValoraCasa</strong>es completamente gratuito y está disponible para toda la comunidad de propietarios, intermediarios y buscadores de vivienda en México. Nuestro objetivo es democratizar el acceso a la ciencia de datos inmobiliarios.
+</p>
+</div>
+</div>
+
+</div>
+</div>
+
+<!-- Columna Derecha: Formulario de Contacto Glassmorphic -->
+<div class="contact-column">
+<div class="contact-card">
+<!-- Capa de Éxito del Formulario -->
+<div class="contact-success-overlay" id="contact-success-overlay">
+<div class="success-circle">✓</div>
+<h4 class="success-title">¡Mensaje Recibido!</h4>
+<p class="success-desc">
+ Tu solicitud ha sido registrada con éxito en nuestros servidores de ciencia de datos. Un especialista analítico de<strong>The FI-ndings</strong>se pondrá en contacto contigo en breve para dar seguimiento a tu caso.
+</p>
+</div>
+
+<h3 class="card-title">¿Tienes dudas específicas?</h3>
+<p class="card-subtitle">
+ Escríbenos y un miemThe FI-ndings resolverá tu consulta en menos de 24 horas hábiles.
+</p>
+
+<form id="portal-contact-form" onsubmit="handleContactSubmit(event)">
+<div class="form-group">
+<label class="form-label" for="contact-name">Nombre Completo</label>
+<input type="text" id="contact-name" class="form-control" placeholder="Ej. Alejandra Gómez" required />
+</div>
+
+<div class="form-group">
+<label class="form-label" for="contact-email">Correo Electrónico</label>
+<input type="email" id="contact-email" class="form-control" placeholder="Ej. alejandra@ejemplo.com" required />
+</div>
+
+<div class="form-group">
+<label class="form-label" for="contact-profile">Tipo de Perfil</label>
+<select id="contact-profile" class="form-control form-select" required>
+<option value="" disabled selected>Selecciona tu perfil...</option>
+<option value="usuario_individual">Usuario Individual (Propietario / Inquilino)</option>
+<option value="asesor_inmobiliario">Asesor Inmobiliario Profesional</option>
+<option value="inmobiliaria_desarrollador">Inmobiliaria o Desarrollador</option>
+<option value="cientifico_datos">Científico de Datos o Evaluador</option>
+</select>
+</div>
+
+<div class="form-group">
+<label class="form-label" for="contact-message">Mensaje o Consulta</label>
+<textarea id="contact-message" class="form-control form-textarea" placeholder="Describe brevemente tus dudas sobre la precisión, la metodología o las suscripciones de ValoraCasa..." required></textarea>
+</div>
+
+<button type="submit" class="btn-contact-submit" id="btn-contact-submit">
+<span>Enviar Consulta</span>
+<span style="font-size: 0.9rem;"></span>
+</button>
+</form>
+</div>
+</div>
+</div>
+</section>
+
+</div>
+ 
+
+</main>
+
+<!-- PIE DE PÁGINA (no-print) -->
+<!-- PIE DE PÁGINA PREMIUM DE LA LANDING (no-print) -->
+<footer class="no-print" style="background-color: var(--white); border-top: 1px solid var(--border-color); padding: 1.8rem 0; margin-top: 5rem;">
+<div class="container" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+<!-- Left side: Powered by The Findings -->
+<div style="display: flex; align-items: center; gap: 0.5rem;">
+<span style="font-size: 0.75rem; color: var(--gris-azulado); font-weight: 500;">Desarrollado por</span>
+<div style="display: flex; align-items: center; gap: 0.35rem;">
+<!-- Custom Findings Logo Isotype -->
+<svg style="width: 16px; height: 16px; display: block; opacity: 0.9;" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+<g stroke-width="6" stroke-linecap="round" opacity="0.8">
+<line x1="52.6" y1="15.0" x2="25.0" y2="40.0" stroke="#35B8B8" />
+<line x1="25.0" y1="40.0" x2="35.0" y2="80.0" stroke="#35B8B8" />
+<line x1="35.0" y1="80.0" x2="75.0" y2="85.0" stroke="#0B2345" />
+<line x1="75.0" y1="85.0" x2="85.0" y2="45.0" stroke="#0B2345" />
+<line x1="85.0" y1="45.0" x2="52.6" y2="15.0" stroke="#2F7FBF" />
+<line x1="45.0" y1="50.0" x2="52.6" y2="15.0" stroke="#35B8B8" />
+<line x1="45.0" y1="50.0" x2="35.0" y2="80.0" stroke="#35B8B8" />
+<line x1="45.0" y1="50.0" x2="75.0" y2="85.0" stroke="#0B2345" />
+</g>
+<circle cx="52.6" cy="15.0" r="10" fill="#35B8B8" />
+<circle cx="25.0" cy="40.0" r="8" fill="#35B8B8" />
+<circle cx="35.0" cy="80.0" r="8" fill="#2F7FBF" />
+<circle cx="75.0" cy="85.0" r="10" fill="#0B2345" />
+<circle cx="85.0" cy="45.0" r="9" fill="#0B2345" />
+<circle cx="45.0" cy="50.0" r="12" fill="#2F7FBF" />
+</svg>
+<span style="font-weight: 800; font-size: 0.8rem; color: var(--azul-marino); font-family: var(--font-family); letter-spacing: -0.01em;">The FI-ndings</span>
+</div>
+</div>
+
+<!-- Right side: Links -->
+<div style="display: flex; gap: 1.8rem;">
+<a href="#" style="font-size: 0.75rem; color: var(--gris-azulado); text-decoration: none; font-weight: 600; transition: color 0.2s;" onmouseover="this.style.color='var(--turquesa)'" onmouseout="this.style.color='var(--gris-azulado)'">Política de Privacidad</a>
+<a href="#" style="font-size: 0.75rem; color: var(--gris-azulado); text-decoration: none; font-weight: 600; transition: color 0.2s;" onmouseover="this.style.color='var(--turquesa)'" onmouseout="this.style.color='var(--gris-azulado)'">Términos y Condiciones</a>
+</div>
+</div>
+</footer>
+
+<!-- ========================================== -->
+<!-- WIDGET DEL CHATBOT VIRTUAL ASISTENTE (VALORABOT) -->
+<!-- ========================================== -->
+<div class="chatbot-widget no-print" id="chatbot-widget">
+<!-- Botón de apertura flotante -->
+<button class="chatbot-trigger" id="chatbot-trigger" onclick="toggleChatbot()">
+<span class="chat-icon">💬</span>
+<span class="chat-badge" id="chat-badge">1</span>
+</button>
+
+<!-- Panel de Conversación -->
+<div class="chat-panel" id="chat-panel">
+<!-- Cabecera -->
+<div class="chat-header">
+<div class="chat-bot-info">
+<span class="chat-status-dot"></span>
+<span class="chat-bot-name">ValoraBot</span>
+</div>
+<button class="chat-minimize-btn" onclick="toggleChatbot()">✖</button>
+</div>
+ 
+<!-- Historial de Mensajes -->
+<div class="chat-messages" id="chat-messages">
+<div class="chat-bubble bot">
+ ¡Hola! Soy<strong>ValoraBot</strong>, asistente inteligente de<strong>The FI-ndings</strong>. ¿Te gustaría saber cómo valoramos las viviendas con datos oficiales y machine learning?
+</div>
+</div>
+
+<!-- Sugerencias de consulta rápida -->
+<div class="chat-suggestions" id="chat-suggestions">
+<button class="suggestion-btn" onclick="sendSuggestion('precision')">Precisión</button>
+<button class="suggestion-btn" onclick="sendSuggestion('datos')">Datos</button>
+<button class="suggestion-btn" onclick="sendSuggestion('metodo')">️ Algoritmo</button>
+</div>
+
+<!-- Campo de entrada -->
+<form class="chat-input-form" onsubmit="handleChatSubmit(event)">
+<input type="text" id="chat-input" placeholder="Escribe tu mensaje..." required autocomplete="off" />
+<button type="submit" class="chat-send-btn">➤</button>
+</form>
+</div>
+</div>
+
+<!-- SCRIPTS Y LÓGICA INTERACTIVA -->
+<script>
+ // FORMATEADOR DE MONEDA MEXICANA
+ const formatMXN = (val) =>{
+ return new Intl.NumberFormat('es-MX', {
+ style: 'currency',
+ currency: 'MXN',
+ maximumFractionDigits: 0
+ }).format(val);
+ };
+
+ // CONTROL ESTRATO SELECCIONADO
+ let currentEstrato = 2; // Default Medio Bajo
+ function selectEstrato(estratoNum) {
+ currentEstrato = estratoNum;
+ 
+ // Quitar clase active
+ for (let i = 1; i<= 4; i++) {
+ document.getElementById(`lbl-est-${i}`).classList.remove('active');
+ }
+ 
+ // Agregar active al seleccionado
+ document.getElementById(`lbl-est-${estratoNum}`).classList.add('active');
+ 
+ // Recalcular
+ recalculate();
+ }
+
+ // ACTIVACIÓN VISUAL DE AMENIDADES EN GRID
+ function toggleAmenityActive(idName) {
+ const chk = document.getElementById(`in_${idName}`);
+ const lbl = document.getElementById(`lbl-${idName}`);
+ 
+ if (chk.checked) {
+ lbl.classList.add('active');
+ } else {
+ lbl.classList.remove('active');
+ }
+ 
+ recalculate();
+ }
+
+ // CAPTURA DE INPUTS Y FÓRMULA DE SIMULACIÓN REFERENCIAL
+ const inTipoViv = document.getElementById('in_tipo_viv');
+ const inLoc = document.getElementById('in_loc');
+ const inCuartos = document.getElementById('in_cuartos');
+ const inDorm = document.getElementById('in_dorm');
+ const inFocos = document.getElementById('in_focos');
+ const inPiso = document.getElementById('in_piso');
+ const inAgua = document.getElementById('in_agua');
+ const inBano = document.getElementById('in_bano');
+ const inDren = document.getElementById('in_dren');
+ const inCalentador = document.getElementById('in_calentador');
+ const inCisterna = document.getElementById('in_cisterna');
+ const inTinaco = document.getElementById('in_tinaco');
+
+ // Outputs DOM
+ const valCuartos = document.getElementById('val_cuartos');
+ const valDorm = document.getElementById('val_dorm');
+ const valFocos = document.getElementById('val_focos');
+ const lblRentaEstimada = document.getElementById('lbl-renta-estimada');
+ const lblRangoEstimado = document.getElementById('lbl-rango-estimado');
+ const gaugeSimFill = document.getElementById('gauge-sim-fill');
+ const lblLecturaEjecutiva = document.getElementById('lbl-lectura-ejecutiva');
+ const lblPromotores = document.getElementById('lbl-promotores');
+ const lblDetractores = document.getElementById('lbl-detractores');
+
+ // Suscribir eventos de recalculo
+ [inTipoViv, inLoc, inCuartos, inDorm, inFocos, inPiso, inAgua].forEach(item =>{
+ item.addEventListener('input', recalculate);
+ item.addEventListener('change', recalculate);
+ });
+
+ function recalculate() {
+ // Actualizar valores numéricos dinámicos
+ valCuartos.innerText = inCuartos.value;
+ valDorm.innerText = inDorm.value;
+ valFocos.innerText = inFocos.value;
+
+ // FÓRMULA DE ESTIMACIÓN PRELIMINAR REAL (Calibrada con efectos de XGBoost de microdatos)
+ let renta = 1850; // Constante base ajustada a baseline de XGBoost
+ const promotores = [];
+ const detractores = [];
+
+ // 1. Tipo de Inmueble (Ajuste del Coeficiente de XGBoost: ~4.1% de importancia)
+ const tipo = inTipoViv.value;
+ if (tipo === 'casa_sol') {
+ renta += 280;
+ } else if (tipo === 'depto') {
+ renta += 420;
+ promotores.push('Departamento en condominio (+$420 pesos)');
+ } else if (tipo === 'cuarto') {
+ renta -= 150;
+ detractores.push('Cuarto independiente / acceso limitado');
+ }
+
+ // 2. Renta Media del Municipio y Localidad (XGBoost importancia: ~4.3% + localidad)
+ const loc = inLoc.value;
+ if (loc === 'urbana_g') {
+ renta += 823; // Coeficiente real de renta_media_municipio en XGBoost (+$823 pesos)
+ promotores.push('Localidad urbana con alta renta municipal (+$823 pesos)');
+ } else if (loc === 'urbana_m') {
+ renta += 411;
+ } else if (loc === 'urbana_p') {
+ renta += 150;
+ } else if (loc === 'rural') {
+ renta -= 200;
+ detractores.push('Localidad rural / baja renta municipal');
+ }
+
+ // 3. Estrato Socioeconómico (Variable principal de XGBoost: 13.39% importancia)
+ const estrato = currentEstrato;
+ if (estrato === 1) {
+ renta -= 320; // Diferencia promedio real (est_socio) de -$320 pesos
+ detractores.push('Zona socioeconómica baja (Estrato 1)');
+ } else if (estrato === 2) {
+ // Baseline neutral
+ } else if (estrato === 3) {
+ renta += 320; // Diferencia promedio real de +$320 pesos (XGBoost est_socio 2 ->3)
+ promotores.push('Zona socioeconómica media (+$320 pesos)');
+ } else if (estrato === 4) {
+ renta += 960; // Extrapolación proporcional para estrato alto (3 * $320 pesos)
+ promotores.push('Zona socioeconómica alta (+$960 pesos)');
+ }
+
+ // 4. Cuartos y Dormitorios (XGBoost num_cuarto y cuart_dorm)
+ const cuartos = Number(inCuartos.value);
+ const dorm = Number(inDorm.value);
+ const focos = Number(inFocos.value);
+
+ // num_cuarto: $75 pesos por cada cuarto extra (Baseline de XGBoost)
+ renta += (cuartos * 75);
+ // cuart_dorm: $72 pesos por cada dormitorio extra (Diferencia real)
+ renta += (dorm * 72);
+ // focos: $105 pesos por cada foco extra (XGBoost diferencia real de 4 a 8 = $419 pesos)
+ renta += (focos * 105);
+
+ if (cuartos >= 5) promotores.push(`Distribución amplia (${cuartos} cuartos)`);
+ if (focos >= 8) promotores.push(`Instalación eléctrica amplia (+$419 pesos)`);
+
+ // 5. Material de Piso (XGBoost mat_pisos: 6.44% importancia)
+ const piso = inPiso.value;
+ if (piso === 'mosaico') {
+ renta += 265; // Diferencia real de +$265 pesos por pisos finos
+ promotores.push('Acabados de piso finos (+$265 pesos)');
+ } else if (piso === 'cemento') {
+ // Baseline cemento
+ } else if (piso === 'tierra') {
+ renta -= 265; // Penalización por piso de tierra
+ detractores.push('Material de piso rudimentario (tierra)');
+ }
+
+ // 6. Agua y Saneamiento (XGBoost ab_agua y agua_ent)
+ const agua = inAgua.value;
+ if (agua === 'dentro') {
+ renta += 300;
+ } else if (agua === 'fuera') {
+ renta += 100;
+ detractores.push('Acceso a agua entubada exterior');
+ } else if (agua === 'no') {
+ renta -= 400;
+ detractores.push('Falta de conexión formal de agua');
+ }
+
+ if (inBano.checked) {
+ renta += 41; // regadera: +$41 pesos según XGBoost
+ } else {
+ renta -= 150;
+ detractores.push('Sin regadera/baño completo exclusivo');
+ }
+
+ if (inDren.checked) {
+ renta += 180;
+ } else {
+ renta -= 250;
+ detractores.push('Sin conexión formal a drenaje');
+ }
+
+ // 7. Equipamiento Adicional (XGBoost calent_gas y cisterna)
+ if (inCalentador.checked) {
+ renta += 285; // calent_gas: +$285 pesos según XGBoost
+ promotores.push('Calentador de agua de gas (+$285 pesos)');
+ } else {
+ detractores.push('Falta de calentador de agua');
+ }
+
+ if (inCisterna.checked) {
+ renta += 126; // cisterna: +$126 pesos según XGBoost
+ promotores.push('Cisterna de almacenamiento (+$126 pesos)');
+ }
+ 
+ if (inTinaco.checked) {
+ renta += 80;
+ }
+
+ // Delimitar topes lógicos de renta residencial en pesos
+ renta = Math.round(renta);
+ renta = Math.max(200, Math.min(renta, 35000));
+
+ // Asignación de MAE ($838)
+ const mae = 838;
+ const minRange = Math.max(100, renta - mae);
+ const maxRange = renta + mae;
+
+ // Escribir outputs al DOM
+ lblRentaEstimada.innerText = formatMXN(renta);
+ lblRangoEstimado.innerText = `${formatMXN(minRange)} – ${formatMXN(maxRange)}`;
+
+ // Configurar Gauge (Escala sobre Rango Máximo de $12,000 en visualización)
+ let percent = (renta / 12000) * 100;
+ percent = Math.max(5, Math.min(100, percent));
+ gaugeSimFill.style.width = `${percent}%`;
+
+ // Lectura Ejecutiva Dinámica
+ let lectura = 'La vivienda se sitúa en un rango medio. La estimación está impulsada por ubicaciones de estrato medio-bajo con equipamiento y servicios básicos completos.';
+ if (renta< 2200) {
+ lectura = 'La propiedad se clasifica en el rango de renta baja/accesible. Esto corresponde a viviendas ubicadas en contextos semi-urbanos o rurales, con equipamiento básico indispensable.';
+ } else if (renta >6500) {
+ lectura = 'La propiedad se sitúa en el rango de renta alta/residencial. Esta estimación responde a entornos de nivel socioeconómico alto, amplio número de habitaciones y excelentes acabados estructurales.';
+ }
+ lblLecturaEjecutiva.innerText = lectura;
+
+ // Render de Promotores y Detractores
+ lblPromotores.innerText = promotores.length >0 ? promotores.slice(0, 3).join(', ') + '.' : 'Sin factores significativos que sumen valor.';
+ lblDetractores.innerText = detractores.length >0 ? detractores.slice(0, 3).join(', ') + '.' : 'Sin penalizaciones importantes registradas.';
+ }
+
+ // Inicializar Recalculo
+ window.addEventListener('DOMContentLoaded', () =>{
+ recalculate();
+ });
+
+ /* ==========================================
+ 1. ACORDEÓN DE PREGUNTAS FRECUENTES (FAQ)
+ ========================================== */
+ function toggleAccordion(button) {
+ const item = button.parentElement;
+ const isActive = item.classList.contains('active');
+ 
+ // Cerrar todos los demás acordeones para un efecto de acordeón exclusivo
+ document.querySelectorAll('.accordion-item').forEach(i =>{
+ i.classList.remove('active');
+ const content = i.querySelector('.accordion-content');
+ if (content) content.style.maxHeight = null;
+ });
+
+ // Si no estaba activo, abrir el actual
+ if (!isActive) {
+ item.classList.add('active');
+ const content = item.querySelector('.accordion-content');
+ if (content) {
+ content.style.maxHeight = content.scrollHeight + "px";
+ }
+ }
+ }
+
+ /* ==========================================
+ 2. FORMULARIO DE CONTACTO PREMIUM CON LOADER
+ ========================================== */
+ function handleContactSubmit(event) {
+ event.preventDefault();
+ 
+ const form = document.getElementById('portal-contact-form');
+ const submitBtn = document.getElementById('btn-contact-submit');
+ const successOverlay = document.getElementById('contact-success-overlay');
+ 
+ // Deshabilitar botón y cambiar a estado de carga
+ submitBtn.disabled = true;
+ submitBtn.innerHTML = `
+<span class="chat-status-dot" style="background:#fff; margin-right:4px;"></span>
+<span>Procesando...</span>
+ `;
+ 
+ // Simular tiempo de respuesta de la base de datos o API (1.5 segundos)
+ setTimeout(() =>{
+ // Mostrar capa de éxito con micro-animación
+ successOverlay.classList.add('active');
+ 
+ // Limpiar el formulario
+ form.reset();
+ 
+ // Auto-cerrar la confirmación y restablecer el botón tras 4.5 segundos
+ setTimeout(() =>{
+ successOverlay.classList.remove('active');
+ submitBtn.disabled = false;
+ submitBtn.innerHTML = `
+<span>Enviar Consulta</span>
+<span style="font-size: 0.9rem;"></span>
+ `;
+ }, 4500);
+ }, 1500);
+ }
+
+ /* ==========================================
+ 3. CHATBOT FLOTANTE VIRTUAL (VALORABOT)
+ ========================================== */
+ let hasChatOpened = false;
+
+ function toggleChatbot() {
+ const panel = document.getElementById('chat-panel');
+ const badge = document.getElementById('chat-badge');
+ 
+ panel.classList.toggle('active');
+ 
+ // Ocultar la notificación "1" al abrir por primera vez
+ if (badge && panel.classList.contains('active')) {
+ badge.style.display = 'none';
+ hasChatOpened = true;
+ }
+ }
+
+ // Agregar mensaje al historial de chat
+ function addChatMessage(sender, text) {
+ const messagesContainer = document.getElementById('chat-messages');
+ const bubble = document.createElement('div');
+ bubble.className = `chat-bubble ${sender}`;
+ bubble.innerHTML = text;
+ 
+ messagesContainer.appendChild(bubble);
+ messagesContainer.scrollTop = messagesContainer.scrollHeight;
+ return bubble;
+ }
+
+ // Mostrar simulador de escritura
+ function showTypingIndicator() {
+ const messagesContainer = document.getElementById('chat-messages');
+ const typingBubble = document.createElement('div');
+ typingBubble.className = 'chat-bubble bot typing';
+ typingBubble.id = 'chat-typing-indicator';
+ 
+ typingBubble.innerHTML = `
+<span class="typing-dot"></span>
+<span class="typing-dot"></span>
+<span class="typing-dot"></span>
+ `;
+ 
+ messagesContainer.appendChild(typingBubble);
+ messagesContainer.scrollTop = messagesContainer.scrollHeight;
+ }
+
+ // Remover simulador de escritura
+ function removeTypingIndicator() {
+ const indicator = document.getElementById('chat-typing-indicator');
+ if (indicator) {
+ indicator.remove();
+ }
+ }
+
+ // Enviar sugerencia rápida
+ function sendSuggestion(type) {
+ let userText = "";
+ if (type === 'precision') {
+ userText = "¿Cuál es la precisión real del modelo?";
+ } else if (type === 'datos') {
+ userText = "¿Qué fuentes oficiales de datos utilizan?";
+ } else if (type === 'metodo') {
+ userText = "¿Cómo funciona metodológicamente el algoritmo?";
+ }
+ 
+ if (userText) {
+ processUserMessage(userText);
+ }
+ }
+
+ // Manejar envío de mensaje por input
+ function handleChatSubmit(event) {
+ event.preventDefault();
+ const input = document.getElementById('chat-input');
+ const userText = input.value.trim();
+ 
+ if (userText) {
+ processUserMessage(userText);
+ input.value = "";
+ }
+ }
+
+ // Procesar mensaje del usuario y generar auto-respuesta
+ function processUserMessage(userText) {
+ // 1. Agregar mensaje del usuario
+ addChatMessage('user', userText);
+ 
+ // Ocultar temporalmente las sugerencias para enfocar la conversación
+ const suggestions = document.getElementById('chat-suggestions');
+ suggestions.style.opacity = '0.5';
+ suggestions.style.pointerEvents = 'none';
+ 
+ // 2. Mostrar indicador de escritura del bot
+ showTypingIndicator();
+ 
+ // 3. Generar la respuesta contextual tras 1.2 segundos
+ setTimeout(() =>{
+ removeTypingIndicator();
+ 
+ const responseText = getBotContextualReply(userText);
+ addChatMessage('bot', responseText);
+ 
+ // Rehabilitar sugerencias
+ suggestions.style.opacity = '1';
+ suggestions.style.pointerEvents = 'auto';
+ }, 1200);
+ }
+
+ // Lógica conversacional en español basada en palabras clave
+ function getBotContextualReply(message) {
+ const msg = message.toLowerCase();
+ 
+ // Caso 1: Saludo
+ if (msg.includes('hola') || msg.includes('buenos') || msg.includes('buenas') || msg.includes('saludos')) {
+ return "¡Hola! Un gusto saludarte. Soy ValoraBot. Estoy entrenado para platicar sobre la ciencia de datos detrás de ValoraCasa y las decisiones analíticas de<strong>The FI-ndings</strong>. ¿Qué duda metodológica o práctica te gustaría revisar?";
+ }
+ 
+ // Caso 2: Precisión / XGBoost / Error / MAE / Confianza
+ if (msg.includes('precision') || msg.includes('precisión') || msg.includes('error') || msg.includes('mae') || msg.includes('confia') || msg.includes('segur') || msg.includes('exact')) {
+ return "El modelo core de ValoraCasa posee un<strong>Error Absoluto Medio (MAE) promedio de $838 pesos</strong>. Esto significa que las estimaciones referenciales varían muy poco respecto al mercado real. El algoritmo base es<strong>XGBoost</strong>, optimizado mediante validación cruzada espacial para evitar sobreajustes y garantizar estabilidad zonal.";
+ }
+ 
+ // Caso 3: Datos / Origen / Fuente / INEGI / ENIGH / Censo
+ if (msg.includes('dato') || msg.includes('fuente') || msg.includes('origen') || msg.includes('inegi') || msg.includes('enigh') || msg.includes('censo')) {
+ return "Nuestra base informativa está cimentada en conjuntos de datos oficiales y validados en México. Principalmente empleamos el<strong>Censo de Población y Vivienda</strong>de INEGI y las microdatos de la encuesta de ingresos<strong>ENIGH 2024</strong>. Enriquecemos esto con capas geográficas de equipamiento urbano, transporte público de la CONABIO y variables contextuales procesadas en la nube.";
+ }
+
+ // Caso 4: Algoritmo / Metodología / Funcionamiento / XGBoost / Modelo / Ciencia de Datos
+ if (msg.includes('metodo') || msg.includes('método') || msg.includes('algoritmo') || msg.includes('funcion') || msg.includes('cómo hace') || msg.includes('cómo funciona') || msg.includes('ciencia')) {
+ return "Metodológicamente, ValoraCasa no realiza un avalúo físico tradicional. Aplicamos un modelo predictivo supervisado<strong>XGBoost</strong>sobre más de 20 variables de vivienda (recámaras, baños, metros, estacionamiento) y variables macro del entorno socioeconómico e infraestructura (distancia a avenidas principales y centros comerciales). Esto nos permite 'aprender' los precios de renta óptimos y explicarlos en pesos mediante<strong>valores SHAP</strong>en la simulación.";
+ }
+
+ // Caso 5: Costo / Gratis / Cobro / Pagar / Suscripción
+ if (msg.includes('costo') || msg.includes('gratis') || msg.includes('precio') || msg.includes('pagar') || msg.includes('cobro') || msg.includes('suscrip')) {
+ return "¡El uso de<strong>ValoraCasa</strong>es y seguirá siendo<strong>100% gratuito</strong>! Nuestra plataforma está diseñada para empoderar a la sociedad mexicana mediante el libre acceso a estimaciones inmobiliarias basadas en ciencia de datos.";
+ }
+
+ // Caso 6: The FI-ndings / Creadores / Empresa / Quiénes
+ if (msg.includes('findings') || msg.includes('finding') || msg.includes('creador') || msg.includes('empresa') || msg.includes('quien') || msg.includes('quién')) {
+ return "ValoraCasa es un producto desarrollado por<strong>The FI-ndings</strong>, una firma consultora y desarrolladora de tecnología especializada en ciencia de datos aplicada a negocios. Nuestro slogan principal define nuestra filosofía:<em>\"Convertimos datos en decisiones.\"</em>";
+ }
+
+ // Caso 7: Despedida o Agradecimiento
+ if (msg.includes('gracias') || msg.includes('ok') || msg.includes('perfecto') || msg.includes('adios') || msg.includes('adiós') || msg.includes('bye')) {
+ return "¡De nada! Ha sido un placer conversar contigo. Si tienes más dudas, puedes escribirle a nuestro equipo técnico mediante el formulario de contacto glassmorphic que diseñamos al lado del acordeón FAQ. ¡Hasta pronto!";
+ }
+
+ // Por defecto
+ return "Entiendo tu consulta. Como modelo de IA enfocado en la metodología de<strong>ValoraCasa</strong>, te recomiendo probar el simulador para auditar los coeficientes en tiempo real, o bien enviarnos tus dudas a través del formulario de contacto adjunto para que un especialista de<strong>The FI-ndings</strong>se comunique contigo.";
+ }
+</script>
 </body>
 </html>
