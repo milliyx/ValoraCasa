@@ -1160,6 +1160,7 @@
 
 <!-- Columna Resultados -->
 <div style="grid-column: span 12;" class="md-col-5">
+<div class="output-card-wrapper">
 <div class="output-card">
 <!-- Header -->
 <div class="output-header">
@@ -1233,9 +1234,10 @@
 <strong>Aviso:</strong>ValoraCasa ofrece una referencia analítica para la toma de decisiones y no sustituye de ninguna forma un avalúo comercial profesional.
 </div>
 </div>
-</div>
-</div>
-</div>
+</div> <!-- /output-card -->
+</div> <!-- /output-card-wrapper -->
+</div> <!-- /md-col-5 -->
+</div> <!-- /parent container -->
 </section>
 
 <!-- SECCIÓN 3: INSIGHTS CLAVE -->
@@ -1566,6 +1568,65 @@
 
 <!-- SCRIPTS Y LÓGICA INTERACTIVA -->
 <script>
+ // SISTEMA DE CONTROL DE CONSULTAS (LIMITACIÓN PAYWALL INTEGRADO)
+  let interactionCount = 0;
+  const maxInteractions = 5; // 5 cambios permitidos antes del bloqueo y redirección
+  let hasLocked = false;
+
+  function handleInteraction() {
+    if (hasLocked) return;
+    interactionCount++;
+    if (interactionCount >= maxInteractions) {
+      lockSimulator();
+    }
+  }
+
+  function lockSimulator() {
+    hasLocked = true;
+    
+    const outputCard = document.querySelector('.output-card');
+    const wrapper = document.querySelector('.output-card-wrapper');
+    if (!outputCard || !wrapper) return;
+    
+    // Crear y configurar el overlay glassmorphic con icono de candado
+    const overlay = document.createElement('div');
+    overlay.className = 'lock-overlay';
+    overlay.innerHTML = `
+      <div class="lock-icon-box">
+        <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+        </svg>
+      </div>
+      <h4 class="lock-title">¡Análisis Bloqueado!</h4>
+      <p class="lock-desc">Has alcanzado el límite máximo de consultas gratuitas. Regístrate o inicia sesión para continuar usando el simulador sin límites.</p>
+      <a href="login.html" class="btn-lock-login">Iniciar Sesión</a>
+      <span class="lock-countdown" id="lock-countdown-lbl">Redireccionando al inicio de sesión en 4 segundos...</span>
+    `;
+    
+    wrapper.appendChild(overlay);
+    
+    // Aplicar suave transición de desenfoque e ingreso del modal
+    setTimeout(() => {
+      outputCard.classList.add('blurred');
+      overlay.classList.add('active');
+    }, 50);
+
+    // Cuenta regresiva y redirección automática
+    let secondsLeft = 4;
+    const interval = setInterval(() => {
+      secondsLeft--;
+      const countdownLbl = document.getElementById('lock-countdown-lbl');
+      if (countdownLbl) {
+        countdownLbl.innerText = `Redireccionando al inicio de sesión en ${secondsLeft} segundos...`;
+      }
+      if (secondsLeft <= 0) {
+        clearInterval(interval);
+        window.location.href = 'login.html';
+      }
+    }, 1000);
+  }
+
  // FORMATEADOR DE MONEDA MEXICANA
  const formatMXN = (val) =>{
  return new Intl.NumberFormat('es-MX', {
@@ -1588,6 +1649,9 @@
  // Agregar active al seleccionado
  document.getElementById(`lbl-est-${estratoNum}`).classList.add('active');
  
+ // Incrementar y validar límite de consultas
+ handleInteraction();
+
  // Recalcular
  recalculate();
  }
@@ -1603,6 +1667,9 @@
  lbl.classList.remove('active');
  }
  
+ // Incrementar y validar límite de consultas
+ handleInteraction();
+
  recalculate();
  }
 
@@ -1631,10 +1698,16 @@
  const lblPromotores = document.getElementById('lbl-promotores');
  const lblDetractores = document.getElementById('lbl-detractores');
 
- // Suscribir eventos de recalculo
+ // Suscribir eventos de recalculo e interacción
  [inTipoViv, inLoc, inCuartos, inDorm, inFocos, inPiso, inAgua].forEach(item =>{
- item.addEventListener('input', recalculate);
- item.addEventListener('change', recalculate);
+ item.addEventListener('input', () => {
+ handleInteraction();
+ recalculate();
+ });
+ item.addEventListener('change', () => {
+ handleInteraction();
+ recalculate();
+ });
  });
 
  function recalculate() {
