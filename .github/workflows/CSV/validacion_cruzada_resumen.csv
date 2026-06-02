@@ -1,0 +1,4 @@
+﻿Modelo,R2_CV_Media,R2_CV_Std,R2_Test,RMSE_Test_Log
+Regresión Lineal,0.6106,0.0124,0.6163,0.4075
+Random Forest,0.6499,0.0174,0.6569,0.3854
+XGBoost,0.6662,0.0127,0.6753,0.3749

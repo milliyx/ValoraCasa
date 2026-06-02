@@ -1022,20 +1022,28 @@
 </div>
 </section>
 
-<!-- SECCIÓN 2: ESTIMAR RENTA (SIMULADOR INTERACTIVO) -->
+<!-- SECCIÓN 2: SIMULADOR INTERACTIVO DE RENTA (CALIBRADO CON XGBOOST) -->
 <section id="estimar" class="section-padding" style="margin-bottom: 4rem;">
-<div class="section-title-box">
-<span class="section-subtitle-tag">Estimación Analítica</span>
-<h3 class="section-main-title">Simulador de Renta Sugerida</h3>
-<p class="section-desc">
- Modifica las características físicas, geográficas y de equipamiento para simular de forma analítica el valor referencial óptimo de arrendamiento de la vivienda.
-</p>
+<div class="search-header-container" style="max-width: 800px; margin: 0 auto 3rem auto; text-align: center; position: relative;">
+  <span class="section-subtitle-tag" style="margin-bottom: 0.8rem;">Cálculo Inteligente en Tiempo Real</span>
+  <h3 class="section-main-title" style="margin-bottom: 1.2rem; font-family: var(--font-family); color: var(--azul-marino);">Simulador de Renta ValoraCasa</h3>
+  <p class="section-desc" style="margin-bottom: 2rem; max-width: 650px; margin-left: auto; margin-right: auto; font-family: var(--font-family);">
+    Ajusta las características físicas, ubicación y servicios del inmueble para obtener una estimación del valor de renta mensual calibrada con el modelo XGBoost de alta precisión.
+  </p>
 </div>
 
 <div class="grid-12" style="align-items: start;">
-<!-- Columna Inputs: Formulario de características -->
+<!-- Columna Inputs: Ficha Técnica de la Vivienda -->
 <div style="grid-column: span 12;" class="md-col-7 card">
+<h4 style="font-size: 0.95rem; font-weight: 800; color: var(--azul-marino); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem; font-family: var(--font-family);">
+  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--turquesa);">
+    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+  </svg>
+  Ficha de Características del Inmueble
+</h4>
 <form class="sim-form" onsubmit="return false;">
+
 <!-- Grupo 1: Ubicación y Categoría -->
 <div>
 <h4 class="sim-group-title">1. Contexto e Inmueble</h4>
@@ -1058,6 +1066,26 @@
 </select>
 </div>
 </div>
+
+<div class="grid-2" style="gap: 1rem; margin-bottom: 1rem;">
+<div class="input-field">
+<label class="input-label" for="in_pared">Material de Muros/Paredes</label>
+<select id="in_pared" class="select-control">
+<option value="concreto" selected>Tabique, Ladrillo, Block, Concreto</option>
+<option value="madera">Madera o Adobe</option>
+<option value="lamina">Lámina, Cartón o Material de Desecho</option>
+</select>
+</div>
+<div class="input-field">
+<label class="input-label" for="in_techo">Material de Techos</label>
+<select id="in_techo" class="select-control">
+<option value="concreto" selected>Losa de Concreto, Vigueta y Bovedilla</option>
+<option value="lamina_metal">Lámina de Asbesto, Metal o Teja</option>
+<option value="lamina_carton">Lámina de Cartón, Palma o Madera</option>
+</select>
+</div>
+</div>
+
 <div class="input-field">
 <label class="input-label">Estrato Socioeconómico de la Zona</label>
 <div class="estrato-grid">
@@ -1111,6 +1139,8 @@
 <input type="range" id="in_focos" min="1" max="25" value="6" class="slider-control" />
 </div>
 </div>
+
+<div class="grid-2" style="gap: 1rem; margin-bottom: 1rem;">
 <div class="input-field">
 <label class="input-label" for="in_piso">Material del Piso</label>
 <select id="in_piso" class="select-control">
@@ -1119,19 +1149,47 @@
 <option value="tierra">Tierra</option>
 </select>
 </div>
+<div class="input-field">
+<label class="input-label" for="in_lugar_coc">Espacio para Cocinar</label>
+<select id="in_lugar_coc" class="select-control">
+<option value="cuarto_excl" selected>Cuarto exclusivo para cocinar (Cocina)</option>
+<option value="compartido">Área común o cocina integrada</option>
+<option value="no_cocina">No cuenta con espacio para cocinar</option>
+</select>
+</div>
+</div>
 </div>
 
 <!-- Grupo 3: Servicios y Amenidades -->
 <div>
 <h4 class="sim-group-title">3. Amenidades e Instalaciones</h4>
-<div class="input-field" style="margin-bottom: 1rem;">
+<div class="grid-3" style="gap: 1rem; margin-bottom: 1rem;">
+<div class="input-field">
 <label class="input-label" for="in_agua">Acceso a Agua Entubada</label>
 <select id="in_agua" class="select-control">
 <option value="dentro" selected>Dentro de la vivienda</option>
-<option value="fuera">Fuera de la vivienda, pero en el terreno</option>
+<option value="fuera">En el terreno, fuera de la vivienda</option>
 <option value="no">No tiene acceso formal</option>
 </select>
 </div>
+<div class="input-field">
+<label class="input-label" for="in_combus">Combustible para Cocinar</label>
+<select id="in_combus" class="select-control">
+<option value="gas_natural">Gas Natural o de Red</option>
+<option value="gas_lp" selected>Gas L.P. (Tanque o Cilindro)</option>
+<option value="carbon_lena">Leña o Carbón</option>
+</select>
+</div>
+<div class="input-field">
+<label class="input-label" for="in_eli_basura">Servicio de Basura</label>
+<select id="in_eli_basura" class="select-control">
+<option value="camion" selected>Recolección regular por camión</option>
+<option value="contenedor">Depósito en contenedor o depósito</option>
+<option value="otro">Quema, entierro o depósito irregular</option>
+</select>
+</div>
+</div>
+
 <div class="amenities-grid">
 <label class="amenity-checkbox active" id="lbl-bano">
 <input type="checkbox" id="in_bano" checked onchange="toggleAmenityActive('bano')" />
@@ -1152,6 +1210,37 @@
 <label class="amenity-checkbox active" id="lbl-tinaco">
 <input type="checkbox" id="in_tinaco" checked onchange="toggleAmenityActive('tinaco')" />
  Tinaco Instalado
+</label>
+<label class="amenity-checkbox active" id="lbl-fregadero">
+<input type="checkbox" id="in_fregadero" checked onchange="toggleAmenityActive('fregadero')" />
+ Fregadero / Tarja de Cocina
+</label>
+<label class="amenity-checkbox active" id="lbl-sanit-agua">
+<input type="checkbox" id="in_sanit_agua" checked onchange="toggleAmenityActive('sanit-agua')" />
+ Sanitario con Descarga de Agua
+</label>
+<label class="amenity-checkbox" id="lbl-aire-acond">
+<input type="checkbox" id="in_aire_acond" onchange="toggleAmenityActive('aire-acond')" />
+ Aire Acondicionado (Minisplit)
+</label>
+<label class="amenity-checkbox" id="lbl-uso-compar">
+<input type="checkbox" id="in_uso_compar" onchange="toggleAmenityActive('uso-compar')" />
+ Compartido con otros hogares
+</label>
+</div>
+</div>
+
+<!-- Grupo 4: Estado de Conservación y Daños -->
+<div style="margin-top: 1.5rem;">
+<h4 class="sim-group-title">4. Estado de Conservación y Daños</h4>
+<div class="amenities-grid" style="grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));">
+<label class="amenity-checkbox" id="lbl-p-humedad" style="border-color: rgba(220, 53, 69, 0.15); color: var(--azul-marino);">
+<input type="checkbox" id="in_p_humedad" onchange="toggleAmenityActive('p-humedad')" />
+ Humedad / Filtraciones de Agua
+</label>
+<label class="amenity-checkbox" id="lbl-p-grietas" style="border-color: rgba(220, 53, 69, 0.15); color: var(--azul-marino);">
+<input type="checkbox" id="in_p_grietas" onchange="toggleAmenityActive('p-grietas')" />
+ Grietas / Fracturas Estructurales
 </label>
 </div>
 </div>
@@ -1226,6 +1315,8 @@
 </div>
 </div>
 </div>
+
+
 
 <!-- Aviso legal -->
 <div class="disclaimer-box">
@@ -1591,6 +1682,23 @@
 
 <!-- SCRIPTS Y LÓGICA INTERACTIVA -->
 <script>
+  // Cargar al inicio de la página
+  window.addEventListener('DOMContentLoaded', () => {
+    // Actualizar botón de iniciar sesión si ya está logueado
+    if (sessionStorage.getItem('isLoggedIn') === 'true') {
+      const loginPill = document.querySelector('.btn-login-pill');
+      if (loginPill) {
+        loginPill.textContent = 'CERRAR SESIÓN';
+        loginPill.href = '#';
+        loginPill.addEventListener('click', (e) => {
+          e.preventDefault();
+          sessionStorage.removeItem('isLoggedIn');
+          window.location.reload();
+        });
+      }
+    }
+  });
+
  // SISTEMA DE CONTROL DE CONSULTAS (LIMITACIÓN PAYWALL INTEGRADO)
   let interactionCount = 0;
   const maxInteractions = 5; // 5 cambios permitidos antes del bloqueo y redirección
@@ -1598,6 +1706,12 @@
 
   function handleInteraction() {
     if (hasLocked) return;
+    
+    // Bypass del paywall lockout si el usuario ya inició sesión o activó el acceso demo
+    if (sessionStorage.getItem('isLoggedIn') === 'true') {
+      return;
+    }
+    
     interactionCount++;
     if (interactionCount >= maxInteractions) {
       lockSimulator();
@@ -1696,197 +1810,302 @@
  recalculate();
  }
 
- // CAPTURA DE INPUTS Y FÓRMULA DE SIMULACIÓN REFERENCIAL
- const inTipoViv = document.getElementById('in_tipo_viv');
- const inLoc = document.getElementById('in_loc');
- const inCuartos = document.getElementById('in_cuartos');
- const inDorm = document.getElementById('in_dorm');
- const inFocos = document.getElementById('in_focos');
- const inPiso = document.getElementById('in_piso');
- const inAgua = document.getElementById('in_agua');
- const inBano = document.getElementById('in_bano');
- const inDren = document.getElementById('in_dren');
- const inCalentador = document.getElementById('in_calentador');
- const inCisterna = document.getElementById('in_cisterna');
- const inTinaco = document.getElementById('in_tinaco');
+  // CAPTURA DE INPUTS Y FÓRMULA DE SIMULACIÓN REFERENCIAL
+  const inTipoViv = document.getElementById('in_tipo_viv');
+  const inLoc = document.getElementById('in_loc');
+  const inPared = document.getElementById('in_pared');
+  const inTecho = document.getElementById('in_techo');
+  const inCuartos = document.getElementById('in_cuartos');
+  const inDorm = document.getElementById('in_dorm');
+  const inFocos = document.getElementById('in_focos');
+  const inPiso = document.getElementById('in_piso');
+  const inLugarCoc = document.getElementById('in_lugar_coc');
+  const inAgua = document.getElementById('in_agua');
+  const inCombus = document.getElementById('in_combus');
+  const inEliBasura = document.getElementById('in_eli_basura');
+  const inBano = document.getElementById('in_bano');
+  const inDren = document.getElementById('in_dren');
+  const inCalentador = document.getElementById('in_calentador');
+  const inCisterna = document.getElementById('in_cisterna');
+  const inTinaco = document.getElementById('in_tinaco');
+  const inFregadero = document.getElementById('in_fregadero');
+  const inSanitAgua = document.getElementById('in_sanit_agua');
+  const inAireAcond = document.getElementById('in_aire_acond');
+  const inUsoCompar = document.getElementById('in_uso_compar');
+  const inPHumedad = document.getElementById('in_p_humedad');
+  const inPGrietas = document.getElementById('in_p_grietas');
 
- // Outputs DOM
- const valCuartos = document.getElementById('val_cuartos');
- const valDorm = document.getElementById('val_dorm');
- const valFocos = document.getElementById('val_focos');
- const lblRentaEstimada = document.getElementById('lbl-renta-estimada');
- const lblRangoEstimado = document.getElementById('lbl-rango-estimado');
- const gaugeSimFill = document.getElementById('gauge-sim-fill');
- const lblLecturaEjecutiva = document.getElementById('lbl-lectura-ejecutiva');
- const lblPromotores = document.getElementById('lbl-promotores');
- const lblDetractores = document.getElementById('lbl-detractores');
+  // Outputs DOM
+  const valCuartos = document.getElementById('val_cuartos');
+  const valDorm = document.getElementById('val_dorm');
+  const valFocos = document.getElementById('val_focos');
+  const lblRentaEstimada = document.getElementById('lbl-renta-estimada');
+  const lblRangoEstimado = document.getElementById('lbl-rango-estimado');
+  const gaugeSimFill = document.getElementById('gauge-sim-fill');
+  const lblLecturaEjecutiva = document.getElementById('lbl-lectura-ejecutiva');
+  const lblPromotores = document.getElementById('lbl-promotores');
+  const lblDetractores = document.getElementById('lbl-detractores');
 
- // Suscribir eventos de recalculo e interacción
- [inTipoViv, inLoc, inCuartos, inDorm, inFocos, inPiso, inAgua].forEach(item =>{
- item.addEventListener('input', () => {
- handleInteraction();
- recalculate();
- });
- item.addEventListener('change', () => {
- handleInteraction();
- recalculate();
- });
- });
+  // Suscribir eventos de recalculo e interacción
+  [inTipoViv, inLoc, inPared, inTecho, inCuartos, inDorm, inFocos, inPiso, inLugarCoc, inAgua, inCombus, inEliBasura].forEach(item =>{
+    if (item) {
+      item.addEventListener('input', () => {
+        handleInteraction();
+        recalculate();
+      });
+      item.addEventListener('change', () => {
+        handleInteraction();
+        recalculate();
+      });
+    }
+  });
 
- function recalculate() {
- // Actualizar valores numéricos dinámicos
- valCuartos.innerText = inCuartos.value;
- valDorm.innerText = inDorm.value;
- valFocos.innerText = inFocos.value;
+  function recalculate() {
+    // Actualizar valores numéricos dinámicos
+    valCuartos.innerText = inCuartos.value;
+    valDorm.innerText = inDorm.value;
+    valFocos.innerText = inFocos.value;
 
- // FÓRMULA DE ESTIMACIÓN PRELIMINAR REAL (Calibrada con efectos de XGBoost de microdatos)
- let renta = 1850; // Constante base ajustada a baseline de XGBoost
- const promotores = [];
- const detractores = [];
+    // FÓRMULA DE ESTIMACIÓN PRELIMINAR REAL (Calibrada con efectos de XGBoost de microdatos)
+    let renta = 1850; // Constante base ajustada a baseline de XGBoost
+    const promotores = [];
+    const detractores = [];
 
- // 1. Tipo de Inmueble (Ajuste del Coeficiente de XGBoost: ~4.1% de importancia)
- const tipo = inTipoViv.value;
- if (tipo === 'casa_sol') {
- renta += 280;
- } else if (tipo === 'depto') {
- renta += 420;
- promotores.push('Departamento en condominio (+$420 pesos)');
- } else if (tipo === 'cuarto') {
- renta -= 150;
- detractores.push('Cuarto independiente / acceso limitado');
- }
+    // 1. Tipo de Inmueble (Ajuste del Coeficiente de XGBoost: ~4.1% de importancia)
+    const tipo = inTipoViv.value;
+    if (tipo === 'casa_sol') {
+      renta += 280;
+    } else if (tipo === 'depto') {
+      renta += 420;
+      promotores.push('Departamento en condominio (+$420 pesos)');
+    } else if (tipo === 'cuarto') {
+      renta -= 150;
+      detractores.push('Cuarto independiente / acceso limitado');
+    }
 
- // 2. Renta Media del Municipio y Localidad (XGBoost importancia: ~4.3% + localidad)
- const loc = inLoc.value;
- if (loc === 'urbana_g') {
- renta += 823; // Coeficiente real de renta_media_municipio en XGBoost (+$823 pesos)
- promotores.push('Localidad urbana con alta renta municipal (+$823 pesos)');
- } else if (loc === 'urbana_m') {
- renta += 411;
- } else if (loc === 'urbana_p') {
- renta += 150;
- } else if (loc === 'rural') {
- renta -= 200;
- detractores.push('Localidad rural / baja renta municipal');
- }
+    // 2. Renta Media del Municipio y Localidad (XGBoost importancia: ~4.3% + localidad)
+    const loc = inLoc.value;
+    if (loc === 'urbana_g') {
+      renta += 823; // Coeficiente real de renta_media_municipio en XGBoost (+$823 pesos)
+      promotores.push('Localidad urbana con alta renta municipal (+$823 pesos)');
+    } else if (loc === 'urbana_m') {
+      renta += 411;
+    } else if (loc === 'urbana_p') {
+      renta += 150;
+    } else if (loc === 'rural') {
+      renta -= 200;
+      detractores.push('Localidad rural / baja renta municipal');
+    }
 
- // 3. Estrato Socioeconómico (Variable principal de XGBoost: 13.39% importancia)
- const estrato = currentEstrato;
- if (estrato === 1) {
- renta -= 320; // Diferencia promedio real (est_socio) de -$320 pesos
- detractores.push('Zona socioeconómica baja (Estrato 1)');
- } else if (estrato === 2) {
- // Baseline neutral
- } else if (estrato === 3) {
- renta += 320; // Diferencia promedio real de +$320 pesos (XGBoost est_socio 2 ->3)
- promotores.push('Zona socioeconómica media (+$320 pesos)');
- } else if (estrato === 4) {
- renta += 960; // Extrapolación proporcional para estrato alto (3 * $320 pesos)
- promotores.push('Zona socioeconómica alta (+$960 pesos)');
- }
+    // 3. Material de Muros/Paredes (Importancia: 3.06%)
+    const pared = inPared.value;
+    if (pared === 'concreto') {
+      renta += 140;
+      promotores.push('Muros de concreto/ladrillo (+$140 pesos)');
+    } else if (pared === 'lamina') {
+      renta -= 240;
+      detractores.push('Paredes precarias / de lámina o desecho (-$240 pesos)');
+    }
 
- // 4. Cuartos y Dormitorios (XGBoost num_cuarto y cuart_dorm)
- const cuartos = Number(inCuartos.value);
- const dorm = Number(inDorm.value);
- const focos = Number(inFocos.value);
+    // 4. Material de Techos (Importancia: 4.45%)
+    const techo = inTecho.value;
+    if (techo === 'concreto') {
+      renta += 180;
+      promotores.push('Techo de losa de concreto (+$180 pesos)');
+    } else if (techo === 'lamina_carton') {
+      renta -= 280;
+      detractores.push('Techos precarios o de cartón/palma (-$280 pesos)');
+    }
 
- // num_cuarto: $75 pesos por cada cuarto extra (Baseline de XGBoost)
- renta += (cuartos * 75);
- // cuart_dorm: $72 pesos por cada dormitorio extra (Diferencia real)
- renta += (dorm * 72);
- // focos: $105 pesos por cada foco extra (XGBoost diferencia real de 4 a 8 = $419 pesos)
- renta += (focos * 105);
+    // 5. Estrato Socioeconómico (Variable principal de XGBoost: 13.39% importancia)
+    const estrato = currentEstrato;
+    if (estrato === 1) {
+      renta -= 320; // Diferencia promedio real (est_socio) de -$320 pesos
+      detractores.push('Zona socioeconómica baja (Estrato 1)');
+    } else if (estrato === 2) {
+      // Baseline neutral
+    } else if (estrato === 3) {
+      renta += 320; // Diferencia promedio real de +$320 pesos (XGBoost est_socio 2 -> 3)
+      promotores.push('Zona socioeconómica media (+$320 pesos)');
+    } else if (estrato === 4) {
+      renta += 960; // Extrapolación proporcional para estrato alto (3 * $320 pesos)
+      promotores.push('Zona socioeconómica alta (+$960 pesos)');
+    }
 
- if (cuartos >= 5) promotores.push(`Distribución amplia (${cuartos} cuartos)`);
- if (focos >= 8) promotores.push(`Instalación eléctrica amplia (+$419 pesos)`);
+    // 6. Cuartos, Dormitorios y Focos (XGBoost num_cuarto y cuart_dorm)
+    const cuartos = Number(inCuartos.value);
+    const dorm = Number(inDorm.value);
+    const focos = Number(inFocos.value);
 
- // 5. Material de Piso (XGBoost mat_pisos: 6.44% importancia)
- const piso = inPiso.value;
- if (piso === 'mosaico') {
- renta += 265; // Diferencia real de +$265 pesos por pisos finos
- promotores.push('Acabados de piso finos (+$265 pesos)');
- } else if (piso === 'cemento') {
- // Baseline cemento
- } else if (piso === 'tierra') {
- renta -= 265; // Penalización por piso de tierra
- detractores.push('Material de piso rudimentario (tierra)');
- }
+    // num_cuarto: $75 pesos por cada cuarto extra (Baseline de XGBoost)
+    renta += (cuartos * 75);
+    // cuart_dorm: $72 pesos por cada dormitorio extra (Diferencia real)
+    renta += (dorm * 72);
+    // focos: $105 pesos por cada foco extra (XGBoost diferencia real de 4 a 8 = $419 pesos)
+    renta += (focos * 105);
 
- // 6. Agua y Saneamiento (XGBoost ab_agua y agua_ent)
- const agua = inAgua.value;
- if (agua === 'dentro') {
- renta += 300;
- } else if (agua === 'fuera') {
- renta += 100;
- detractores.push('Acceso a agua entubada exterior');
- } else if (agua === 'no') {
- renta -= 400;
- detractores.push('Falta de conexión formal de agua');
- }
+    if (cuartos >= 5) promotores.push(`Distribución amplia (${cuartos} cuartos)`);
+    if (focos >= 8) promotores.push(`Instalación eléctrica amplia (+$419 pesos)`);
 
- if (inBano.checked) {
- renta += 41; // regadera: +$41 pesos según XGBoost
- } else {
- renta -= 150;
- detractores.push('Sin regadera/baño completo exclusivo');
- }
+    // 7. Material de Piso (XGBoost mat_pisos: 6.44% importancia)
+    const piso = inPiso.value;
+    if (piso === 'mosaico') {
+      renta += 265; // Diferencia real de +$265 pesos por pisos finos
+      promotores.push('Acabados de piso finos (+$265 pesos)');
+    } else if (piso === 'cemento') {
+      // Baseline cemento
+    } else if (piso === 'tierra') {
+      renta -= 265; // Penalización por piso de tierra
+      detractores.push('Material de piso rudimentario (tierra)');
+    }
 
- if (inDren.checked) {
- renta += 180;
- } else {
- renta -= 250;
- detractores.push('Sin conexión formal a drenaje');
- }
+    // 8. Espacio para Cocinar (Importancia: 2.42%)
+    const lugarCoc = inLugarCoc.value;
+    if (lugarCoc === 'cuarto_excl') {
+      renta += 110;
+      promotores.push('Cocina independiente (+$110 pesos)');
+    } else if (lugarCoc === 'no_cocina') {
+      renta -= 150;
+      detractores.push('Sin espacio para cocinar (-$150 pesos)');
+    }
 
- // 7. Equipamiento Adicional (XGBoost calent_gas y cisterna)
- if (inCalentador.checked) {
- renta += 285; // calent_gas: +$285 pesos según XGBoost
- promotores.push('Calentador de agua de gas (+$285 pesos)');
- } else {
- detractores.push('Falta de calentador de agua');
- }
+    // 9. Agua y Saneamiento (XGBoost ab_agua y agua_ent)
+    const agua = inAgua.value;
+    if (agua === 'dentro') {
+      renta += 300;
+    } else if (agua === 'fuera') {
+      renta += 100;
+      detractores.push('Acceso a agua entubada exterior');
+    } else if (agua === 'no') {
+      renta -= 400;
+      detractores.push('Falta de conexión formal de agua');
+    }
 
- if (inCisterna.checked) {
- renta += 126; // cisterna: +$126 pesos según XGBoost
- promotores.push('Cisterna de almacenamiento (+$126 pesos)');
- }
+    // 10. Combustible para Cocinar (Importancia: 4.32%)
+    const combus = inCombus.value;
+    if (combus === 'gas_natural') {
+      renta += 150;
+      promotores.push('Uso de Gas Natural de red (+$150 pesos)');
+    } else if (combus === 'carbon_lena') {
+      renta -= 250;
+      detractores.push('Uso de leña o carbón para cocinar (-$250 pesos)');
+    }
+
+    // 11. Servicio de Basura (Importancia: 3.49%)
+    const eliBasura = inEliBasura.value;
+    if (eliBasura === 'camion') {
+      renta += 120;
+      promotores.push('Servicio público de basura (+$120 pesos)');
+    } else if (eliBasura === 'otro') {
+      renta -= 180;
+      detractores.push('Falta de recolección de basura (-$180 pesos)');
+    }
+
+    // 12. Saneamiento Checkboxes
+    if (inBano.checked) {
+      renta += 41; // regadera: +$41 pesos según XGBoost
+    } else {
+      renta -= 150;
+      detractores.push('Sin regadera/baño completo exclusivo');
+    }
+
+    if (inDren.checked) {
+      renta += 180;
+    } else {
+      renta -= 250;
+      detractores.push('Sin conexión formal a drenaje');
+    }
+
+    // 13. Equipamiento Adicional (XGBoost calent_gas y cisterna)
+    if (inCalentador.checked) {
+      renta += 285; // calent_gas: +$285 pesos según XGBoost
+      promotores.push('Calentador de agua de gas (+$285 pesos)');
+    } else {
+      detractores.push('Falta de calentador de agua');
+    }
+
+    if (inCisterna.checked) {
+      renta += 126; // cisterna: +$126 pesos según XGBoost
+      promotores.push('Cisterna de almacenamiento (+$126 pesos)');
+    }
+    
+    if (inTinaco.checked) {
+      renta += 80;
+    }
+
+    // 14. Tarja / Fregadero de Cocina (Importancia: 6.38%)
+    if (inFregadero.checked) {
+      renta += 260;
+      promotores.push('Fregadero / Tarja de cocina (+$260 pesos)');
+    } else {
+      renta -= 150;
+      detractores.push('Falta de tarja en cocina (-$150 pesos)');
+    }
+
+    // 15. Sanitario con Agua Exclusivo (Importancia: 5.35%)
+    if (inSanitAgua.checked) {
+      renta += 220;
+      promotores.push('Sanitario con descarga de agua (+$220 pesos)');
+    } else {
+      renta -= 200;
+      detractores.push('Sanitario sin descarga formal (-$200 pesos)');
+    }
+
+    // 16. Aire Acondicionado (Importancia: 1.57%)
+    if (inAireAcond.checked) {
+      renta += 160;
+      promotores.push('Aire acondicionado minisplit (+$160 pesos)');
+    }
+
+    // 17. Uso Compartido (Importancia: 3.09%)
+    if (inUsoCompar.checked) {
+      renta -= 160;
+      detractores.push('Servicios compartidos con otros hogares (-$160 pesos)');
+    }
+
+    // 18. Estado de Conservación (Daños estructurales - Jupyter Notebook efectos XGBoost)
+    if (inPHumedad.checked) {
+      renta -= 45; // p_humedad: -$45 pesos según XGBoost
+      detractores.push('Humedad / filtraciones estructurales (-$45 pesos)');
+    }
+
+    if (inPGrietas.checked) {
+      renta -= 126; // p_grietas: -$126 pesos según XGBoost
+      detractores.push('Daños por grietas/fracturas en muros (-$126 pesos)');
+    }
+
+    // Delimitar topes lógicos de renta residencial en pesos
+    renta = Math.round(renta);
+    renta = Math.max(200, Math.min(renta, 35000));
+
+    // Asignación de MAE ($838)
+    const mae = 838;
+    const minRange = Math.max(100, renta - mae);
+    const maxRange = renta + mae;
+
+    // Escribir outputs al DOM
+    lblRentaEstimada.innerText = formatMXN(renta);
+    lblRangoEstimado.innerText = `${formatMXN(minRange)} – ${formatMXN(maxRange)}`;
+
+    // Configurar Gauge (Escala sobre Rango Máximo de $12,000 en visualización)
+    let percent = (renta / 12000) * 100;
+    percent = Math.max(5, Math.min(100, percent));
+    gaugeSimFill.style.width = `${percent}%`;
+
+    // Lectura Ejecutiva Dinámica
+    let lectura = 'La vivienda se sitúa en un rango medio. La estimación está impulsada por ubicaciones de estrato medio-bajo con equipamiento y servicios básicos completos.';
+    if (renta < 2200) {
+      lectura = 'La propiedad se clasifica en el rango de renta baja/accesible. Esto corresponde a viviendas ubicadas en contextos semi-urbanos o rurales, con equipamiento básico indispensable.';
+    } else if (renta > 6500) {
+      lectura = 'La propiedad se sitúa en el rango de renta alta/residencial. Esta estimación responde a entornos de nivel socioeconómico alto, amplio número de habitaciones y excelentes acabados estructurales.';
+    }
+    lblLecturaEjecutiva.innerText = lectura;
+
+    // Render de Promotores y Detractores
+    lblPromotores.innerText = promotores.length > 0 ? promotores.slice(0, 3).join(', ') + '.' : 'Sin factores significativos que sumen valor.';
+    lblDetractores.innerText = detractores.length > 0 ? detractores.slice(0, 3).join(', ') + '.' : 'Sin penalizaciones importantes registradas.';
+  }
  
- if (inTinaco.checked) {
- renta += 80;
- }
-
- // Delimitar topes lógicos de renta residencial en pesos
- renta = Math.round(renta);
- renta = Math.max(200, Math.min(renta, 35000));
-
- // Asignación de MAE ($838)
- const mae = 838;
- const minRange = Math.max(100, renta - mae);
- const maxRange = renta + mae;
-
- // Escribir outputs al DOM
- lblRentaEstimada.innerText = formatMXN(renta);
- lblRangoEstimado.innerText = `${formatMXN(minRange)} – ${formatMXN(maxRange)}`;
-
- // Configurar Gauge (Escala sobre Rango Máximo de $12,000 en visualización)
- let percent = (renta / 12000) * 100;
- percent = Math.max(5, Math.min(100, percent));
- gaugeSimFill.style.width = `${percent}%`;
-
- // Lectura Ejecutiva Dinámica
- let lectura = 'La vivienda se sitúa en un rango medio. La estimación está impulsada por ubicaciones de estrato medio-bajo con equipamiento y servicios básicos completos.';
- if (renta< 2200) {
- lectura = 'La propiedad se clasifica en el rango de renta baja/accesible. Esto corresponde a viviendas ubicadas en contextos semi-urbanos o rurales, con equipamiento básico indispensable.';
- } else if (renta >6500) {
- lectura = 'La propiedad se sitúa en el rango de renta alta/residencial. Esta estimación responde a entornos de nivel socioeconómico alto, amplio número de habitaciones y excelentes acabados estructurales.';
- }
- lblLecturaEjecutiva.innerText = lectura;
-
- // Render de Promotores y Detractores
- lblPromotores.innerText = promotores.length >0 ? promotores.slice(0, 3).join(', ') + '.' : 'Sin factores significativos que sumen valor.';
- lblDetractores.innerText = detractores.length >0 ? detractores.slice(0, 3).join(', ') + '.' : 'Sin penalizaciones importantes registradas.';
- }
-
  // Inicializar Recalculo
  window.addEventListener('DOMContentLoaded', () =>{
  recalculate();

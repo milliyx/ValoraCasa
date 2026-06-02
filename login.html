@@ -574,9 +574,9 @@
  }
 
  .btn-demo-link {
- background-color: var(--blanco-humo);
+ background-color: rgba(53, 184, 184, 0.08);
  color: var(--azul-marino);
- border: 1px dashed rgba(11, 35, 69, 0.15);
+ border: 2px solid var(--turquesa);
  padding: 0.85rem;
  border-radius: 12px;
  font-family: var(--font-family);
@@ -590,12 +590,14 @@
  justify-content: center;
  align-items: center;
  gap: 0.5rem;
+ box-shadow: 0 4px 15px rgba(53, 184, 184, 0.1);
  }
 
  .btn-demo-link:hover {
- background-color: var(--beige);
- border-color: var(--turquesa);
- color: var(--turquesa);
+ background-color: var(--turquesa);
+ color: var(--azul-marino);
+ box-shadow: 0 6px 20px rgba(53, 184, 184, 0.3);
+ transform: translateY(-2px);
  }
 
  /* Footer del Panel Derecho */
@@ -1107,7 +1109,12 @@
 <div class="access-levels-container">
 <!-- 1. Individual -->
 <div class="access-level-card">
-<div class="card-icon-box"></div>
+<div class="card-icon-box">
+  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+  </svg>
+</div>
 <div class="card-info">
 <h4>Acceso Individual</h4>
 <p>Para rentar o poner en renta una vivienda de forma ágil y rápida.</p>
@@ -1116,7 +1123,12 @@
  
 <!-- 2. Profesional -->
 <div class="access-level-card">
-<div class="card-icon-box"></div>
+<div class="card-icon-box">
+  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+  </svg>
+</div>
 <div class="card-info">
 <h4>Acceso Profesional</h4>
 <p>Para asesores independientes, inmobiliarias, despachos y administradores de propiedades.</p>
@@ -1125,7 +1137,12 @@
  
 <!-- 3. Institucional -->
 <div class="access-level-card">
-<div class="card-icon-box">️</div>
+<div class="card-icon-box">
+  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+    <path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"></path>
+  </svg>
+</div>
 <div class="card-info">
 <h4>Acceso Institucional</h4>
 <p>Para análisis, investigación, instituciones públicas o centros de análisis espacial.</p>
@@ -1380,7 +1397,7 @@
 </svg>
 <span class="findings-footer-text">The FI-ndings</span>
 </a>
-<span class="findings-footer-slogan">“Convertimos datos en decisiones.”</span>
+<span class="findings-footer-slogan">Convertimos datos en decisiones.</span>
 </div>
 
 </div>
@@ -1465,74 +1482,84 @@
  }
  }
 
- // CONTROL DEL MODAL DE ACCESO DIRECTO DEMO
- function openDemoModal() {
- document.getElementById('lbl-demo-modal').classList.add('active');
- }
+  // CONTROL DEL MODAL DE ACCESO DIRECTO DEMO
+  function openDemoModal() {
+    const modal = document.getElementById('lbl-demo-modal');
+    if (modal) {
+      modal.classList.add('active');
+    }
+  }
 
- function closeDemoModal() {
- document.getElementById('lbl-demo-modal').classList.remove('active');
- }
+  function closeDemoModal() {
+    const modal = document.getElementById('lbl-demo-modal');
+    if (modal) {
+      modal.classList.remove('active');
+    }
+  }
 
- // SIMULACIÓN DE REDIRECCIONAMIENTO CON ANIMACIÓN DE ENLACE DE DATOS
- function redirectWithLoader(url, message) {
- closeDemoModal();
- const overlay = document.getElementById('lbl-success-overlay');
- const title = document.getElementById('lbl-overlay-title');
- const subtitle = document.getElementById('lbl-overlay-subtitle');
- const spinner = document.getElementById('lbl-overlay-spinner');
- const badge = document.getElementById('lbl-overlay-badge');
+  // SIMULACIÓN DE REDIRECCIONAMIENTO CON ANIMACIÓN DE ENLACE DE DATOS
+  function redirectWithLoader(url, message) {
+    closeDemoModal();
+    const overlay = document.getElementById('lbl-success-overlay');
+    const title = document.getElementById('lbl-overlay-title');
+    const subtitle = document.getElementById('lbl-overlay-subtitle');
 
- overlay.classList.add('active');
- title.innerText = "Estableciendo Conexión de Datos";
- subtitle.innerText = message;
+    overlay.classList.remove('show-check');
+    overlay.classList.add('active');
+    title.innerText = "Autenticando Acceso Demo";
+    subtitle.innerText = "Sincronizando sesión para exploración rápida...";
 
- setTimeout(() =>{
- overlay.classList.add('show-check');
- title.innerText = "Acceso Autorizado";
- subtitle.innerText = "Redireccionando de forma segura...";
- 
- setTimeout(() =>{
- window.location.href = url;
- }, 1000);
- }, 1800);
- }
+    // Guardar token de acceso para bypass de bloqueos
+    sessionStorage.setItem('isLoggedIn', 'true');
 
- // CONTROL DE MENSAJES TEMPORALES (TOAST / AVISO)
- function triggerToast(message) {
- alert(message);
- }
+    setTimeout(() => {
+      overlay.classList.add('show-check');
+      title.innerText = "Sesión Iniciada Exitosamente";
+      subtitle.innerText = "Cargando el Simulador de Renta Predictivo...";
+      
+      setTimeout(() => {
+        window.location.href = url;
+      }, 1200);
+    }, 2000);
+  }
 
- // CONTROL DE ENVÍO DE FORMULARIOS CON VALIDACIÓN Y REDIRECCIÓN INTELIGENTE
- function handleFormSubmit(event, type) {
- event.preventDefault();
- 
- const overlay = document.getElementById('lbl-success-overlay');
- const title = document.getElementById('lbl-overlay-title');
- const subtitle = document.getElementById('lbl-overlay-subtitle');
- 
- // Mostrar overlay de carga predictiva
- overlay.classList.remove('show-check');
- overlay.classList.add('active');
- 
- if (type === 'login') {
- const email = document.getElementById('login_email').value;
- title.innerText = "Autenticando Identidad";
- subtitle.innerText = `Sincronizando sesión para ${email}...`;
- 
- // Simular éxito y redirección inteligente según contexto de datos
- setTimeout(() =>{
- overlay.classList.add('show-check');
- title.innerText = "Sesión Iniciada Exitosamente";
- subtitle.innerText = "Cargando tus credenciales de negocio...";
- 
- setTimeout(() =>{
- // Mandamos directamente al simulador
- window.location.href = 'usuariofinal.html';
- }, 1200);
- }, 2000);
- 
- } else {
+  // CONTROL DE MENSAJES TEMPORALES (TOAST / AVISO)
+  function triggerToast(message) {
+    alert(message);
+  }
+
+  // CONTROL DE ENVÍO DE FORMULARIOS CON VALIDACIÓN Y REDIRECCIÓN INTELIGENTE
+  function handleFormSubmit(event, type) {
+    event.preventDefault();
+    
+    const overlay = document.getElementById('lbl-success-overlay');
+    const title = document.getElementById('lbl-overlay-title');
+    const subtitle = document.getElementById('lbl-overlay-subtitle');
+    
+    // Mostrar overlay de carga predictiva
+    overlay.classList.remove('show-check');
+    overlay.classList.add('active');
+    
+    if (type === 'login') {
+      const email = document.getElementById('login_email').value;
+      title.innerText = "Autenticando Identidad";
+      subtitle.innerText = `Sincronizando sesión para ${email}...`;
+      
+      // Guardar token de acceso
+      sessionStorage.setItem('isLoggedIn', 'true');
+      
+      // Simular éxito y redirección inteligente según contexto de datos
+      setTimeout(() =>{
+        overlay.classList.add('show-check');
+        title.innerText = "Sesión Iniciada Exitosamente";
+        subtitle.innerText = "Cargando tus credenciales de negocio...";
+        
+        setTimeout(() =>{
+          // Mandamos directamente al simulador
+          window.location.href = 'usuariofinal.html';
+        }, 1200);
+      }, 2000);
+    } else {
  const nombre = document.getElementById('reg_nombre').value;
  const tipoCuenta = document.getElementById('reg_tipo_cuenta').value;
  title.innerText = "Procesando Registro";
