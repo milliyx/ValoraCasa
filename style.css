@@ -22,6 +22,10 @@
 }
 
 /* REGLAS GENERALES Y RESET */
+html {
+  scroll-behavior: smooth;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -2297,6 +2301,125 @@ footer {
   text-align: center;
   display: block;
   margin-top: 0;
+}
+
+/* ==========================================
+   ESTILOS DE CASOS DE ESTUDIO (PREMIUM)
+   ========================================== */
+.case-studies-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2.2rem;
+  margin-top: 3rem;
+  margin-bottom: 2rem;
+}
+
+.case-card {
+  background: var(--white);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(11, 35, 69, 0.04);
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  display: flex;
+  flex-direction: column;
+}
+
+.case-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(11, 35, 69, 0.08);
+  border-color: rgba(53, 184, 184, 0.3);
+}
+
+.case-image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  background-color: #F8FAFC;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.case-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.case-card:hover .case-image {
+  transform: scale(1.06);
+}
+
+.case-badge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(11, 35, 69, 0.95);
+  color: var(--white);
+  padding: 0.35rem 0.85rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  border-radius: 50px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border: 1px solid rgba(53, 184, 184, 0.4);
+  backdrop-filter: blur(4px);
+}
+
+.case-content {
+  padding: 1.8rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.case-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--azul-marino);
+  margin-top: 0;
+  margin-bottom: 0.8rem;
+  line-height: 1.3;
+}
+
+.case-text {
+  font-size: 0.8rem;
+  color: var(--gris-azulado);
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  flex-grow: 1;
+}
+
+.case-metrics {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px dashed var(--border-color);
+  padding-top: 1rem;
+  margin-top: auto;
+}
+
+.case-metric-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.case-metric-val {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--turquesa);
+  line-height: 1.1;
+}
+
+.case-metric-lbl {
+  font-size: 0.62rem;
+  color: var(--gris-azulado);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 0.2rem;
 }
 
 /* SOPORTE DE IMPRESIÓN EXCELENTE (@media print) */
