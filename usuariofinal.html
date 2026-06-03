@@ -809,7 +809,7 @@
 </svg>
 </div>
 <div class="timeline-content">
-<h4>Gestiona tu Portafolio</h4>
+<h4>Compara rentas con evidencia</h4>
 </div>
 </div>
 </div>
@@ -921,15 +921,15 @@
 
 <!-- Títulos e Identidad -->
 <h2 class="premium-hero-title">Valora<span style="color: #35B8B8;">Casa</span></h2>
-<h3 class="premium-hero-subtitle-network">Tu Red de Valor Inmobiliario</h3>
+<h3 class="premium-hero-subtitle-network">Referencia analítica para la transparencia de rentas habitacionales</h3>
 <p class="premium-hero-description">
- Conecta y descubre el valor real de tu propiedad.<br />Comienza tu viaje aquí abajo.
+ Consulta una renta referencial estimada a partir de características observables de la vivienda y datos públicos oficiales de la ENIGH 2024 del INEGI.
 </p>
 
 <!-- Botón CTA con Cursor Animado y Guía -->
 <div class="cta-button-wrapper">
 <button onclick="document.getElementById('estimar').scrollIntoView({behavior: 'smooth'})" class="btn-premium-cta">
- COMENZAR A EXPLORAR (GRATIS)
+ CONSULTAR REFERENCIA DE RENTA
 </button>
 <div class="tour-guide-container">
 <svg viewBox="0 0 24 24" class="guide-cursor" width="22" height="22" fill="none">
@@ -938,7 +938,7 @@
 <span class="tour-guide-text">guía del recorrido</span>
 </div>
 </div>
-<span class="cta-subtext">Sin tarjeta de crédito. Consulta datos públicos de inmediato.</span>
+<span class="cta-subtext">Consulta gratuita. Estimación informativa. No sustituye un avalúo profesional.</span>
 </div>
 
 <!-- Columna Derecha (Tarjetas de datos flotantes) -->
@@ -1025,10 +1025,10 @@
 <!-- SECCIÓN 2: SIMULADOR INTERACTIVO DE RENTA (CALIBRADO CON XGBOOST) -->
 <section id="estimar" class="section-padding" style="margin-bottom: 4rem;">
 <div class="search-header-container" style="max-width: 800px; margin: 0 auto 3rem auto; text-align: center; position: relative;">
-  <span class="section-subtitle-tag" style="margin-bottom: 0.8rem;">Cálculo Inteligente en Tiempo Real</span>
-  <h3 class="section-main-title" style="margin-bottom: 1.2rem; font-family: var(--font-family); color: var(--azul-marino);">Simulador de Renta ValoraCasa</h3>
+  <span class="section-subtitle-tag" style="margin-bottom: 0.8rem;">Consulta referencial de renta</span>
+  <h3 class="section-main-title" style="margin-bottom: 1.2rem; font-family: var(--font-family); color: var(--azul-marino);">Simulador de referencia de renta ValoraCasa</h3>
   <p class="section-desc" style="margin-bottom: 2rem; max-width: 650px; margin-left: auto; margin-right: auto; font-family: var(--font-family);">
-    Ajusta las características físicas, ubicación y servicios del inmueble para obtener una estimación del valor de renta mensual calibrada con el modelo XGBoost de alta precisión.
+    Ingresa características observables de la vivienda para consultar una renta referencial estimada con base en patrones identificados en datos públicos oficiales.
   </p>
 </div>
 
@@ -1259,17 +1259,17 @@
 
 <!-- Price Box -->
 <div class="price-block">
-<span class="price-lbl">Renta Sugerida Mensual</span>
+<span class="price-lbl">Renta referencial estimada</span>
 <div class="price-val" id="lbl-renta-estimada">$3,560</div>
 <span class="price-currency">PESOS MEXICANOS (MXN)</span>
 </div>
 
 <!-- Rango Tolerable -->
 <div class="range-box">
-<div class="range-title">Rango Referencial Sugerido</div>
+<div class="range-title">Rango referencial de comparación</div>
 <div class="range-val" id="lbl-rango-estimado">$2,722 – $4,398</div>
 <p class="range-desc">
- Intervalo estadístico sustentable basado en la desviación promedio histórica del mercado analizado.
+ Rango informativo construido a partir del error promedio del modelo. Debe interpretarse como apoyo a la comparación, no como precio obligatorio.
 </p>
 </div>
 
@@ -1296,13 +1296,13 @@
 <!-- Factores -->
 <div class="factors-box">
 <h5 class="factors-title">
-<span style="color: var(--turquesa);"></span>Factores de Valoración
+<span style="color: var(--turquesa);"></span>Factores que influyen en la referencia
 </h5>
 <!-- Promotores -->
 <div class="factor-item">
 <span class="factor-icon icon-plus">▲</span>
 <div>
-<span class="factor-name">Promotores:</span>
+<span class="factor-name">Factores que elevan la referencia:</span>
 <span class="factor-desc" id="lbl-promotores">Estrato socioeconómico medio-bajo, localidad urbana grande.</span>
 </div>
 </div>
@@ -1310,7 +1310,7 @@
 <div class="factor-item">
 <span class="factor-icon icon-minus">▼</span>
 <div>
-<span class="factor-name">Detractores:</span>
+<span class="factor-name">Factores que reducen la referencia:</span>
 <span class="factor-desc" id="lbl-detractores">Falta de cisterna de agua entubada.</span>
 </div>
 </div>
@@ -1334,10 +1334,10 @@
 <!-- SECCIÓN 3: INSIGHTS CLAVE -->
 <section id="insights" class="insights-section">
 <div class="section-title-box">
-<span class="section-subtitle-tag" style="color: var(--turquesa);">Evidencia Comercial</span>
-<h3 class="section-main-title">¿Qué determina el precio de la renta?</h3>
+<span class="section-subtitle-tag" style="color: var(--turquesa);">Evidencia para la transparencia de rentas</span>
+<h3 class="section-main-title">¿Qué factores explican la renta estimada?</h3>
 <p class="section-desc">
- Los patrones más representativos descubiertos en los microdatos oficiales del INEGI que impactan el valor comercial de una vivienda.
+ Los patrones más representativos descubiertos en los microdatos oficiales del INEGI que impactan la renta referencial de una vivienda.
 </p>
 </div>
 
@@ -1372,7 +1372,7 @@
 </div>
 <h4 class="insight-title">Servicios Habitacionales</h4>
 <p class="insight-text">
- Tener drenaje conectado, baño completo exclusivo e instalación formal de agua entubada dentro del hogar representan las mayores barreras físicas que elevan la plusvalía del arrendamiento.
+ Tener drenaje conectado, baño completo exclusivo e instalación formal de agua entubada dentro del hogar representan los factores físicos clave que elevan la renta referencial estimada.
 </p>
 </div>
 <span class="insight-impact">Impacto: Alto</span>
@@ -1419,56 +1419,161 @@
     <span class="section-subtitle-tag" style="color: var(--turquesa);">Casos de Uso</span>
     <h3 class="section-main-title">Casos de Estudio Reales</h3>
     <p class="section-desc">
-      Conoce cómo inquilinos e inmobiliarias utilizan el simulador de ValoraCasa para encontrar precios justos y asesorar con bases científicas en México.
+      Conoce cómo personas que buscan rentar, propietarios independientes e intermediarios utilizan ValoraCasa para tomar decisiones informadas y transparentar el mercado de arrendamiento.
     </p>
   </div>
 
   <div class="case-studies-grid">
-    <!-- Caso 1: Inquilinos -->
+    <!-- Caso 1: Personas que rentan -->
     <div class="case-card">
       <div class="case-image-wrapper">
-        <span class="case-badge">Inquilinos</span>
-        <img class="case-image" src="assets/estudio_caso_guadalajara.png" alt="Encontrar precio justo">
+        <span class="case-badge">Personas que rentan</span>
+        <img class="case-image" src="assets/estudio_caso_guadalajara.png" alt="Evaluar renta razonable">
       </div>
       <div class="case-content">
-        <h4 class="case-title">Encontrar un Precio Justo de Renta</h4>
+        <h4 class="case-title">Evaluar si una renta está dentro de un rango razonable</h4>
         <p class="case-text">
-          Sofía buscaba cambiarse de departamento en una zona de alta demanda urbana. Al usar el simulador predictivo de ValoraCasa, estimó el precio real sugerido basándose en las características del lugar y los microdatos del INEGI. Con esta referencia objetiva, negoció de forma transparente con el propietario, acordando un trato justo y protegiendo su presupuesto de cobros excesivos por encima del promedio del mercado.
+          Sofía buscaba rentar un departamento en una zona de alta demanda urbana. Al usar el simulador de ValoraCasa, consultó la renta referencial estimada basada en las características observables del inmueble y los microdatos del INEGI. Con esta referencia objetiva, pudo evaluar si la renta solicitada era razonable, facilitando una decisión informada y protegiendo su presupuesto sin asimetrías de información.
         </p>
         <div class="case-metrics">
           <div class="case-metric-item">
-            <span class="case-metric-val">Trato Justo</span>
-            <span class="case-metric-lbl">Acuerdo Transparente</span>
+            <span class="case-metric-val">Rango Referencial</span>
+            <span class="case-metric-lbl">Decisión Informada</span>
           </div>
           <div class="case-metric-item">
-            <span class="case-metric-val">Evidencia</span>
-            <span class="case-metric-lbl">Basada en Datos</span>
+            <span class="case-metric-val">Transparencia</span>
+            <span class="case-metric-lbl">Sin Asimetrías</span>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Caso 2: Inmobiliarias -->
+    <!-- Caso 2: Propietarios e Intermediarios -->
     <div class="case-card">
       <div class="case-image-wrapper">
-        <span class="case-badge">Inmobiliarias</span>
-        <img class="case-image" src="assets/estudio_caso_cdmx.png" alt="Fijación de precios de renta">
+        <span class="case-badge">Propietarios e Intermediarios</span>
+        <img class="case-image" src="assets/estudio_caso_cdmx.png" alt="Definir renta transparente">
       </div>
       <div class="case-content">
-        <h4 class="case-title">Fijación Estratégica de Precios de Renta</h4>
+        <h4 class="case-title">Definir una renta transparente y justificable</h4>
         <p class="case-text">
-          Una pequeña inmobiliaria local tenía dificultades para captar una propiedad debido a que el dueño insistía en un valor fuera del rango del mercado real. Al ingresar los parámetros en el simulador de ValoraCasa, el broker pudo argumentar científicamente y con total objetividad el rango óptimo de renta, facilitando la firma del contrato de corretaje y agilizando la renta de la vivienda en pocos días.
+          Un propietario independiente y su asesor tenían dificultades para justificar el valor de renta de una propiedad frente a posibles interesados. Al ingresar los parámetros de la vivienda en el simulador, obtuvieron una referencia basada en datos oficiales de la ENIGH. Con este rango referencial objetivo, presentaron una renta defendible y transparente, logrando un acuerdo rápido y de mutua confianza.
         </p>
         <div class="case-metrics">
           <div class="case-metric-item">
-            <span class="case-metric-val">Precio Óptimo</span>
-            <span class="case-metric-lbl">Fijación Científica</span>
+            <span class="case-metric-val">Rango Referencial</span>
+            <span class="case-metric-lbl">Evidencia Oficial</span>
           </div>
           <div class="case-metric-item">
-            <span class="case-metric-val">Cierre Rápido</span>
-            <span class="case-metric-lbl">Evita Meses Vacíos</span>
+            <span class="case-metric-val">Confianza</span>
+            <span class="case-metric-lbl">Acuerdo Transparente</span>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+
+<!-- ========================================== -->
+<!-- SECCIÓN DE USUARIOS OBJETIVO -->
+<!-- ========================================== -->
+<section id="usuarios-objetivo" class="section-padding" style="border-top: 1px solid var(--border-color); padding-top: 4.5rem; margin-bottom: 2rem;">
+  <div class="section-title-box">
+    <span class="section-subtitle-tag" style="color: var(--turquesa);">Comunidad</span>
+    <h3 class="section-main-title">Usuarios Objetivo</h3>
+    <p class="section-desc">
+      ValoraCasa es una plataforma diseñada para promover la transparencia y apoyar la toma de decisiones informadas para diferentes actores del ecosistema habitacional.
+    </p>
+  </div>
+
+  <div class="grid-3" style="gap: 1.5rem; margin-top: 2rem;">
+    <!-- Perfil 1 -->
+    <div class="card target-user-card" style="display: flex; flex-direction: column; justify-content: space-between; padding: 1.8rem; border-radius: 16px;">
+      <div>
+        <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+          <div class="user-icon-box" style="background: rgba(53, 184, 184, 0.1); color: var(--turquesa); padding: 0.6rem; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
+          </div>
+          <h4 style="margin: 0; font-size: 1.05rem; font-weight: 800; color: var(--azul-marino);">Personas que buscan rentar</h4>
+        </div>
+        <p style="font-size: 0.82rem; line-height: 1.6; color: var(--gris-azulado); margin: 0;">
+          Comparar si una renta solicitada parece razonable frente a patrones de datos objetivos.
+        </p>
+      </div>
+    </div>
+
+    <!-- Perfil 2 -->
+    <div class="card target-user-card" style="display: flex; flex-direction: column; justify-content: space-between; padding: 1.8rem; border-radius: 16px;">
+      <div>
+        <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+          <div class="user-icon-box" style="background: rgba(53, 184, 184, 0.1); color: var(--turquesa); padding: 0.6rem; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+              <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+          </div>
+          <h4 style="margin: 0; font-size: 1.05rem; font-weight: 800; color: var(--azul-marino);">Propietarios independientes</h4>
+        </div>
+        <p style="font-size: 0.82rem; line-height: 1.6; color: var(--gris-azulado); margin: 0;">
+          Definir rentas transparentes y defendibles ante inquilinos con evidencia estadística oficial.
+        </p>
+      </div>
+    </div>
+
+    <!-- Perfil 3 -->
+    <div class="card target-user-card" style="display: flex; flex-direction: column; justify-content: space-between; padding: 1.8rem; border-radius: 16px;">
+      <div>
+        <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+          <div class="user-icon-box" style="background: rgba(53, 184, 184, 0.1); color: var(--turquesa); padding: 0.6rem; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+              <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+            </svg>
+          </div>
+          <h4 style="margin: 0; font-size: 1.05rem; font-weight: 800; color: var(--azul-marino);">Intermediarios inmobiliarios</h4>
+        </div>
+        <p style="font-size: 0.82rem; line-height: 1.6; color: var(--gris-azulado); margin: 0;">
+          Respaldar recomendaciones de mercado sin presentar el resultado como un avalúo formal.
+        </p>
+      </div>
+    </div>
+
+    <!-- Perfil 4 -->
+    <div class="card target-user-card" style="display: flex; flex-direction: column; justify-content: space-between; padding: 1.8rem; border-radius: 16px;">
+      <div>
+        <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+          <div class="user-icon-box" style="background: rgba(53, 184, 184, 0.1); color: var(--turquesa); padding: 0.6rem; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+            </svg>
+          </div>
+          <h4 style="margin: 0; font-size: 1.05rem; font-weight: 800; color: var(--azul-marino);">Organizaciones civiles e investigadores</h4>
+        </div>
+        <p style="font-size: 0.82rem; line-height: 1.6; color: var(--gris-azulado); margin: 0;">
+          Analizar patrones generales y tendencias de la renta habitacional con datos agregados oficiales.
+        </p>
+      </div>
+    </div>
+
+    <!-- Perfil 5 -->
+    <div class="card target-user-card" style="display: flex; flex-direction: column; justify-content: space-between; padding: 1.8rem; border-radius: 16px;">
+      <div>
+        <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+          <div class="user-icon-box" style="background: rgba(53, 184, 184, 0.1); color: var(--turquesa); padding: 0.6rem; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            </svg>
+          </div>
+          <h4 style="margin: 0; font-size: 1.05rem; font-weight: 800; color: var(--azul-marino);">Gobiernos locales y actores públicos</h4>
+        </div>
+        <p style="font-size: 0.82rem; line-height: 1.6; color: var(--gris-azulado); margin: 0;">
+          Usar la herramienta como insumo exploratorio para diagnósticos de habitabilidad, no como mecanismo regulatorio directo.
+        </p>
       </div>
     </div>
   </div>
@@ -1492,7 +1597,7 @@
 </button>
 <div class="accordion-content">
 <p>
- ValoraCasa es una plataforma predictiva de ciencia de datos desarrollada por<strong>The FI-ndings</strong>. Su propósito es estimar de forma referencial y ágil las rentas habitacionales en México basándose en información pública oficial y modelos matemáticos avanzados. Es ideal para que propietarios, inquilinos y asesores inmobiliarios entiendan el contexto de precios del mercado de forma clara e intuitiva.
+ ValoraCasa es una solución analítica desarrollada por <strong>The FI-ndings</strong> para consultar referencias de renta habitacional en México. Su propósito es apoyar la comparación informada de rentas mediante datos públicos oficiales y modelos predictivos. Sus resultados son informativos y no sustituyen un avalúo profesional.
 </p>
 </div>
 </div>
@@ -1505,7 +1610,7 @@
 </button>
 <div class="accordion-content">
 <p>
- Nuestro motor matemático se alimenta de fuentes oficiales públicas y actualizadas de México, principalmente del<strong>INEGI</strong>(incluyendo el Censo de Población y Vivienda y la Encuesta Nacional de Ingresos y Gastos de los Hogares 2024 - ENIGH). Adicionalmente, combinamos esta información con datos abiertos de conectividad vial, servicios locales y cercanía a infraestructura de transporte urbano, procesados rigurosamente por The FI-ndings para reflejar el dinamismo de cada microzona.
+ Los datos utilizados provienen principalmente de la ENIGH 2024 del <strong>INEGI</strong>, particularmente de la tabla VIVIENDAS, que contiene información sobre características físicas de la vivienda, servicios, equipamiento, ubicación territorial y renta mensual reportada.
 </p>
 </div>
 </div>
@@ -1518,7 +1623,7 @@
 </button>
 <div class="accordion-content">
 <p>
- El modelo predictivo core está basado en el algoritmo de machine learning<strong>XGBoost</strong>, logrando una excelente precisión estadística con un Error Absoluto Medio (MAE) promedio de<strong>$838 pesos</strong>. Cabe destacar que las predicciones son altamente confiables en zonas metropolitanas consolidadas; sin embargo, al ser estimaciones matemáticas automatizadas de carácter informativo, deben considerarse una referencia sólida de mercado y no constituyen un avalúo comercial o fiscal formal.
+ El modelo seleccionado utiliza <strong>XGBoost</strong> y reporta un Error Absoluto Medio aproximado de <strong>$838 MXN</strong>. La estimación debe interpretarse como una referencia analítica de apoyo, no como valor comercial, fiscal o legal definitivo.
 </p>
 </div>
 </div>
@@ -1531,7 +1636,7 @@
 </button>
 <div class="accordion-content">
 <p>
- No, el acceso al simulador y a todas las herramientas de consulta pública de<strong>ValoraCasa</strong>es completamente gratuito y está disponible para toda la comunidad de propietarios, intermediarios y buscadores de vivienda en México. Nuestro objetivo es democratizar el acceso a la ciencia de datos inmobiliarios.
+ El acceso al simulador es gratuito. El objetivo es acercar referencias basadas en datos a personas que rentan, propietarios e intermediarios, promoviendo mayor transparencia en el mercado de arrendamiento habitacional.
 </p>
 </div>
 </div>
@@ -2102,8 +2207,8 @@
     lblLecturaEjecutiva.innerText = lectura;
 
     // Render de Promotores y Detractores
-    lblPromotores.innerText = promotores.length > 0 ? promotores.slice(0, 3).join(', ') + '.' : 'Sin factores significativos que sumen valor.';
-    lblDetractores.innerText = detractores.length > 0 ? detractores.slice(0, 3).join(', ') + '.' : 'Sin penalizaciones importantes registradas.';
+    lblPromotores.innerText = promotores.length > 0 ? promotores.slice(0, 3).join(', ') + '.' : 'Sin factores significativos que eleven la referencia.';
+    lblDetractores.innerText = detractores.length > 0 ? detractores.slice(0, 3).join(', ') + '.' : 'Sin factores significativos que reduzcan la referencia.';
   }
  
  // Inicializar Recalculo
@@ -2295,15 +2400,15 @@
  return "El modelo core de ValoraCasa posee un<strong>Error Absoluto Medio (MAE) promedio de $838 pesos</strong>. Esto significa que las estimaciones referenciales varían muy poco respecto al mercado real. El algoritmo base es<strong>XGBoost</strong>, optimizado mediante validación cruzada espacial para evitar sobreajustes y garantizar estabilidad zonal.";
  }
  
- // Caso 3: Datos / Origen / Fuente / INEGI / ENIGH / Censo
- if (msg.includes('dato') || msg.includes('fuente') || msg.includes('origen') || msg.includes('inegi') || msg.includes('enigh') || msg.includes('censo')) {
- return "Nuestra base informativa está cimentada en conjuntos de datos oficiales y validados en México. Principalmente empleamos el<strong>Censo de Población y Vivienda</strong>de INEGI y las microdatos de la encuesta de ingresos<strong>ENIGH 2024</strong>. Enriquecemos esto con capas geográficas de equipamiento urbano, transporte público de la CONABIO y variables contextuales procesadas en la nube.";
- }
+ // Caso 3: Datos / Origen / Fuente / INEGI / ENIGH
+  if (msg.includes('dato') || msg.includes('fuente') || msg.includes('origen') || msg.includes('inegi') || msg.includes('enigh') || msg.includes('censo')) {
+  return "Nuestra base informativa proviene de los microdatos públicos oficiales de la <strong>ENIGH 2024</strong> del INEGI, en particular de la tabla VIVIENDAS. El modelo no incluye datos del Censo general ni capas externas de transporte para mantener una estricta consistencia metodológica.";
+  }
 
- // Caso 4: Algoritmo / Metodología / Funcionamiento / XGBoost / Modelo / Ciencia de Datos
- if (msg.includes('metodo') || msg.includes('método') || msg.includes('algoritmo') || msg.includes('funcion') || msg.includes('cómo hace') || msg.includes('cómo funciona') || msg.includes('ciencia')) {
- return "Metodológicamente, ValoraCasa no realiza un avalúo físico tradicional. Aplicamos un modelo predictivo supervisado<strong>XGBoost</strong>sobre más de 20 variables de vivienda (recámaras, baños, metros, estacionamiento) y variables macro del entorno socioeconómico e infraestructura (distancia a avenidas principales y centros comerciales). Esto nos permite 'aprender' los precios de renta óptimos y explicarlos en pesos mediante<strong>valores SHAP</strong>en la simulación.";
- }
+  // Caso 4: Algoritmo / Metodología / Funcionamiento / XGBoost / Modelo / Ciencia de Datos
+  if (msg.includes('metodo') || msg.includes('método') || msg.includes('algoritmo') || msg.includes('funcion') || msg.includes('cómo hace') || msg.includes('cómo funciona') || msg.includes('ciencia')) {
+  return "Metodológicamente, ValoraCasa no realiza un avalúo físico tradicional. Aplicamos un modelo predictivo supervisado <strong>XGBoost</strong> calibrado sobre las características observables de la vivienda provistas en la ENIGH (servicios, número de dormitorios, estrato de la zona y materiales de construcción). Esto nos permite generar estimaciones de renta referenciales y explicar las diferencias en pesos para mayor transparencia.";
+  }
 
  // Caso 5: Costo / Gratis / Cobro / Pagar / Suscripción
  if (msg.includes('costo') || msg.includes('gratis') || msg.includes('precio') || msg.includes('pagar') || msg.includes('cobro') || msg.includes('suscrip')) {
